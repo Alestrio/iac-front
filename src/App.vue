@@ -1,24 +1,33 @@
 <template>
-  <div v-if="route.path !== '/'">
-    <Nav />
-  </div>
+  <div class="h-screen">
+    <Header />
+    <div class="w-full flex flex-col md:flex-row h-full">
+      <div class="w-full md:w-1/5 md:h-full shadow-xl">
+        <nav class="flex flex-col gap-2 p-5">
+          <router-link to="/dashboard" class="text-xl hover:bg-gray-200 rounded p-1">Dashboard</router-link>
+          <router-link to="/editeur" class="text-xl hover:bg-gray-200 rounded p-1">Editeur</router-link>
+          <router-link to="/auth" class="text-xl hover:bg-gray-200 rounded p-1">Auth</router-link>
+        </nav>
+      </div>
 
-  <router-view v-slot="{ Component }">
-    <transition name="fade" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
+  </div>
 </template>
 
 <script>
-  import Nav from "./components/Nav.vue";
+  import Header from "./components/Header.vue";
 
   import { useRoute } from "vue-router";
 
   export default {
     name: "App",
     component: {
-      Nav
+      Header
     },
     setup() {
       const route = useRoute();
@@ -30,8 +39,6 @@
 <style>
 #app {
   margin: 0 auto;
-  padding: 2rem;
   font-weight: normal;
-  
 }
 </style>
