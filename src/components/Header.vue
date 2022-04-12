@@ -1,12 +1,12 @@
 <template>
-        <header class="sticky top-0 z-50 bg-purple-400 p-3 shadow-xl flex flex-row gap-10 w-full">
+        <header class="sticky top-0 z-50 bg-purple-600 p-3 shadow-xl flex flex-row gap-10 w-full">
             <!--- Accordeon button --->
             <button class="inline-block align-middle w-2" onclick='{
                 const nav = document.getElementById("nav");
                 nav.classList.toggle("hidden");
             }'>
             <svg
-                class="fill-current h-6 w-6 text-white border m-1 p-1 rounded inline-block align-middle"
+                class="fill-current h-8 w-8 text-white m-1 p-1 rounded inline-block align-middle"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
             >

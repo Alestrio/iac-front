@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="w-full h-screen p-4 flex justify-center items-center">
+    <div class="w-full h-full p-4 flex justify-center items-center">
       Editeur
     </div>
   </div>
