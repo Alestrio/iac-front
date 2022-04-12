@@ -1,12 +1,12 @@
 <template>
-  <div class="w-5/6">
+  <div class="w-full">
     <div class="w-full h-full p-4 flex justify-center items-center">
       Dashboard
     </div>
   </div>
 </template>
-<script>
 
+<script>
 export default {
   components: {
 
@@ -15,6 +15,7 @@ export default {
 
   },
 };
+
 </script>
 <style scoped>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-5/6">
+  <div class="w-full">
     <div class="w-full h-screen p-4 flex justify-center items-center">
       Logs
     </div>
