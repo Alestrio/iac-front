@@ -13,7 +13,7 @@
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
             </button>
-            <router-link to="/" class="text-2xl p-1 align-middle text-white">Projet IaC</router-link>
+            <router-link to="/dashboard" class="text-2xl p-1 align-middle text-white">Projet IaC</router-link>
         </header>
 </template>
 
