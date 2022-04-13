@@ -5,23 +5,23 @@
     >
       <div class="w-full md:w-3/3 p-5 grid grid-cols-1 space-y-6 text-center">
         <span class="font-bold text-2xl text-purple-500"
-          >Access your account</span
+          >Projet IaC</span
         >
         <div class="space-y-3">
           <input
             class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center"
             type="text"
-            placeholder="Username"
+            placeholder="Nom d'utilisateur"
           />
           <input
             class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center"
             type="password"
-            placeholder="Password"
+            placeholder="Mot de passe"
           />
           <button
             class="w-1/2 focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-purple-500 hover:bg-purple-600 hover:shadow-lg"
           >
-            Login
+            Connexion
           </button>
         </div>
       </div>
