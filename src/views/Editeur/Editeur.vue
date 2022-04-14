@@ -5,6 +5,23 @@
         <h1 class="text-3xl p-4">Infrastructure :</h1>
         <hr class="border-b-1 border-blue-100 ml-10 mr-10">
         <div class="shadow-xl p-3 flex m-5 w-7/8 h-5/6 rounded" @drop="onDrop($event, item)" @dragover.prevent @dragenter.prevent id="infra-container">
+          <div v-for='network in this.current' :key="network.id">
+            <h2 class="text-2xl">{{network.name}}</h2>
+            <h3 class="text-xl">{{network.cidr}}</h3>
+            <div class='grid grid-cols-2'>
+              <div v-for='instance in network.instances' :key="instance.id">
+                <div class="w-full h-full border shadow-xl">
+                  <h2 class="text-2xl">{{instance.name}}</h2>
+                  <h3 class="text-xl">{{instance.ip}}</h3>
+                  <div v-for='container in instance.containers' :key="container.id">
+                    <div class="w-16 h-16 border shadow-xl">
+                      <h2 class="">{{container.name}}</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="w-full md:w-1/4 h-full shadow-xl m-6 border overflow-auto flex-col text-center">
@@ -133,7 +150,8 @@ export default {
           id: 2,
           name: 'AWS',
         }
-      ]
+      ],
+      current: []
     }
   },
 };
