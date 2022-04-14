@@ -4,8 +4,7 @@
       <div class="w-full md:w-3/4 h-full shadow-xl m-6 border overflow-auto text-center">
         <h1 class="text-3xl p-4">Infrastructure :</h1>
         <hr class="border-b-1 border-blue-100 ml-10 mr-10">
-        <div class="flex m-5">
-
+        <div class="shadow-xl p-3 flex m-5 w-7/8 h-5/6 rounded" @drop="onDrop($event, item)" @dragover.prevent @dragenter.prevent id="infra-container">
         </div>
       </div>
       <div class="w-full md:w-1/4 h-full shadow-xl m-6 border overflow-auto flex-col text-center">
@@ -14,8 +13,17 @@
           <h1 class="text-2xl p-2">Hébergeurs :</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10 m-4">
           <div class="flex flex-row gap-4 flex-grow basis-2">
-            <div v-for='item in this.providers' :key="item.name" class="flex flex-col text-center">
+            <div v-for='item in this.providers' :key="item.name" class="flex flex-col text-center" draggable @dragstart="startDrag($event, item)">
               <img :src="'./src/assets/' + item.name.toLowerCase() + '-icon.png'" class="h-16">
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+        <div class='flex flex-col gap-2'>
+          <h1 class="text-2xl p-2">Réseaux :</h1>
+          <hr class="border-b-1 border-blue-100 ml-10 mr-10">
+          <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
+            <div v-for='item in this.networks' :key="item.name" class="flex flex-col text-center h-16 w-16 border shadow-xl rounded bg-blue-300 block" draggable @dragstart="startDrag($event, item)">
               {{ item.name }}
             </div>
           </div>
@@ -24,7 +32,7 @@
           <h1 class="text-2xl p-2">Instances :</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10">
           <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
-            <div v-for='item in this.instances' :key="item.name" class="flex flex-col text-center">
+            <div v-for='item in this.instances' :key="item.name" class="flex flex-col text-center" draggable @dragstart="startDrag($event, item)">
               <img :src="'./src/assets/vm-icon.png'" class="h-16">
               {{ item.name }}
             </div>
@@ -34,20 +42,9 @@
           <h1 class="text-2xl p-2">Conteneurs :</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10">
           <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
-            <div v-for='item in this.containers' :key="item.name" class="flex flex-col text-center">
+            <div v-for='item in this.containers' :key="item.name" class="flex flex-col text-center" draggable @dragstart="startDrag($event, item)">
               <img :src="'./src/assets/container-icon.png'" class="h-16">
               {{ item.name }}
-            </div>
-          </div>
-        </div>
-        <div class='flex flex-col gap-2'>
-          <h1 class="text-2xl p-2">Réseaux :</h1>
-          <hr class="border-b-1 border-blue-100 ml-10 mr-10">
-          <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
-            <div v-for='item in this.networks' :key="item.name" class="flex flex-col text-center">
-              <div class="h-16 w-16 border shadow-xl">
-                {{ item.name }}
-              </div>
             </div>
           </div>
         </div>
@@ -78,6 +75,14 @@ export default {
   },
   mounted() {
 
+  },
+  methods: {
+    startDrag (event, item) {
+      console.log(event, item.name)
+    },
+    onDrop (event, item) {
+      console.log(event, item)
+    },
   },
   data () {
     return {
