@@ -19,8 +19,8 @@
         </div>
       </div>
 
-      <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-3 mt-12">
-        <div class="col-span-2">
+      <div class="md:grid md:grid-flow-row-dense grid-cols-3 grid-rows-3 mt-12">
+        <div class="md:col-span-2 mb-12">
           <div class="flex justify-between">
             <div class="text-2xl font-semibold ml-2">
               Réseaux
@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="md:ml-8">
           <div class="flex justify-between">
             <div class="text-2xl font-semibold ml-2">
               Hébergeurs
