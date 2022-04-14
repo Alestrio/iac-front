@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full flex flex-col gap-2 p-8">
-      <div class="w-full">
+    <div class="w-full gap-2 p-8">
+      <div class="w-full mb-2">
         <div class="flex justify-between">
           <div class="text-2xl font-semibold ml-2">
             VMs
@@ -13,15 +13,35 @@
           </div>
         </div>
       </div>
-      <div class="w-full flex flex-nowrap overflow-x-scroll gap-5 p-2 shadow-xl bg-white">
-        <div>
-          0111111111AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      <div class="flex flex-nowrap overflow-x-scroll gap-5 p-2 shadow-xl bg-white">
+        <div class="grid grid-cols-2 gap-1 mt-2">
+          <div class="col-span-2">
+            <img class="w-1/3 m-auto" src="../../assets/vm-icon.png">
+          </div>
+          <span class="col-span-2 text-xl text-center font-semibold">
+            iac-vm-1
+          </span>
+          <span class="col-span-2 text-xl text-center font-semibold">
+            europe-west-1b
+          </span>
+          <span class="text-lg text-center">
+            2 vCPUs
+          </span>
+          <span class="text-lg text-center">
+            8GO RAM
+          </span>
+          <span class="text-lg text-center">
+            3 disques
+          </span>
+          <span class="text-lg text-center">
+            Debian
+          </span>
         </div>
       </div>
 
-      <div class="md:grid md:grid-flow-row-dense grid-cols-3 grid-rows-3 mt-12">
-        <div class="md:col-span-2 mb-12">
-          <div class="flex justify-between">
+      <div class="md:grid md:grid-flow-row-dense grid-cols-4 mt-12">
+        <div class="md:col-span-3 mb-12">
+          <div class="flex justify-between mb-2">
             <div class="text-2xl font-semibold ml-2">
               Réseaux
             </div>
@@ -33,22 +53,38 @@
             </div>
           </div>
           <div class="flex flex-nowrap overflow-x-scroll gap-5 p-2 shadow-xl bg-white">
-            <div>
-              0111111111AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+            <div class="grid grid-cols-2 gap-1 mt-2">
+              <div>
+                <img class="w-1/2 m-auto" src="../../assets/network-icon.png">
+              </div>
+              <div>
+                <span class="text-xl text-center font-semibold">
+                  iac-vm-1
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="md:ml-8">
-          <div class="flex justify-between">
+          <div class="flex justify-between mb-2">
             <div class="text-2xl font-semibold ml-2">
               Hébergeurs
             </div>
           </div>
-          <div class="flex flex-nowrap overflow-x-scroll gap-5 p-2 shadow-xl bg-white">
+          <div class="grid grid-cols-4 p-2 gap-4 shadow-xl bg-white">
             <div>
-              0111111111AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+              <img src="../../assets/gcp-icon.png">
             </div>
+            <span class="col-span-3 text-xl">
+              Google Cloud Platform
+            </span>
+            <div>
+              <img src="../../assets/aws-icon.png">
+            </div>
+            <span class="col-span-3 text-xl">
+              Amazon Web Services
+            </span>
           </div>
         </div>
       </div>  
