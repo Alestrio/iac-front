@@ -13,30 +13,40 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-nowrap overflow-x-scroll gap-5 p-2 shadow-xl bg-white">
-        <div class="grid grid-cols-2 gap-1 mt-2">
-          <div class="col-span-2">
-            <img class="w-1/3 m-auto" src="../../assets/vm-icon.png">
+      
+      <div class="flex flex-nowrap overflow-x-auto gap-5 p-2 shadow-xl bg-white">
+        <div class=" gap-1 mt-2">
+          <div class="flex-row">
+            <img class="w-1/2 m-auto" src="../../assets/vm-icon.png">
           </div>
-          <span class="col-span-2 text-xl text-center font-semibold">
-            iac-vm-1
-          </span>
-          <span class="col-span-2 text-xl text-center font-semibold">
-            europe-west-1b
-          </span>
-          <span class="text-lg text-center">
-            2 vCPUs
-          </span>
-          <span class="text-lg text-center">
-            8GO RAM
-          </span>
-          <span class="text-lg text-center">
-            3 disques
-          </span>
-          <span class="text-lg text-center">
-            Debian
-          </span>
+          <div class="flex-row text-center">
+            <span class="text-xl font-semibold">
+              iac-vm-1
+            </span>
+          </div>
+          <div class="flex-row text-center">
+            <span class="text-xl font-semibold">
+              europe-west-1b
+            </span>
+          </div>
+          <div class="flex-row text-center">
+            <span class="text-lg">
+              2 vCPUs
+            </span>
+            <span class="text-lg">
+              8GO RAM
+            </span>
+          </div>
+          <div class="flex-row text-center">
+            <span class="text-lg">
+              3 disques
+            </span>
+            <span class="text-lg">
+              Debian
+            </span>
+          </div>
         </div>
+        
       </div>
 
       <div class="md:grid md:grid-flow-row-dense grid-cols-4 mt-12">
@@ -52,7 +62,7 @@
               </svg>
             </div>
           </div>
-          <div class="flex flex-nowrap overflow-x-scroll gap-5 p-2 shadow-xl bg-white">
+          <div class="flex flex-nowrap overflow-x-auto gap-5 p-2 shadow-xl bg-white">
             <div class="grid grid-cols-2 gap-1 mt-2">
               <div>
                 <img class="w-1/2 m-auto" src="../../assets/network-icon.png">
