@@ -15,7 +15,7 @@
       </div>
       
       <div class="flex flex-nowrap overflow-x-auto gap-5 p-2 shadow-xl bg-white">
-        <div class=" gap-1 mt-2">
+        <div class="gap-1 mt-2">
           <div class="flex-row">
             <img class="w-1/2 m-auto" src="../../assets/vm-icon.png">
           </div>
@@ -46,7 +46,6 @@
             </span>
           </div>
         </div>
-        
       </div>
 
       <div class="md:grid md:grid-flow-row-dense grid-cols-4 mt-12">
@@ -68,8 +67,23 @@
                 <img class="w-1/2 m-auto" src="../../assets/network-icon.png">
               </div>
               <div>
-                <span class="text-xl text-center font-semibold">
-                  iac-vm-1
+                <span class="md:text-xl text-sm text-left font-semibold block">
+                  iac-net-1
+                </span>
+                <span class="md:text-base text-xs text-left font-normal block">
+                  europe-west-1
+                </span>
+                <span class="md:text-xl text-sm md:mt-6 text-left font-semibold block ">
+                  10.128.0.0/24
+                </span>
+                <span class="md:text-xl text-sm md:mt-6 text-left font-normal block ">
+                  Description courte du réseau...
+                </span>
+                <span class="md:text-xl text-sm md:mt-6 text-left font-semibold block ">
+                  Règles de pare feu
+                </span>
+                <span class="md:text-base text-xs text-left font-normal block">
+                  Routage mondial | régional
                 </span>
               </div>
             </div>
