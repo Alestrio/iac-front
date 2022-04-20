@@ -20,7 +20,7 @@
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
               <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-blue-200 rounded">
-                <div class="w-full h-full border shadow-xl"  id="instance">
+                <div class="w-full h-full border shadow-xl"  :id='"instance-" + instance.id'>
                   <h2 class="text-xl">{{ instance.name }}</h2>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
                   <div class="grid grid-cols-3 ml-2">
@@ -136,15 +136,24 @@
       },
       onDrop(event, source) {
         if (event.dataTransfer.getData("itemType") == "network" && event.srcElement.id == "infra-container") {
-          this.current.push(this.networks.find(network => network.id == event.dataTransfer.getData("itemId")));
+          let network = this.networks.find(network => network.id == event.dataTransfer.getData("itemId"));
+          network.id = this.current.length;
+          this.current.push(network);
         }
-        else if (event.dataTransfer.getData("itemType") == "instance" && event.srcElement.id == 'network-' + event.dataTransfer.getData("itemId")) {
-          this.current.find(network => network.id == event.srcElement.id.split('-')[1]).instances.push(this.instances.find(instance => instance.id == event.dataTransfer.getData("itemId")));
+        else if (event.dataTransfer.getData("itemType") == "instance" && event.srcElement.id.includes("network-")) {
+          let instance = this.instances.find(instance => instance.id == event.dataTransfer.getData("itemId"))
+          instance.id = this.instances.length;
+          this.current.find(network => network.id == event.srcElement.id.split('-')[1]).instances.push(instance);
         }
-        else if (event.dataTransfer.getData("itemType") == "container" && event.srcElement.id == 'instance-' + event.dataTransfer.getData("itemId")) {
+        else if (event.dataTransfer.getData("itemType") == "container" && event.srcElement.id.includes("instance-")) {
           //find the parent of srcElement
-          let parent = event.srcElement.parentElement;
-          console.log(parent)
+          let parent = event.srcElement.parentElement.parentElement;
+          let network = this.current.find(network => network.id == parent.id.split('-')[1]);
+          let instance = network.instances.find(instance => instance.id == event.srcElement.id.split('-')[1]);
+          let container = this.containers.find(container => container.id == event.dataTransfer.getData("itemId"));
+          container.id = this.containers.length;
+          console.log(instance);
+          instance.containers.push(container);
         }
       },
     },
@@ -156,18 +165,18 @@
           { id: 3, name: "mongo", type:'container'   },
         ],
         networks: [
-          { id: 1, name: "default", cidr: "10.128.0.0/24", type:'network' },
-          { id: 2, name: "test", cidr: "10.132.0.0/24", type:'network' },
-          { id: 3, name: "test2", cidr: "10.143.0.0/24", type:'network' },
+          { id: 1, name: "default", cidr: "10.128.0.0/24", type:'network', instances:[]},
+          { id: 2, name: "test", cidr: "10.132.0.0/24", type:'network', instances:[] },
+          { id: 3, name: "test2", cidr: "10.143.0.0/24", type:'network', instances:[] },
         ],
-        instances: [{ id: 1, name: "debian", image: "debian-10-buster", type:'instance' }],
+        instances: [{ id: 1, name: "debian", image: "debian-10-buster", type:'instance', containers:[] }],
         providers: [
           { id: 1, name: "GCP", type:'provider' },
           { id: 2, name: "AWS", type:'provider' },
         ],
-        current: [{ id: 1, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster", containers: [{ id: 3, name: "mongo" }, { id: 3, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 2, name: "debian", image: "debian-10-buster" }, { id: 3, name: "debian", image: "debian-10-buster" },  { id: 3, name: "debian", image: "debian-10-buster" },  { id: 3, name: "debian", image: "debian-10-buster" }] },
+        current: [{ id: 0, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }, { id: 3, name: "debian", image: "debian-10-buster" },  { id: 3, name: "debian", image: "debian-10-buster" },  { id: 3, name: "debian", image: "debian-10-buster" }] },
         { id: 1, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster" }, { id: 2, name: "debian", image: "debian-10-buster" }, { id: 3, name: "debian", image: "debian-10-buster" }] },
-        { id: 1, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster" }, { id: 2, name: "debian", image: "debian-10-buster" }, { id: 3, name: "debian", image: "debian-10-buster" }] }],
+        { id: 2, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster" }, { id: 2, name: "debian", image: "debian-10-buster" }, { id: 3, name: "debian", image: "debian-10-buster" }] }],
       };
     },
   };
