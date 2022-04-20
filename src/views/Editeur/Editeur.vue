@@ -152,7 +152,6 @@
           let instance = network.instances.find(instance => instance.id == event.srcElement.id.split('-')[1]);
           let container = this.containers.find(container => container.id == event.dataTransfer.getData("itemId"));
           container.id = this.containers.length;
-          console.log(instance);
           instance.containers.push(container);
         }
       },
@@ -160,23 +159,23 @@
     data() {
       return {
         containers: [
-          { id: 1, name: "nginx", type:'container'   },
-          { id: 2, name: "traefik", type:'container' },
-          { id: 3, name: "mongo", type:'container'   },
+          { id: 0, name: "nginx", type:'container'   },
+          { id: 1, name: "traefik", type:'container' },
+          { id: 2, name: "mongo", type:'container'   },
         ],
         networks: [
-          { id: 1, name: "default", cidr: "10.128.0.0/24", type:'network', instances:[]},
-          { id: 2, name: "test", cidr: "10.132.0.0/24", type:'network', instances:[] },
-          { id: 3, name: "test2", cidr: "10.143.0.0/24", type:'network', instances:[] },
+          { id: 0, name: "default", cidr: "10.128.0.0/24", type:'network', instances:[]},
+          { id: 1, name: "test", cidr: "10.132.0.0/24", type:'network', instances:[] },
+          { id: 2, name: "test2", cidr: "10.143.0.0/24", type:'network', instances:[] },
         ],
-        instances: [{ id: 1, name: "debian", image: "debian-10-buster", type:'instance', containers:[] }],
+        instances: [{ id: 0, name: "debian", image: "debian-10-buster", type:'instance', containers:[] }],
         providers: [
-          { id: 1, name: "GCP", type:'provider' },
-          { id: 2, name: "AWS", type:'provider' },
+          { id: 0, name: "GCP", type:'provider' },
+          { id: 1, name: "AWS", type:'provider' },
         ],
-        current: [{ id: 0, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }, { id: 3, name: "debian", image: "debian-10-buster" },  { id: 3, name: "debian", image: "debian-10-buster" },  { id: 3, name: "debian", image: "debian-10-buster" }] },
-        { id: 1, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster" }, { id: 2, name: "debian", image: "debian-10-buster" }, { id: 3, name: "debian", image: "debian-10-buster" }] },
-        { id: 2, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster" }, { id: 2, name: "debian", image: "debian-10-buster" }, { id: 3, name: "debian", image: "debian-10-buster" }] }],
+        current: [{ id: 0, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }, { id: 3, name: "debian", image: "debian-10-buster", containers:[] },  { id: 4, name: "debian", image: "debian-10-buster", containers:[] },  { id: 5, name: "debian", image: "debian-10-buster", containers:[] }] },
+        { id: 1, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }, { id: 3, name: "debian", image: "debian-10-buster", containers:[] }] },
+        { id: 2, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }, { id: 3, name: "debian", image: "debian-10-buster", containers:[] }] }],
       };
     },
   };
