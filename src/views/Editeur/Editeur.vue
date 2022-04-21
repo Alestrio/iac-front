@@ -37,6 +37,10 @@
       </div>
       <div
         class="w-full md:w-1/4 h-3/2 md:h-full shadow-xl m-6 border overflow-auto flex-col text-center"
+        id="list" 
+        @drop='onDrop($event, "network")'
+        @dragover.prevent
+        @dragenter.prevent
       >
         <!--- Draggable elements --->
         <div class="flex flex-col gap-2">
@@ -62,15 +66,15 @@
           <h1 class="text-2xl p-2">Réseaux :</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10" />
           <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
-            <span
+            <div
               v-for="item in this.networks"
               :key="item.name"
               class="align-middle text-center h-16 w-16 border shadow-xl rounded bg-green-300 cursor-move"
-              draggable
+              draggable="true"
               @dragstart="startDrag($event, item)"
             >
             {{ item.name }}
-            </span>
+            </div>
           </div>
         </div>
         <div class="flex flex-col gap-2">
@@ -81,7 +85,7 @@
               v-for="item in this.instances"
               :key="item.name"
               class="flex flex-col text-center h-16 w-16 border shadow-xl rounded bg-blue-300"
-              draggable
+              draggable="true"
               @dragstart="startDrag($event, item)"
             >
               {{ item.name }}
@@ -96,13 +100,26 @@
               v-for="item in this.containers"
               :key="item.name"
               class="flex flex-col text-center"
-              draggable
+              draggable="true"
               @dragstart="startDrag($event, item)"
             >
               <img :src="'./src/assets/container-icon.png'" class="h-16" />
               {{ item.name }}
             </div>
           </div>
+        </div>
+        <div class="m-2 p-4 w-232 h-32 bg-gray-700 rounded opacity-80">
+          <svg class="w-full h-full m-auto" viewBox="-15 -15 60 60" id="bin" @drop='onDrop($event, "bin")'
+          @dragover.prevent
+          @dragenter.prevent>
+            <!--- trash can --->
+              <path height="100%" width="100%"
+                fill="#ffffff"
+                d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 
+                .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 
+                1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z"
+              />
+          </svg>
         </div>
       </div>
     </div>
@@ -150,10 +167,15 @@
           //find the parent of srcElement
           let parent = event.srcElement.parentElement.parentElement;
           let network = this.current.find(network => network.id == parent.id.split('-')[1]);
+          console.log(parent.id.split('-')[1])
           let instance = network.instances.find(instance => instance.id == event.srcElement.id.split('-')[1]);
           let container = this.containers.find(container => container.id == event.dataTransfer.getData("itemId"));
           container.id = instance.containers.length;
           instance.containers.push(container);
+        }
+        else if (event.srcElement.id == "bin") {
+          console.log(event.dataTransfer.getData("itemId"));
+          console.log(event.dataTransfer.getData("itemType"));
         }
       },
     },
