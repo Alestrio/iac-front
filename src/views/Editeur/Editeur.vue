@@ -15,17 +15,23 @@
           @dragenter.prevent
           id="infra-container"
         >
-          <div v-for="network in this.current" :key="network.id" class="w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-green-300 place-items-center">
+          <div v-for="network in this.current" :key="network.id" class="z-5 w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-green-300 place-items-center"
+            draggable="true" :id='"placed-network-" + network.id'
+            @dragstart="startDrag($event, 'network-' + network.id)">
             <h2 class="text-2xl">{{ network.name }}</h2>
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
-              <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-blue-200 rounded">
+              <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-blue-200 rounded z-10"
+              draggable="true" :id='"placed-instance-" + instance.id'
+              @dragstart="startDrag($event, 'instance-' + instance.id)">
                 <div class="w-full h-full border shadow-xl"  :id='"instance-" + instance.id'>
                   <h2 class="text-xl">{{ instance.name }}</h2>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
                   <div class="grid grid-cols-3 ml-2">
                     <div v-for="container in instance.containers"
-                    :key="container.id" class="w-8">
+                    :key="container.id" class="w-8"
+                    draggable="true" :id='"placed-container-" + container.id'
+                    @dragstart="startDrag($event, 'container-' + container.id)">
                       <img :src="'./src/assets/container-icon.png'" />
                     </div>
                   </div>
@@ -37,10 +43,6 @@
       </div>
       <div
         class="w-full md:w-1/4 h-3/2 md:h-full shadow-xl m-6 border overflow-auto flex-col text-center"
-        id="list" 
-        @drop='onDrop($event, "network")'
-        @dragover.prevent
-        @dragenter.prevent
       >
         <!--- Draggable elements --->
         <div class="flex flex-col gap-2">
@@ -108,8 +110,8 @@
             </div>
           </div>
         </div>
-        <div class="m-2 p-4 w-232 h-32 bg-gray-700 rounded opacity-80">
-          <svg class="w-full h-full m-auto" viewBox="-15 -15 60 60" id="bin" @drop='onDrop($event, "bin")'
+        <div class="m-2 p-4 w-232 h-32 bg-gray-700 rounded opacity-80 z-50">
+          <svg class="w-full h-full m-auto z-30" viewBox="-15 -15 60 60" id="bin" @drop='onDrop($event, "bin")'
           @dragover.prevent
           @dragenter.prevent>
             <!--- trash can --->
@@ -148,34 +150,49 @@
         event.dataTransfer.dropEffect = 'move'
         event.dataTransfer.effectAllowed = 'move'
         //item id
-        event.dataTransfer.setData("itemId", item.id);
-        event.dataTransfer.setData("itemType", item.type);
+        event.dataTransfer.setData('item', JSON.stringify(item))
       },
       onDrop(event, source) {
-        if (event.dataTransfer.getData("itemType") == "network" && event.srcElement.id == "infra-container") {
-          let network = this.networks.find(network => network.id == event.dataTransfer.getData("itemId"));
+        let item = JSON.parse(event.dataTransfer.getData('item'))
+        if (item.type == "network" && event.srcElement.id == "infra-container") {
+          let network = this.networks.find(network => network.id == item.id);
           network.id = this.current.length;
           this.current.push(network);
         }
-        else if (event.dataTransfer.getData("itemType") == "instance" && event.srcElement.id.includes("network-")) {
-          let instance = this.instances.find(instance => instance.id == event.dataTransfer.getData("itemId"));
+        else if (item.type == "instance" && event.srcElement.id.includes("network-")) {
+          let instance = this.instances.find(instance => instance.id == item.id);
           let instances = this.current.find(network => network.id == event.srcElement.id.split('-')[1]).instances;
           instance.id = instances.length;
           instances.push(instance);
         }
-        else if (event.dataTransfer.getData("itemType") == "container" && event.srcElement.id.includes("instance-")) {
+        else if (item.type == "container" && event.srcElement.id.includes("instance-")) {
           //find the parent of srcElement
           let parent = event.srcElement.parentElement.parentElement;
           let network = this.current.find(network => network.id == parent.id.split('-')[1]);
           console.log(parent.id.split('-')[1])
           let instance = network.instances.find(instance => instance.id == event.srcElement.id.split('-')[1]);
-          let container = this.containers.find(container => container.id == event.dataTransfer.getData("itemId"));
+          let container = this.containers.find(container => container.id == item.id);
           container.id = instance.containers.length;
           instance.containers.push(container);
         }
         else if (event.srcElement.id == "bin") {
-          console.log(event.dataTransfer.getData("itemId"));
-          console.log(event.dataTransfer.getData("itemType"));
+          let item_id = item.split('-')[1];
+          let item_type = item.split('-')[0];
+          console.log(item_id, item_type)
+
+          // delete the element
+          if (item_type == "network") {
+            this.current.pop(this.current.find(network => network.id == item_id));
+          }
+          else if (item_type == "instance") {
+            let network = this.current.find(network => network.id == event.srcElement.parentElement.id.split('-')[1]);
+            network.instances.pop(network.instances.find(instance => instance.id == item_id));
+          }
+          else if (item_type == "container") {
+            let network = this.current.find(network => network.id == event.srcElement.parentElement.parentElement.id.split('-')[1]);
+            let instance = network.instances.find(instance => instance.id == event.srcElement.parentElement.id.split('-')[1]);
+            instance.containers.pop(instance.containers.find(container => container.id == item_id));
+          }
         }
       },
     },
