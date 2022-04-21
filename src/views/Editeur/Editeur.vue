@@ -6,7 +6,7 @@
       <div
         class="w-full h-3/2 md:w-3/4 md:h-full shadow-xl m-4 border text-center overflow-clip"
       >
-        <h1 class="text-3xl p-4">Infrastructure :</h1>
+        <h1 class="text-3xl p-4">Infrastructure</h1>
         <hr class="border-b-1 border-blue-100 ml-10 mr-10" />
         <div
           class="shadow-xl p-3 m-5 w-7/8 h-4/6 md:h-5/6 rounded flex flex-col md:grid md:grid-cols-2 gap-2 overflow-auto place-items-center"
@@ -16,12 +16,21 @@
           id="infra-container"
         >
           <div v-for="network in this.current" :key="network.id" class="w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-green-300 place-items-center">
-            <h2 class="text-2xl">{{ network.name }}</h2>
+            <div class="flex flex-row">
+              <h2 class="text-2xl">{{ network.name }}</h2>
+              <!-- <i class="fas fa-edit text-xl content-center ml-2 m-auto"></i> -->
+              <Network />
+            </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
               <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-blue-200 rounded">
                 <div class="w-full h-full border shadow-xl"  :id='"instance-" + instance.id'>
-                  <h2 class="text-xl">{{ instance.name }}</h2>
+                  <div class="flex flex-row justify-center">
+                    <h2 class="text-xl">{{ instance.name }}</h2>
+                    <div class="w-auto">
+                      <Vm />
+                    </div>
+                  </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
                   <div class="grid grid-cols-3 ml-2">
                     <div v-for="container in instance.containers"
@@ -40,7 +49,7 @@
       >
         <!--- Draggable elements --->
         <div class="flex flex-col gap-2">
-          <h1 class="text-2xl p-2">Hébergeurs :</h1>
+          <h1 class="text-2xl p-2">Hébergeurs</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10 m-4" />
           <div class="flex flex-row gap-4 flex-grow basis-2">
             <div
@@ -59,7 +68,7 @@
           </div>
         </div>
         <div class="flex flex-col gap-2">
-          <h1 class="text-2xl p-2">Réseaux :</h1>
+          <h1 class="text-2xl p-2">Réseaux</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10" />
           <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
             <span
@@ -74,7 +83,7 @@
           </div>
         </div>
         <div class="flex flex-col gap-2">
-          <h1 class="text-2xl p-2">Instances :</h1>
+          <h1 class="text-2xl p-2">Instances</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10" />
           <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
             <div
@@ -89,7 +98,7 @@
           </div>
         </div>
         <div class="flex flex-col gap-2">
-          <h1 class="text-2xl p-2">Conteneurs :</h1>
+          <h1 class="text-2xl p-2">Conteneurs</h1>
           <hr class="border-b-1 border-blue-100 ml-10 mr-10" />
           <div class="flex flex-row gap-4 flex-grow basis-2 m-4">
             <div
@@ -109,6 +118,9 @@
   </div>
 </template>
 <script>
+  import Network from "../Modals/Network.vue";
+  import Vm from "../Modals/Vm.vue";
+
   export default {
     computed: {
       containers() {
@@ -124,7 +136,10 @@
         return this.data.providers;
       },
     },
-    components: {},
+    components: {
+      Network,
+      Vm
+    },
     mounted() {},
     methods: {
       startDrag(event, item) {
@@ -178,6 +193,9 @@
         { id: 1, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers:[] }, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }] },
         { id: 2, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers:[] }, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }] }],
       };
+    },
+    methods: {
+
     },
   };
 </script>
