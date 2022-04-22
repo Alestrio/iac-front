@@ -17,7 +17,7 @@
       >
         <div class="max-w-2xl p-6 bg-white rounded-md shadow-xl">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="text-2xl">Nginx</h3>
+            <h3 class="text-2xl">Traefik</h3>
             <svg
               @click="isOpen = false"
               xmlns="http://www.w3.org/2000/svg"
