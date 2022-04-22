@@ -181,9 +181,7 @@
                 </div>
                 <div class="form-check float-left">
                   <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                  <label class="form-check-label inline-block underline text-gray-800" for="flexCheckChecked">
-                    Personnalisé
-                  </label>
+                  <Firewall class="ml-3" />
                 </div>
               </div>
             </div>
@@ -194,12 +192,17 @@
   </div>
 </template>
 <script>
+import Firewall from "../Modals/Firewall.vue";
+
 export default {
   data() {
     return {
       isOpen: false,
     };
   },
-  props: ['network']
+  props: ['network'],
+  components: {
+      Firewall
+  }
 };
 </script>
