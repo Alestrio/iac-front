@@ -36,15 +36,37 @@
           </div>
           <div class="mt-3">
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Racine du serveur (cible)</label>
+                <div class="form-check float-left mb-3 mr-10 w-1/5 mt-2">
+                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                    TCP
+                  </label>
                 </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
+                <div class="mb-3 w-4/5">
+                    <input type="text" class="form-control block w-full px-3 py-1.5 text-left text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name"  placeholder="Exemple : 20, 50-60"/>
               </div>
             </div>
             <div class="flex justify-center">
-              <i class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
+                <div class="form-check float-left mb-3 mr-10 w-1/5 mt-2">
+                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                    UDP
+                  </label>
+                </div>
+                <div class="mb-3 w-4/5">
+                    <input type="text" class="form-control block w-full px-3 py-1.5 text-left text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div class="form-check float-left mb-3 mr-10 w-2/5 mt-2">
+                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                    Protocoles
+                  </label>
+                </div>
+                <div class="mb-3 w-3/5">
+                    <input type="text" class="form-control block w-full px-3 py-1.5 text-left text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" placeholder="Exemple : ah, sctp"/>
+                </div>
             </div>
           </div>
         </div>

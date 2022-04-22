@@ -138,14 +138,14 @@
             </div>
             <div class="flex justify-center">
               <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing1">
-                <label class="form-check-label inline-block text-black" for="netType1">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="MTU" id="mtu1">
+                <label class="form-check-label inline-block text-black" for="mtu1">
                   1500
                 </label>
               </div>
               <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
-                <label class="form-check-label inline-block text-black" for="netType2">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="MTU" id="mtu2" checked>
+                <label class="form-check-label inline-block text-black" for="mtu2">
                   1460
                 </label>
               </div>
