@@ -15,7 +15,7 @@ jobs:
           dockerfile: Dockerfile
           context: .
           push: false
-          tags: iac/api:latest
+          tags: iac/front:latest
       - id: auth
         name: Authenticating to google cloud
         uses: google-github-actions/auth@v0
@@ -30,7 +30,7 @@ jobs:
       - name: push to gcr
         uses: docker/push-action@v1
         with:
-          image: europe-west1-docker.pkg.dev/environnement-de-test-329611/iac/api
+          image: europe-west1-docker.pkg.dev/environnement-de-test-329611/iac/front
           tag: latest
 
 #  deploy:
