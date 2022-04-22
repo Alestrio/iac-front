@@ -77,44 +77,41 @@
         </div>
 
         <div
-          class="flex flex-nowrap overflow-x-auto gap-5 p-2 shadow-xl bg-white"
+          class="overflow-x-scroll gap-2 p-2 shadow-xl bg-white grid grid-flow-col"
         >
           <div
             v-for="net in this.networks"
             :key="net.id"
-            class="grid grid-cols-2 gap-1 mt-2"
-          >
-            <div>
-              <img class="w-1/2 m-auto" src="../../assets/network-icon.png" />
+            class="gap-1 mt-2 w-64"
+          >              
+            <img class="w-32 m-auto" src="../../assets/network-icon.png" />
+            <div class="md:text-xl text-sm font-semibold text-center">
+              {{ net.name }}
             </div>
-            <div>
-              <span class="md:text-xl text-sm text-left font-semibold block">
-                {{ net.name }}
-              </span>
-              <span class="md:text-base text-xs text-left font-normal block">
-                {{ net.region }}
-              </span>
-              <span
-                class="md:text-xl text-sm md:mt-6 text-left font-semibold block"
-              >
-                {{ net.cidr }}
-              </span>
-              <span
-                class="md:text-xl text-sm md:mt-6 text-left font-normal block"
-              >
-                {{ net.description }}
-              </span>
-              <span
-                class="md:text-xl text-sm md:mt-6 text-left font-semibold block"
-              >
-                Règles de pare feu
-              </span>
-              <span class="md:text-base text-xs text-left font-normal block">
-                {{ net.rules }}
-              </span>
+            <div class="md:text-base text-xs text-center font-normal">
+              {{ net.region }}
+            </div>
+            <div
+              class="md:text-xl text-sm text-center font-semibold"
+            >
+              {{ net.cidr }}
+            </div>
+            <div
+              class="md:text-xl text-sm text-center font-normal"
+            >
+              {{ net.description }}
+            </div>
+            <div
+              class="md:text-xl text-sm text-center font-semibold"
+            >
+              Règles de pare feu
+            </div>
+            <div class="md:text-base text-xs text-center font-normal">
+              {{ net.rules }}
             </div>
           </div>
         </div>
+  
       </div>
 
       <div class="md:ml-8">
@@ -142,7 +139,7 @@
    mounted(){},
    data:()=>({
      vms:[{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"}],
-     networks:[{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"}]})
+     networks:[{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},]})
      };
 </script>
 <style scoped></style>
