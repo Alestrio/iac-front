@@ -12,7 +12,7 @@
           flex
           items-center
           justify-center
-          bg-gray-700 bg-opacity-50
+          bg-black bg-opacity-50
         "
       >
         <div class="max-w-2xl p-6 bg-white rounded-md shadow-xl">
@@ -35,21 +35,59 @@
             </svg>
           </div>
           <div class="mt-4">
-            <p class="mb-4 text-sm">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatibus qui nihil laborum quaerat blanditiis nemo explicabo
-              voluptatum ea architecto corporis quo vitae, velit temporibus
-              eaque quisquam in quis provident necessitatibus.
-            </p>
-            <button
-              @click="isOpen = false"
-              class="px-6 py-2 text-blue-800 border border-blue-600 rounded"
-            >
-              Cancel
-            </button>
-            <button class="px-6 py-2 ml-2 text-blue-100 bg-blue-600 rounded">
-              Save
-            </button>
+            <div class="flex justify-center">
+              <div>
+                <div class="form-check float-left mr-10">
+                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label inline-block text-black" for="flexRadioDefault1">
+                    Nouveau
+                  </label>
+                </div>
+                <div class="form-check float-left">
+                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                  <label class="form-check-label inline-block text-black" for="flexRadioDefault2">
+                    Existant
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="mb-3 xl:w-96">
+                <div class="text-right">
+                  <label for="name" class="form-label inline-block mb-0.5 text-black">Nom</label>
+                </div>
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="mb-3 xl:w-96">
+                <div class="text-right">
+                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Description</label>
+                </div>
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" />
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="mb-3 xl:w-96">
+                <div class="text-right">
+                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Région</label>
+                </div>
+                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                    <option selected></option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="mb-3 xl:w-96">
+                <div class="text-right">
+                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Adresse réseau</label>
+                </div>
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="addr" placeholder="Exemple : 10.128.0.0/24" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
