@@ -15,7 +15,7 @@
           @dragenter.prevent
           id="infra-container"
         >
-          <div v-for="network in this.current" :key="network.id" class="z-5 w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-green-300 place-items-center"
+          <div v-for="network in this.current" :key="network.id" class="w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-green-300 place-items-center"
             draggable="true" :id='"placed-network-" + network.id'
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
@@ -25,7 +25,7 @@
             </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
-              <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-blue-200 rounded z-10"
+              <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-blue-200 rounded"
               draggable="true" :id='"placed-instance-" + instance.id'
               @dragstart="startDrag($event, 'instance-' + instance.id)">
                 <div class="w-full h-full border shadow-xl"  :id='"instance-" + instance.id'>
