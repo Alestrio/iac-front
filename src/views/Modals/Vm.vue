@@ -238,7 +238,7 @@
               </div>
             </div>
             <div class="flex justify-center ">
-              <img class="w-10 m-auto" src="../../assets/nginx-icon.png">
+              <Nginx class="w-10 m-auto" />
               <img class="w-10 m-auto" src="../../assets/traefik-icon.png">
               <img class="w-10 m-auto" src="../../assets/git-icon.png">
               <Nodejs class="w-10 m-auto" />
@@ -273,6 +273,7 @@
 </template>
 <script>
 import Nodejs from "../Modals/Nodejs.vue";
+import Nginx from "../Modals/Nginx.vue";
 
 export default {
   data() {
@@ -282,7 +283,8 @@ export default {
   },
   props: ["instance", "net-key"],
   components: {
-      Nodejs
+      Nodejs,
+      Nginx
   }
 };
 </script>
