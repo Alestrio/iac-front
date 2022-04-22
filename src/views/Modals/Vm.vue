@@ -159,3 +159,13 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+  props: ["instance", "net-key"]
+};
+</script>
