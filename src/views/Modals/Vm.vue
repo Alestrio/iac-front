@@ -241,7 +241,7 @@
               <img class="w-10 m-auto" src="../../assets/nginx-icon.png">
               <img class="w-10 m-auto" src="../../assets/traefik-icon.png">
               <img class="w-10 m-auto" src="../../assets/git-icon.png">
-              <img class="w-10 m-auto" src="../../assets/nodejs-icon.jpg">
+              <Nodejs class="w-10 m-auto" />
               <img class="w-10 m-auto" src="../../assets/terminal-icon.png">
             </div>
             <div class="flex justify-center">
@@ -272,12 +272,17 @@
   </div>
 </template>
 <script>
+import Nodejs from "../Modals/Nodejs.vue";
+
 export default {
   data() {
     return {
       isOpen: false,
     };
   },
-  props: ["instance", "net-key"]
+  props: ["instance", "net-key"],
+  components: {
+      Nodejs
+  }
 };
 </script>
