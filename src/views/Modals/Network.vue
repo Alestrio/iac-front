@@ -2,7 +2,7 @@
   <div class="container mx-auto">
     <div class="flex justify-center">
       
-      <i class="fas fa-edit text-lg ml-2 m-auto align-middle" @click="isOpen = true"></i>
+      <i class="fas fa-edit text-lg ml-2 m-auto align-middle cursor-pointer" @click="isOpen = true"></i>
 
       <div
         v-show="isOpen"
