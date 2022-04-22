@@ -13,7 +13,6 @@
           </div>
         </div>
       </div>
-    </div>
 
     <div class="overflow-x-scroll gap-5 p-2 shadow-xl bg-white grid grid-flow-col">
       <div v-for="machine in this.vms" :key="machine.id" class="gap-1 mt-2 w-64">
