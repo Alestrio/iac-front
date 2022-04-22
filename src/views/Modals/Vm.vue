@@ -2,7 +2,7 @@
   <div class="container mx-auto">
     <div class="flex justify-center">
       
-      <i class="fas fa-edit text-lg ml-2 m-auto align-middle" @click="isOpen = true"></i>
+      <i class="fas fa-edit text-lg ml-2 m-auto align-middle cursor-pointer" @click="isOpen = true"></i>
 
       <div
         v-show="isOpen"
@@ -228,6 +228,41 @@
                   <label for="name" class="form-label inline-block mb-0.5 text-black">IP interne</label>
                 </div>
                 <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" placeholder="Par défaut" />
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="mb-3 xl:w-96">
+                <div class="text-center">
+                  <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">Services</label>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-center ">
+              <img class="w-10 m-auto" src="../../assets/nginx-icon.png">
+              <img class="w-10 m-auto" src="../../assets/traefik-icon.png">
+              <img class="w-10 m-auto" src="../../assets/git-icon.png">
+              <img class="w-10 m-auto" src="../../assets/nodejs-icon.jpg">
+              <img class="w-10 m-auto" src="../../assets/terminal-icon.png">
+            </div>
+            <div class="flex justify-center">
+              <div class="text-center mb-3 mt-4">
+                <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">Pare-feu</label>
+              </div>
+            </div>
+            <div class="flex justify-center mb-4">
+              <div>
+                <div class="form-check float-left mr-10">
+                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                    HTTP
+                  </label>
+                </div>
+                <div class="form-check float-left">
+                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
+                  <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
+                    HTTPS
+                  </label>
+                </div>
               </div>
             </div>
           </div>
