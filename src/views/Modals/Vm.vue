@@ -239,7 +239,7 @@
             </div>
             <div class="flex justify-center ">
               <Nginx class="w-10 m-auto" />
-              <img class="w-10 m-auto" src="../../assets/traefik-icon.png">
+              <Traefik class="w-10 m-auto" />
               <img class="w-10 m-auto" src="../../assets/git-icon.png">
               <Nodejs class="w-10 m-auto" />
               <img class="w-10 m-auto" src="../../assets/terminal-icon.png">
@@ -274,6 +274,7 @@
 <script>
 import Nodejs from "../Modals/Nodejs.vue";
 import Nginx from "../Modals/Nginx.vue";
+import Traefik from "../Modals/Traefik.vue";
 
 export default {
   data() {
@@ -284,7 +285,8 @@ export default {
   props: ["instance", "net-key"],
   components: {
       Nodejs,
-      Nginx
+      Nginx,
+      Traefik
   }
 };
 </script>
