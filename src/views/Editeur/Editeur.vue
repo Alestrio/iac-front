@@ -160,7 +160,9 @@
           this.current.push(network);
         }
         else if (item.type == "instance" && event.srcElement.id.includes("network-")) {
-          let instance = this.instances.find(instance => instance.id == item.id);
+          //copy object
+          let instance = JSON.parse(JSON.stringify(this.instances.find(instance => instance.id == item.id)));
+          //let instance = this.instances.find(instance => instance.id == item.id);
           let instances = this.current.find(network => network.id == event.srcElement.id.split('-')[1]).instances;
           instance.id = instances.length;
           instances.push(instance);
@@ -169,20 +171,24 @@
           //find the parent of srcElement
           let parent = event.srcElement.parentElement.parentElement;
           let network = this.current.find(network => network.id == parent.id.split('-')[1]);
-          console.log(parent.id.split('-')[1])
           let instance = network.instances.find(instance => instance.id == event.srcElement.id.split('-')[1]);
-          let container = this.containers.find(container => container.id == item.id);
+          let container = JSON.parse(JSON.stringify(this.containers.find(container => container.id == item.id)));
           container.id = instance.containers.length;
           instance.containers.push(container);
         }
         else if (event.srcElement.id == "bin") {
           let item_id = item.split('-')[1];
           let item_type = item.split('-')[0];
-          console.log(item_id, item_type)
-
+          console.log(item_id, item_type);
           // delete the element
           if (item_type == "network") {
-            this.current.pop(this.current.find(network => network.id == item_id));
+            console.log(this.current.find(network => network.id == item_id));
+            for (let i = 0; i < this.current.length; i++) {
+              if (this.current[i].id == item_id) {
+                this.current.splice(i, 1);
+                break;
+              }
+            }
           }
           else if (item_type == "instance") {
             let network = this.current.find(network => network.id == event.srcElement.parentElement.id.split('-')[1]);
