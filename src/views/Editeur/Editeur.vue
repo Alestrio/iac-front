@@ -155,7 +155,7 @@
       onDrop(event, source) {
         let item = JSON.parse(event.dataTransfer.getData('item'))
         if (item.type == "network" && event.srcElement.id == "infra-container") {
-          let network = this.networks.find(network => network.id == item.id);
+          let network = JSON.parse(JSON.stringify(this.networks.find(network => network.id == item.id)));
           network.id = this.current.length;
           this.current.push(network);
         }
