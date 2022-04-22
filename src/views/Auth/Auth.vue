@@ -9,12 +9,12 @@
         >
         <div class="space-y-3">
           <input
-            class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center"
+            class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center focus:border-purple-600 focus:outline-none"
             type="text"
             placeholder="Nom d'utilisateur"
           />
           <input
-            class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center"
+            class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center focus:border-purple-600 focus:outline-none"
             type="password"
             placeholder="Mot de passe"
           />
