@@ -15,7 +15,7 @@
           @dragenter.prevent
           id="infra-container"
         >
-          <div v-for="network in this.current" :key="network.id" class="w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-green-300 place-items-center"
+          <div v-for="network in this.current" :key="network.id" class="w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-red-300 place-items-center"
             draggable="true" :id='"placed-network-" + network.id'
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
@@ -24,10 +24,10 @@
             </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
-              <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-blue-200 rounded"
+              <div v-for="instance in network.instances" :key="instance.id" class="w-32 h-32 bg-indigo-50 rounded-2xl overflow-auto"
               draggable="true" :id='"placed-instance-" + instance.id'
               @dragstart="startDrag($event, 'instance-' + instance.id)">
-                <div class="w-full h-full border shadow-xl"  :id='"instance-" + instance.id'>
+                <div class="w-full h-full shadow-xl p-1"  :id='"instance-" + instance.id'>
                   <div class="flex flex-row justify-center">
                     <h2 class="text-xl">{{ instance.name }}</h2>
                     <div class="w-auto">
@@ -74,7 +74,7 @@
             <div
               v-for="item in this.networks"
               :key="item.name"
-              class="align-middle text-center h-16 w-16 border shadow-xl rounded bg-green-300 cursor-move"
+              class="align-middle text-center h-16 w-16 border shadow-xl rounded bg-red-300 cursor-move"
               draggable="true"
               @dragstart="startDrag($event, item)"
             >
@@ -89,7 +89,7 @@
             <div
               v-for="item in this.instances"
               :key="item.name"
-              class="flex flex-col text-center h-16 w-16 border shadow-xl rounded bg-blue-300"
+              class="flex flex-col text-center h-16 w-16 border shadow-xl bg-indigo-50 rounded-2xl"
               draggable="true"
               @dragstart="startDrag($event, item)"
             >
@@ -216,9 +216,7 @@
     data() {
       return {
         containers: [
-          { id: 0, name: "nginx", type:'container'   },
-          { id: 1, name: "traefik", type:'container' },
-          { id: 2, name: "mongo", type:'container'   },
+          { id: 0, name: "Conteneur", type:'container'   },
         ],
         networks: [
           { id: 0, name: "default", cidr: "10.128.0.0/24", type:'network', instances:[]},
