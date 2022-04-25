@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="h-full mx-auto">
     <div class="flex justify-center">
       
       <i class="fas fa-edit text-lg ml-2 m-auto align-middle cursor-pointer" @click="isOpen = true"></i>
@@ -7,15 +7,15 @@
       <div
         v-show="isOpen"
         class="
-          absolute
+          fixed
           inset-0
           flex
           items-center
           justify-center
           bg-black bg-opacity-50
-        "
+          p-4"
       >
-        <div class="max-w-2xl p-6 bg-white rounded-md shadow-xl">
+        <div class="max-w-2xl h-3/4 overflow-auto p-6 bg-white rounded-md shadow-xl">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-2xl">Réseau VPC</h3>
             <svg
