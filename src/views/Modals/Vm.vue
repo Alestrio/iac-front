@@ -241,7 +241,6 @@
               <Nginx class="w-10 m-auto" />
               <Traefik class="w-10 m-auto" />
               <Git class="w-10 m-auto" />
-              <img class="w-10 m-auto" src="../../assets/traefik-icon.png">
               <Nodejs class="w-10 m-auto" />
               <img class="w-10 m-auto" src="../../assets/terminal-icon.png">
             </div>
@@ -275,11 +274,8 @@
 <script>
 import Nodejs from "../Modals/Nodejs.vue";
 import Nginx from "../Modals/Nginx.vue";
-<<<<<<< HEAD
 import Traefik from "../Modals/Traefik.vue";
 import Git from "../Modals/Git.vue";
-=======
->>>>>>> editor-modals
 
 export default {
   data() {
@@ -290,13 +286,9 @@ export default {
   props: ["instance", "net-key"],
   components: {
       Nodejs,
-<<<<<<< HEAD
       Nginx,
       Traefik,
       Git
-=======
-      Nginx
->>>>>>> editor-modals
   }
 };
 </script>
