@@ -18,7 +18,6 @@
           <div v-for="network in this.current" :key="network.id" class="w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-green-300 place-items-center">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <!-- <i class="fas fa-edit text-xl content-center ml-2 m-auto"></i> -->
               <Network :network="network" />
             </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
@@ -33,10 +32,7 @@
                   </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
                   <div class="grid grid-cols-3 ml-2">
-                    <div v-for="container in instance.containers"
-                    :key="container.id" class="w-8">
-                      <img :src="'./src/assets/container-icon.png'" />
-                    </div>
+                    <CustomContainer v-for="container in instance.containers" :key="container.id" />
                   </div>
                 </div>
               </div>
@@ -120,6 +116,7 @@
 <script>
   import Network from "../Modals/Network.vue";
   import Vm from "../Modals/Vm.vue";
+  import CustomContainer from "../Modals/CustomContainer.vue";
 
   export default {
     computed: {
@@ -138,7 +135,8 @@
     },
     components: {
       Network,
-      Vm
+      Vm,
+      CustomContainer
     },
     mounted() {},
     methods: {
