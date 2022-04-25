@@ -63,7 +63,7 @@
             <input
               type="text"
               name="name"
-              class="border-b-2 border-gray-600 bg-violet-50 outline-none"
+              class="border-b-2 border-l-0 border-r-0 border-t-0 border-gray-600 bg-violet-50 outline-none"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
