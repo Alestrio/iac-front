@@ -108,7 +108,7 @@
               draggable="true"
               @dragstart="startDrag($event, item)"
             >
-              <img :src="'./src/assets/container-icon.png'" class="h-16" />
+              <img :src="'./src/assets/container-icon.png'" class="h-16 w-16" />
               {{ item.name }}
             </div>
           </div>

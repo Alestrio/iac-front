@@ -261,12 +261,12 @@
     }),
     mounted() {
       // from env vars
-      /*let api_addr = process.env.VUE_APP_API_ADDR;
-      fetch(api_addr + "/api/vms")
+      let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      fetch(api_addr + "/existing/gcp")
         .then((response) => response.json())
         .then((data) => {
           this.vms = data;
-        });*/
+        });
     },
   };
 </script>
