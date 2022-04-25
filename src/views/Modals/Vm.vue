@@ -7,7 +7,7 @@
       <div
         v-show="isOpen"
         class="
-          absolute
+          fixed
           inset-0
           flex
           items-center
@@ -15,7 +15,7 @@
           bg-black bg-opacity-50
         "
       >
-        <div class="max-w-2xl p-6 bg-white rounded-md shadow-xl">
+        <div class="max-w-2xl h-3/4 p-6 overflow-auto bg-white rounded-md shadow-xl">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-2xl">Instance de VM</h3>
             <svg
