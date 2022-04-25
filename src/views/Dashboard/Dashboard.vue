@@ -6,7 +6,7 @@
             VMs
           </div>
           <div class="flex flex-row">
-            <input type="text" name="name" class="border-b-2 border-gray-600 bg-violet-50 outline-none">
+            <input type="text" name="name" class="border-b-2 border-gray-600 focus:border-purple-600 border-l-0 border-r-0 border-t-0 bg-violet-50 outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -55,7 +55,7 @@
               Réseaux
             </div>
             <div class="flex flex-row">
-              <input type="text" name="name" class="border-b-2 border-gray-600 bg-violet-50 outline-none">
+              <input type="text" name="name" class="border-b-2 focus:border-purple-600 border-l-0 border-r-0 border-t-0 border-gray-600 bg-violet-50 outline-0 outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
