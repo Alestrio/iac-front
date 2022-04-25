@@ -242,7 +242,7 @@
               <Traefik class="w-10 m-auto" />
               <Git class="w-10 m-auto" />
               <Nodejs class="w-10 m-auto" />
-              <img class="w-10 m-auto" src="../../assets/terminal-icon.png">
+              <StartupScript class="w-10 m-auto" />
             </div>
             <div class="flex justify-center">
               <div class="text-center mb-3 mt-4">
@@ -276,6 +276,7 @@ import Nodejs from "../Modals/Nodejs.vue";
 import Nginx from "../Modals/Nginx.vue";
 import Traefik from "../Modals/Traefik.vue";
 import Git from "../Modals/Git.vue";
+import StartupScript from "../Modals/StartupScript.vue";
 
 export default {
   data() {
@@ -288,7 +289,8 @@ export default {
       Nodejs,
       Nginx,
       Traefik,
-      Git
+      Git,
+      StartupScript
   }
 };
 </script>
