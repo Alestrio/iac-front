@@ -1,21 +1,40 @@
 <template>
-    <div class="w-full gap-2 p-8">
-      <div class="w-full mb-2">
-        <div class="flex justify-between">
-          <div class="text-2xl font-semibold ml-2">
-            VMs
-          </div>
-          <div class="flex flex-row">
-            <input type="text" name="name" class="border-b-2 border-gray-600 focus:border-purple-600 border-l-0 border-r-0 border-t-0 bg-violet-50 outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
+  <div class="w-full gap-2 p-8">
+    <div class="w-full mb-2">
+      <div class="flex justify-between">
+        <div class="text-2xl font-semibold ml-2">VMs</div>
+        <div class="flex flex-row">
+          <input
+            type="text"
+            name="name"
+            class="border-b-2 border-gray-600 focus:border-purple-600 border-l-0 border-r-0 border-t-0 bg-violet-50 outline-none"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
         </div>
       </div>
+    </div>
 
-    <div class="overflow-x-scroll gap-5 p-2 shadow-xl bg-white grid grid-flow-col">
-      <div v-for="machine in this.vms" :key="machine.id" class="gap-1 mt-2 w-64">
+    <div
+      class="overflow-x-scroll gap-5 p-2 shadow-xl bg-white grid grid-flow-col"
+    >
+      <div
+        v-for="machine in this.vms"
+        :key="machine.id"
+        class="gap-1 mt-2 w-64"
+      >
         <div class="flex-row">
           <img class="w-1/2 m-auto" src="../../assets/vm-icon.png" />
         </div>
@@ -70,7 +89,7 @@
             v-for="net in this.networks"
             :key="net.id"
             class="gap-1 mt-2 w-64"
-          >              
+          >
             <img class="w-32 m-auto" src="../../assets/network-icon.png" />
             <div class="md:text-xl text-sm font-semibold text-center">
               {{ net.name }}
@@ -78,19 +97,13 @@
             <div class="md:text-base text-xs text-center font-normal">
               {{ net.region }}
             </div>
-            <div
-              class="md:text-xl text-sm text-center font-semibold"
-            >
+            <div class="md:text-xl text-sm text-center font-semibold">
               {{ net.cidr }}
             </div>
-            <div
-              class="md:text-xl text-sm text-center font-normal"
-            >
+            <div class="md:text-xl text-sm text-center font-normal">
               {{ net.description }}
             </div>
-            <div
-              class="md:text-xl text-sm text-center font-semibold"
-            >
+            <div class="md:text-xl text-sm text-center font-semibold">
               Règles de pare feu
             </div>
             <div class="md:text-base text-xs text-center font-normal">
@@ -98,7 +111,6 @@
             </div>
           </div>
         </div>
-  
       </div>
 
       <div class="md:ml-8">
@@ -121,12 +133,141 @@
 </template>
 
 <script>
- export default{
-   components:{},
-   mounted(){},
-   data:()=>({
-     vms:[{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"},{id:1,name:"iac-vm-1",region:"europe-west-1b",vcpus:2,ram:8,disks:3,os:"debian"}],
-     networks:[{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},{id:1,name:"iac-net-1",region:"europe-west-1",cidr:"10.128.0.0/24",description:"Description courte du réseau...",rules:"Routage mondial | régional"},]})
-     };
+  export default {
+    components: {},
+    data: () => ({
+      vms: [
+        {
+          id: 1,
+          name: "iac-vm-1",
+          region: "europe-west-1b",
+          vcpus: 2,
+          ram: 8,
+          disks: 3,
+          os: "debian",
+        },
+        {
+          id: 1,
+          name: "iac-vm-1",
+          region: "europe-west-1b",
+          vcpus: 2,
+          ram: 8,
+          disks: 3,
+          os: "debian",
+        },
+        {
+          id: 1,
+          name: "iac-vm-1",
+          region: "europe-west-1b",
+          vcpus: 2,
+          ram: 8,
+          disks: 3,
+          os: "debian",
+        },
+        {
+          id: 1,
+          name: "iac-vm-1",
+          region: "europe-west-1b",
+          vcpus: 2,
+          ram: 8,
+          disks: 3,
+          os: "debian",
+        },
+        {
+          id: 1,
+          name: "iac-vm-1",
+          region: "europe-west-1b",
+          vcpus: 2,
+          ram: 8,
+          disks: 3,
+          os: "debian",
+        },
+        {
+          id: 1,
+          name: "iac-vm-1",
+          region: "europe-west-1b",
+          vcpus: 2,
+          ram: 8,
+          disks: 3,
+          os: "debian",
+        },
+      ],
+      networks: [
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+        {
+          id: 1,
+          name: "iac-net-1",
+          region: "europe-west-1",
+          cidr: "10.128.0.0/24",
+          description: "Description courte du réseau...",
+          rules: "Routage mondial | régional",
+        },
+      ],
+    }),
+    mounted() {
+      // from env vars
+      let api_addr = process.env.VUE_APP_API_ADDR;
+      fetch(api_addr + "/api/vms")
+        .then((response) => response.json())
+        .then((data) => {
+          this.vms = data;
+        });
+    },
+  };
 </script>
 <style scoped></style>
