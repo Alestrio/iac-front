@@ -20,7 +20,6 @@
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <!-- <i class="fas fa-edit text-xl content-center ml-2 m-auto"></i> -->
               <Network :network="network" />
             </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
@@ -37,12 +36,7 @@
                   </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
                   <div class="grid grid-cols-3 ml-2">
-                    <div v-for="container in instance.containers"
-                    :key="container.id" class="w-8"
-                    draggable="true" :id='"placed-container-" + container.id'
-                    @dragstart="startDrag($event, 'container-' + container.id)">
-                      <img :src="'./src/assets/container-icon.png'" />
-                    </div>
+                    <Container v-for="container in instance.containers" :key="container.id" />
                   </div>
                 </div>
               </div>
@@ -139,6 +133,7 @@
 <script>
   import Network from "../Modals/Network.vue";
   import Vm from "../Modals/Vm.vue";
+  import Container from "../Modals/Container.vue";
 
   export default {
     computed: {
@@ -157,7 +152,8 @@
     },
     components: {
       Network,
-      Vm
+      Vm,
+      Container
     },
     mounted() {},
     methods: {

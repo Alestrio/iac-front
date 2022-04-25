@@ -2,7 +2,7 @@
   <div class="h-screen">
     <Header v-if="route.path !== '/'" />
     <div class="w-full flex flex-col md:flex-row h-full">
-      <div v-if="route.path !== '/'" class="bg-white z-50 fixed w-full md:w-1/6 md:h-full shadow-xl" id='nav'>
+      <div v-if="route.path !== '/'" class="bg-white z-50 fixed w-full md:w-1/6 md:h-full shadow-xl hidden" id='nav'>
         <nav class="flex flex-col gap-2 p-5">
           <div class="flex flex-row">
             <router-link to="/dashboard" class="text-xl hover:bg-gray-200 rounded p-1 w-full">

@@ -238,11 +238,11 @@
               </div>
             </div>
             <div class="flex justify-center ">
-              <img class="w-10 m-auto" src="../../assets/nginx-icon.png">
-              <img class="w-10 m-auto" src="../../assets/traefik-icon.png">
-              <img class="w-10 m-auto" src="../../assets/git-icon.png">
-              <img class="w-10 m-auto" src="../../assets/nodejs-icon.jpg">
-              <img class="w-10 m-auto" src="../../assets/terminal-icon.png">
+              <Nginx class="w-10 m-auto" />
+              <Traefik class="w-10 m-auto" />
+              <Git class="w-10 m-auto" />
+              <Nodejs class="w-10 m-auto" />
+              <StartupScript class="w-10 m-auto" />
             </div>
             <div class="flex justify-center">
               <div class="text-center mb-3 mt-4">
@@ -272,12 +272,25 @@
   </div>
 </template>
 <script>
+import Nodejs from "../Modals/Nodejs.vue";
+import Nginx from "../Modals/Nginx.vue";
+import Traefik from "../Modals/Traefik.vue";
+import Git from "../Modals/Git.vue";
+import StartupScript from "../Modals/StartupScript.vue";
+
 export default {
   data() {
     return {
       isOpen: false,
     };
   },
-  props: ["instance", "net-key"]
+  props: ["instance", "net-key"],
+  components: {
+      Nodejs,
+      Nginx,
+      Traefik,
+      Git,
+      StartupScript
+  }
 };
 </script>
