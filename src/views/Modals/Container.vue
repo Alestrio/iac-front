@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto">
-    <div class="flex justify-center">
+    <div class="flex justify-start">
       
-      <img class="cursor-pointer"  :src="'./src/assets/container-icon.png'" @click="isOpen = true" />
+      <img class="cursor-pointer w-8"  :src="'./src/assets/container-icon.png'" @click="isOpen = true" />
 
       <div
         v-show="isOpen"

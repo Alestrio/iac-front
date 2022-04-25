@@ -32,7 +32,7 @@
                   </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
                   <div class="grid grid-cols-3 ml-2">
-                    <CustomContainer v-for="container in instance.containers" :key="container.id" />
+                    <Container v-for="container in instance.containers" :key="container.id" />
                   </div>
                 </div>
               </div>
@@ -116,7 +116,7 @@
 <script>
   import Network from "../Modals/Network.vue";
   import Vm from "../Modals/Vm.vue";
-  import CustomContainer from "../Modals/CustomContainer.vue";
+  import Container from "../Modals/Container.vue";
 
   export default {
     computed: {
@@ -136,7 +136,7 @@
     components: {
       Network,
       Vm,
-      CustomContainer
+      Container
     },
     mounted() {},
     methods: {
