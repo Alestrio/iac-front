@@ -261,12 +261,12 @@
     }),
     mounted() {
       // from env vars
-      let api_addr = process.env.VUE_APP_API_ADDR;
+      /*let api_addr = process.env.VUE_APP_API_ADDR;
       fetch(api_addr + "/api/vms")
         .then((response) => response.json())
         .then((data) => {
           this.vms = data;
-        });
+        });*/
     },
   };
 </script>
