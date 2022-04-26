@@ -52,27 +52,81 @@
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Région</label>
+                  <label for="name" class="form-label inline-block mb-0.5 text-black">Nom</label>
+                </div>
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="mb-3 xl:w-96">
+                <div class="text-right">
+                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Description</label>
+                </div>
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" />
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="mb-3 xl:w-96">
+                <div class="text-right">
+                  <label for="name" class="form-label inline-block mb-0.5 text-black">Nom</label>
                 </div>
                 <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="1">pimahtic-network</option>
+                    <option value="2">net</option>
+                    <option value="3">work</option>
                 </select>
               </div>
             </div>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Réseau</label>
+                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Description</label>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" />
+              </div>
+            </div>
+            <div class="flex justify-start">
+              <label for="name" class="form-label inline-block mb-2 mt-3 text-black font-bold">Accès privé à Google</label>
+            </div>
+            <div class="flex justify-start">
+                <div class="form-check float-left mb-3">
+                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="googleaccess">
+                  <label class="form-check-label inline-block text-black" for="googleaccess">
+                    Activé
+                  </label>
+                </div>
+            </div>
+            <div class="flex justify-start">
+                <div class="form-check float-left mb-3">
+                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="googleaccess">
+                  <label class="form-check-label inline-block text-black" for="googleaccess">
+                    Désactivé
+                  </label>
+                </div>
+            </div>
+            <div class="flex justify-start">
+              <label for="name" class="form-label inline-block mb-2 mt-3 text-black font-bold">Journaux de flux</label>
+            </div>
+            <div class="flex justify-start">
+                <div class="form-check float-left mb-3">
+                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="logs">
+                  <label class="form-check-label inline-block text-black" for="logs">
+                    Activé
+                  </label>
+                </div>
+            </div>
+            <div class="flex justify-start">
+                <div class="form-check float-left mb-3">
+                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="logs">
+                  <label class="form-check-label inline-block text-black" for="logs">
+                    Désactivé
+                  </label>
+                </div>
+            </div>
+            <div class="flex justify-center">
+              <div class="cursor-pointer form-label inline-block mb-4 mt-3 text-black p-2 border border-gray-600 text-gray-600 rounded-md">
+                AJOUTER UN SOUS-RÉSEAU
               </div>
             </div>
             <div class="flex justify-center">
@@ -94,22 +148,22 @@
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Région</label>
+                  <label for="name" class="form-label inline-block mb-0.5 text-black">Région</label>
                 </div>
                 <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="1">us-central-1</option>
+                    <option value="2">us</option>
+                    <option value="3">central</option>
                 </select>
               </div>
             </div>
             <div class="flex justify-center">
-              <div class="mb-4 xl:w-96">
+              <div class="mb-5 xl:w-96">
                 <div class="text-right">
-                  <label for="netAddr" class="form-label inline-block mb-0.5 text-black">Adresse réseau</label>
+                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Plage d'adresses IP</label>
                 </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="netAddr" placeholder="Exemple : 10.128.0.0/24" />
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" placeholder="10.128.10.0/24" />
               </div>
             </div>
             <div class="flex justify-center">
@@ -128,25 +182,6 @@
                 <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
                 <label class="form-check-label inline-block text-black" for="netType2">
                   Mondial
-                </label>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="text-center mb-3 mt-4">
-                <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">MTU</label>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="MTU" id="mtu1">
-                <label class="form-check-label inline-block text-black" for="mtu1">
-                  1500
-                </label>
-              </div>
-              <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="MTU" id="mtu2" checked>
-                <label class="form-check-label inline-block text-black" for="mtu2">
-                  1460
                 </label>
               </div>
             </div>
@@ -192,7 +227,7 @@
   </div>
 </template>
 <script>
-import Firewall from "../Modals/Firewall.vue";
+import Firewall from "./Firewall.vue";
 
 export default {
   data() {
