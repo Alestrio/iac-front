@@ -20,7 +20,8 @@
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <GoogleNetwork :network="network" />
+              <!-- <GoogleNetwork :network="network" /> -->
+              <AmazonNetwork :network="network" />
             </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
@@ -131,9 +132,10 @@
   </div>
 </template>
 <script>
-  import GoogleNetwork from "../Modals/GoogleNetwork.vue";
+  // import GoogleNetwork from "../Modals/GoogleNetwork.vue";
   import Vm from "../Modals/Vm.vue";
   import Container from "../Modals/Container.vue";
+  import AmazonNetwork from "../Modals/AmazonNetwork.vue";
 
   export default {
     computed: {
@@ -151,7 +153,8 @@
       },
     },
     components: {
-      GoogleNetwork,
+      // GoogleNetwork,
+      AmazonNetwork,
       Vm,
       Container
     },

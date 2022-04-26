@@ -17,7 +17,7 @@
       >
         <div class="max-w-2xl h-3/4 overflow-auto p-6 bg-white rounded-md shadow-xl">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="text-2xl">Google VPC</h3>
+            <h3 class="text-2xl">Amazon VPC</h3>
             <svg
               @click="isOpen = false"
               xmlns="http://www.w3.org/2000/svg"
@@ -45,6 +45,28 @@
                 <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="netType2" checked>
                 <label class="form-check-label inline-block text-black" for="netType2">
                   Existant
+                </label>
+              </div>
+          </div>
+          <div class="flex justify-center">
+              <div class="form-check float-left mr-10 mt-6">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="netType1">
+                <label class="form-check-label inline-block text-black" for="netType1">
+                  VPC uniquement
+                </label>
+              </div>
+              <div class="form-check float-left mt-6">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="netType2" checked>
+                <label class="form-check-label inline-block text-black" for="netType2">
+                  VPC et sous-réseaux
+                </label>
+              </div>
+          </div>
+          <div class="flex justify-center">
+              <div class="form-check mt-2">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="netType2" checked>
+                <label class="form-check-label inline-block text-black" for="netType2">
+                  Automatique
                 </label>
               </div>
           </div>
