@@ -49,13 +49,13 @@
               </div>
           </div>
           <div class="flex justify-center">
-              <div class="form-check float-left mr-10 mt-6">
+              <div class="form-check float-left mr-10 mt-8">
                 <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="netType1">
                 <label class="form-check-label inline-block text-black" for="netType1">
                   VPC uniquement
                 </label>
               </div>
-              <div class="form-check float-left mt-6">
+              <div class="form-check float-left mt-8">
                 <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="netType2" checked>
                 <label class="form-check-label inline-block text-black" for="netType2">
                   VPC et sous-réseaux
@@ -80,167 +80,69 @@
               </div>
             </div>
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Description</label>
-                </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" />
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Nom</label>
-                </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">pimahtic-network</option>
-                    <option value="2">net</option>
-                    <option value="3">work</option>
-                </select>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Description</label>
-                </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" />
-              </div>
-            </div>
-            <div class="flex justify-start">
-              <label for="name" class="form-label inline-block mb-2 mt-3 text-black font-bold">Accès privé à Google</label>
-            </div>
-            <div class="flex justify-start">
-                <div class="form-check float-left mb-3">
-                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="googleaccess">
-                  <label class="form-check-label inline-block text-black" for="googleaccess">
-                    Activé
-                  </label>
-                </div>
-            </div>
-            <div class="flex justify-start">
-                <div class="form-check float-left mb-3">
-                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="googleaccess">
-                  <label class="form-check-label inline-block text-black" for="googleaccess">
-                    Désactivé
-                  </label>
-                </div>
-            </div>
-            <div class="flex justify-start">
-              <label for="name" class="form-label inline-block mb-2 mt-3 text-black font-bold">Journaux de flux</label>
-            </div>
-            <div class="flex justify-start">
-                <div class="form-check float-left mb-3">
-                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="logs">
-                  <label class="form-check-label inline-block text-black" for="logs">
-                    Activé
-                  </label>
-                </div>
-            </div>
-            <div class="flex justify-start">
-                <div class="form-check float-left mb-3">
-                  <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="netType" id="logs">
-                  <label class="form-check-label inline-block text-black" for="logs">
-                    Désactivé
-                  </label>
-                </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="cursor-pointer form-label inline-block mb-4 mt-3 text-black p-2 border border-gray-600 text-gray-600 rounded-md">
-                AJOUTER UN SOUS-RÉSEAU
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Nom</label>
-                </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="desc" class="form-label inline-block mb-0.5 text-black">Description</label>
-                </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" />
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Région</label>
-                </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">us-central-1</option>
-                    <option value="2">us</option>
-                    <option value="3">central</option>
-                </select>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-5 xl:w-96">
+              <div class="mb-2 xl:w-96">
                 <div class="text-right">
                   <label for="desc" class="form-label inline-block mb-0.5 text-black">Plage d'adresses IP</label>
                 </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" placeholder="10.128.10.0/24" />
+                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="desc" placeholder="10.0.0.0/16"/>
               </div>
             </div>
-            <div class="flex justify-center">
-              <div class="text-center mb-3">
-                <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">Routage dynamique</label>
-              </div>
+          </div>
+          <div class="flex justify-end">
+            <span class="mb-0.5 text-black text-right mt-5">Zone de disponibilité</span>
+          </div>
+          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
+            <div class="border cursor-pointer border-gray-300">1</div>
+            <div class="border cursor-pointer border-gray-300">2</div>
+            <div class="border cursor-pointer border-gray-300">3</div>
+          </div>
+          <div class="flex justify-end">
+            <span class="mb-0.5 text-black text-right mt-5">Sous-réseaux publics</span>
+          </div>
+          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5">
+            <div class="border cursor-pointer border-gray-300">0</div>
+            <div class="border cursor-pointer border-gray-300">2</div>
+          </div>
+          <div class="flex justify-end">
+            <span class="mb-0.5 text-black text-right mt-5">Sous-réseaux privés</span>
+          </div>
+          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
+            <div class="border cursor-pointer border-gray-300">0</div>
+            <div class="border cursor-pointer border-gray-300">2</div>
+            <div class="border cursor-pointer border-gray-300">4</div>
+          </div>
+          <div class="flex justify-end">
+            <span class="mb-0.5 text-black text-right mt-5">Passerelles NAT</span>
+          </div>
+          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
+            <div class="border cursor-pointer border-gray-300">Aucune</div>
+            <div class="border cursor-pointer border-gray-300">Dans une zone</div>
+            <div class="border cursor-pointer border-gray-300">Une par zone</div>
+          </div>
+          <div class="flex justify-end">
+            <span class="mb-0.5 text-black text-right mt-5">Point de terminaison d'un VPC</span>
+          </div>
+          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5">
+            <div class="border cursor-pointer border-gray-300">Aucune</div>
+            <div class="border cursor-pointer border-gray-300">Passerelle S3</div>
+          </div>
+          <div class="flex justify-center">
+            <div class="text-center mb-3">
+              <label for="region" class="form-label inline-block text-xl mb-0.5 text-black mt-6">Options DNS</label>
             </div>
-            <div class="flex justify-center">
-              <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing1">
-                <label class="form-check-label inline-block text-black" for="netType1">
-                  Régional
-                </label>
-              </div>
-              <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
-                <label class="form-check-label inline-block text-black" for="netType2">
-                  Mondial
-                </label>
-              </div>
+          </div>
+          <div class="flex justify-center">
+            <div class="form-check float-left mr-10">
+              <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing1">
+              <label class="form-check-label inline-block text-black" for="netType1">
+                Noms d'hôtes DNS
+              </label>
             </div>
-            <div class="flex justify-center">
-              <div class="text-center mb-3 mt-4">
-                <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">Pare-feu</label>
-              </div>
-            </div>
-            <div class="flex justify-center mb-4">
-              <div>
-                <div class="form-check float-left mr-10">
-                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                    SSH
-                  </label>
-                </div>
-                <div class="form-check float-left">
-                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                  <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
-                    RDP
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="w-auto float-left">
-                <div class="form-check float-left mr-10">
-                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                    ICMP
-                  </label>
-                </div>
-                <div class="form-check float-left">
-                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                  <Firewall class="ml-3" />
-                </div>
-              </div>
+            <div class="form-check float-left">
+              <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
+              <label class="form-check-label inline-block text-black" for="netType2">
+                Résolution DNS
+              </label>
             </div>
           </div>
         </div>
