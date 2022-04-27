@@ -95,19 +95,13 @@
               {{ net.name }}
             </div>
             <div class="md:text-base text-xs text-center font-normal">
-              {{ net.region }}
+              {{ net.zone }}
             </div>
-            <div class="md:text-xl text-sm text-center font-semibold">
-              {{ net.cidr }}
+            <div class="md:text-xl text-sm text-center font-semibold" v-for="subnet in net.subnets" :key="subnet.name">
+              {{ subnet.ip_cidr_range }}
             </div>
             <div class="md:text-xl text-sm text-center font-normal">
               {{ net.description }}
-            </div>
-            <div class="md:text-xl text-sm text-center font-semibold">
-              Règles de pare feu
-            </div>
-            <div class="md:text-base text-xs text-center font-normal">
-              {{ net.rules }}
             </div>
           </div>
         </div>
@@ -295,6 +289,7 @@
         this.networks.forEach((network, index) => {
           network.id = index + 1;
         });
+        console.log(this.networks)
      },
    }
   };
