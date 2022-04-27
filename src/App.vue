@@ -45,7 +45,7 @@
                   m-0
                   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="GCP Zone">
                     <option selected>{{ this.selected_gcp_zone }}</option>
-                    <option v-for="zone in this.gcp_zones" :v-if="zone != this.selected_gcp_zone" :value="zone" :key="zone">{{ zone }}</option>
+                    <option v-for="zone in this.gcp_zones" :value="zone" :key="zone">{{ zone }}</option>
                 </select>
               </div>
               <div class="text-center font-bold">Zone AWS :</div>
@@ -68,7 +68,30 @@
                   m-0
                   focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="AWS Zone">
                     <option selected>{{ this.selected_aws_zone }}</option>
-                    <option v-for="zone in this.aws_zones" :value="zone" :key="zone" :v-if="zone !== this.selected_aws_zone">{{ zone }}</option>
+                    <option v-for="zone in this.aws_zones" :value="zone" :key="zone">{{ zone }}</option>
+                </select>
+              </div>
+              <div class="text-center font-bold">Projet GCP :</div>
+              <div class="mb-3">
+                <select 
+                  @change="updateGCPProject($event.target.value)"
+                  class="form-select appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-1.5
+                  text-base
+                  font-normal
+                  text-gray-700
+                  bg-white bg-clip-padding bg-no-repeat
+                  border border-solid border-gray-300
+                  rounded
+                  transition
+                  ease-in-out
+                  m-0
+                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="GCP Project">
+                    <option selected>{{ this.selected_gcp_project }}</option>
+                    <option v-for="proj in this.gcp_projects" :value="proj" :key="proj">{{ proj }}</option>
                 </select>
               </div>
             </div>
@@ -105,32 +128,34 @@
     data() {
       return {
         gcp_zones: [
-          "europe-west1-b",
-          "europe-west1-c",
         ],
         aws_zones: [
-          "us-east-1",
-          "us-east-2",
-          "us-west-1",
-          "us-west-2",
+        ],
+        gcp_projects: [
         ],
         selected_gcp_zone: "europe-west1-b",
         selected_aws_zone: "us-east-1",
+        selected_gcp_project: "",
       }
     },
     mounted() {
       // from env vars
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
       axios
+      .get(api_addr + "/settings/project/gcp")
+        .then((response) => {
+          this.selected_gcp_project = response.data.project;
+      });
+      axios
       .get(api_addr + "/settings/zone/gcp")
         .then(response => {
           this.selected_gcp_zone = response.data.zone;
-        })
+        });
       axios
       .get(api_addr + "/settings/zone/aws")
         .then(response => {
           this.selected_aws_zone = response.data.zone;
-        })
+        });
       axios
       .get(api_addr + "/settings/zones/gcp")
         .then((response) => {
@@ -149,6 +174,17 @@
           for (let i = 0; i < this.aws_zones.length; i++) {
             if (this.aws_zones[i] === this.selected_aws_zone) {
               this.aws_zones.splice(i, 1);
+              break;
+            }
+          }
+      });
+      axios
+      .get(api_addr + "/settings/projects/gcp")
+        .then((response) => {
+          this.gcp_projects = response.data.projects;
+          for (let i = 0; i < this.gcp_projects.length; i++) {
+            if (this.gcp_projects[i] === this.selected_gcp_project) {
+              this.gcp_projects.splice(i, 1);
               break;
             }
           }

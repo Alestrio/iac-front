@@ -220,7 +220,6 @@
         });
       },
       updateSearchbarVms(search) {
-        console.log(search);
         for (let vm of this.vms) {
           if (vm.name.toLowerCase().includes(search.toLowerCase())) {
             let card = document.getElementById("machine-card-" + vm.id);
@@ -232,7 +231,6 @@
         }
       },
       updateSearchbarNetworks(search) {
-        console.log(search);
         for (let network of this.networks) {
           if (network.name.toLowerCase().includes(search.toLowerCase())) {
             let card = document.getElementById("network-card-" + network.id);
