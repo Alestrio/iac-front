@@ -40,11 +40,11 @@
       <div
         v-for="machine in this.vms"
         :key="machine.id"
-        :class='"gap-1 mt-2 w-64 rounded " + machine.bg_color'
+        :class='"gap-1 mt-2 md:w-64 w-40 rounded " + machine.bg_color'
         :id='"machine-card-" + machine.id'
       >
         <div class="flex-row">
-          <img class="w-1/2 m-auto" src="../../assets/vm-icon.png" />
+          <img class="md:w-1/2 w-16 m-auto" src="../../assets/vm-icon.png" />
         </div>
         <div class="flex-row text-center">
           <span class="text-xl font-semibold"> {{ machine.name }} </span>
@@ -103,10 +103,10 @@
           <div
             v-for="net in this.networks"
             :key="net.id"
-            :class='"gap-1 mt-2 w-64 rounded " + net.bg_color'
+            :class='"gap-1 mt-2 md:w-64 rounded " + net.bg_color'
             :id='"network-card-" + net.id'
           >
-            <img class="w-32 m-auto" src="../../assets/network-icon.png" />
+            <img class="md:w-32 w-16 m-auto" src="../../assets/network-icon.png" />
             <div class="md:text-xl text-sm font-semibold text-center">
               {{ net.name }}
             </div>
