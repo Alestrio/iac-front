@@ -45,11 +45,11 @@
           <span class="text-xl font-semibold"> {{ machine.region }} </span>
         </div>
         <div class="flex-row text-center">
-          <span class="text-lg"> {{ machine.vcpus }} vCPUs </span>
-          <span class="text-lg"> {{ machine.ram }} GO RAM </span>
+          <span class="text-lg"> {{ machine.cpu }} vCPUs </span>
+          <span class="text-lg"> {{ machine.memory }} GO RAM </span>
         </div>
         <div class="flex-row text-center">
-          <span class="text-lg"> {{ machine.disks }} disques </span>
+          <span class="text-lg"> {{ machine.disks_number }} disques </span>
           <span class="text-lg"> {{ machine.os }} </span>
         </div>
       </div>
@@ -133,6 +133,8 @@
 </template>
 
 <script>
+  import axios from "axios";
+
   export default {
     components: {},
     data: () => ({
@@ -141,54 +143,45 @@
           id: 1,
           name: "iac-vm-1",
           region: "europe-west-1b",
-          vcpus: 2,
-          ram: 8,
-          disks: 3,
+          cpu: 2,
+          memory: 8,
+          disks_number: 3,
           os: "debian",
         },
         {
           id: 1,
           name: "iac-vm-1",
           region: "europe-west-1b",
-          vcpus: 2,
-          ram: 8,
-          disks: 3,
+          cpu: 2,
+          memory: 8,
+          disks_number: 3,
           os: "debian",
         },
         {
           id: 1,
           name: "iac-vm-1",
           region: "europe-west-1b",
-          vcpus: 2,
-          ram: 8,
-          disks: 3,
+          cpu: 2,
+          memory: 8,
+          disks_number: 3,
           os: "debian",
         },
         {
           id: 1,
           name: "iac-vm-1",
           region: "europe-west-1b",
-          vcpus: 2,
-          ram: 8,
-          disks: 3,
+          cpu: 2,
+          memory: 8,
+          disks_number: 3,
           os: "debian",
         },
         {
           id: 1,
           name: "iac-vm-1",
           region: "europe-west-1b",
-          vcpus: 2,
-          ram: 8,
-          disks: 3,
-          os: "debian",
-        },
-        {
-          id: 1,
-          name: "iac-vm-1",
-          region: "europe-west-1b",
-          vcpus: 2,
-          ram: 8,
-          disks: 3,
+          cpu: 2,
+          memory: 8,
+          disks_number: 3,
           os: "debian",
         },
       ],
@@ -262,12 +255,48 @@
     mounted() {
       // from env vars
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
-      fetch(api_addr + "/existing/gcp")
-        .then((response) => response.json())
-        .then((data) => {
-          this.vms = data;
-        });
+      axios
+      .get(api_addr + "/existing/simple_machines/gcp")
+        .then((response) => {
+          this.vms = response.data;
+      });
+      axios
+      .get(api_addr + "/existing/simple_machines/aws")
+        .then((response) => {
+          if (this.vms.length > 0) {
+            this.vms.push(...response.data);
+          } else {
+            this.vms = response.data;
+          }
+          this.updateIds();
+      });
+      axios
+      .get(api_addr + "/existing/simple_networks/gcp")
+        .then((response) => {
+          this.networks = response.data;
+      });
+      axios
+      .get(api_addr + "/existing/simple_networks/aws")
+        .then((response) => {
+          if (this.vms.length > 0) {
+            this.vms.push(...response.data);
+          } else {
+            this.vms = response.data;
+          }
+          this.updateIds();
+      });
     },
+    methods: {
+      updateIds() {
+        // Sets an int id to each vm
+        this.vms.forEach((vm, index) => {
+          vm.id = index + 1;
+        });
+        this.networks.forEach((network, index) => {
+          network.id = index + 1;
+        });
+     },
+   }
   };
 </script>
 <style scoped></style>

@@ -22,6 +22,57 @@
               Logs
             </router-link>
           </div>
+          <div>
+            <!-- zone selection select -->
+            <div class="flex flex-col justify-center">
+              <div class="text-center font-bold">Zone GCP :</div>
+              <div class="mb-3">
+                <select
+                  @change="updateGCPZone($event.target.value)"
+                  class="form-select appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-1.5
+                  text-base
+                  font-normal
+                  text-gray-700
+                  bg-white bg-clip-padding bg-no-repeat
+                  border border-solid border-gray-300
+                  rounded
+                  transition
+                  ease-in-out
+                  m-0
+                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="GCP Zone">
+                    <option selected>{{ this.selected_gcp_zone }}</option>
+                    <option v-for="zone in this.gcp_zones" :v-if="zone != this.selected_gcp_zone" :value="zone" :key="zone">{{ zone }}</option>
+                </select>
+              </div>
+              <div class="text-center font-bold">Zone AWS :</div>
+              <div class="mb-3">
+                <select 
+                  @change="updateAWSZone($event.target.value)"
+                  class="form-select appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-1.5
+                  text-base
+                  font-normal
+                  text-gray-700
+                  bg-white bg-clip-padding bg-no-repeat
+                  border border-solid border-gray-300
+                  rounded
+                  transition
+                  ease-in-out
+                  m-0
+                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="AWS Zone">
+                    <option selected>{{ this.selected_aws_zone }}</option>
+                    <option v-for="zone in this.aws_zones" :value="zone" :key="zone" :v-if="zone !== this.selected_aws_zone">{{ zone }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -41,7 +92,7 @@
   import Header from "./components/Header.vue";
 
   import { useRoute } from "vue-router";
-
+  import axios from "axios";
   export default {
     name: "App",
     component: {
@@ -50,7 +101,79 @@
     setup() {
       const route = useRoute();
       return { route };
-    }
+    },
+    data() {
+      return {
+        gcp_zones: [
+          "europe-west1-b",
+          "europe-west1-c",
+        ],
+        aws_zones: [
+          "us-east-1",
+          "us-east-2",
+          "us-west-1",
+          "us-west-2",
+        ],
+        selected_gcp_zone: "europe-west1-b",
+        selected_aws_zone: "us-east-1",
+      }
+    },
+    mounted() {
+      // from env vars
+      let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      axios
+      .get(api_addr + "/settings/zone/gcp")
+        .then(response => {
+          this.selected_gcp_zone = response.data.zone;
+        })
+      axios
+      .get(api_addr + "/settings/zone/aws")
+        .then(response => {
+          this.selected_aws_zone = response.data.zone;
+        })
+      axios
+      .get(api_addr + "/settings/zones/gcp")
+        .then((response) => {
+          this.gcp_zones = response.data.zones;
+          for (let i = 0; i < this.gcp_zones.length; i++) {
+            if (this.gcp_zones[i] === this.selected_gcp_zone) {
+              this.gcp_zones.splice(i, 1);
+              break;
+            }
+          }
+      });
+      axios
+      .get(api_addr + "/settings/zones/aws")
+        .then((response) => {
+          this.aws_zones = response.data.zones;
+          for (let i = 0; i < this.aws_zones.length; i++) {
+            if (this.aws_zones[i] === this.selected_aws_zone) {
+              this.aws_zones.splice(i, 1);
+              break;
+            }
+          }
+      });
+    },
+    methods: {
+      updateGCPZone(zone) {
+        let api_addr = import.meta.env.VITE_APP_API_ADDR;
+        axios
+        .post(api_addr + "/settings/zone/gcp/" + zone)
+        // refresh page
+        .then(() => {
+          window.location.reload();
+        });
+      },
+      updateAWSZone(zone) {
+        let api_addr = import.meta.env.VITE_APP_API_ADDR;
+        axios
+        .post(api_addr + "/settings/zone/aws/" + zone)
+        // refresh page
+        .then(() => {
+          window.location.reload();
+        });
+      },
+    },
   }
 </script>
 
