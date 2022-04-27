@@ -278,10 +278,10 @@
       axios
       .get(api_addr + "/existing/simple_networks/aws")
         .then((response) => {
-          if (this.vms.length > 0) {
-            this.vms.push(...response.data);
+          if (this.networks.length > 0) {
+            this.networks.push(...response.data);
           } else {
-            this.vms = response.data;
+            this.networks = response.data;
           }
           this.updateIds();
       });
