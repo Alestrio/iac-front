@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "svg-loaders-vue": "^1.2.0",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue-spinner": "^1.0.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

@@ -1604,6 +1604,11 @@
   "resolved" "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   "version" "1.0.0"
 
+"svg-loaders-vue@^1.2.0":
+  "integrity" "sha512-7QDO0zDBQ2iQKgkejrmmtev3DFnD/t+O6TlZkLEmOt4IGDpa3FKqLJxZPuqFCHVMPNv0iCcangJuoiFgalERyw=="
+  "resolved" "https://registry.npmjs.org/svg-loaders-vue/-/svg-loaders-vue-1.2.0.tgz"
+  "version" "1.2.0"
+
 "symbol-tree@^3.2.4":
   "integrity" "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw=="
   "resolved" "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz"
@@ -1770,7 +1775,12 @@
   dependencies:
     "@vue/devtools-api" "^6.0.0"
 
-"vue@^3.0.1", "vue@^3.2.0", "vue@^3.2.25", "vue@^3.2.31", "vue@3.2.31":
+"vue-spinner@^1.0.4":
+  "integrity" "sha512-GNG2F+8BLX201JT/jUX+84Gsi3ZteVQwt9K7mues3ts9FcQ95dGn7uu6a5ndSxdYYUEzfh1KngZiOE0u+l4itA=="
+  "resolved" "https://registry.npmjs.org/vue-spinner/-/vue-spinner-1.0.4.tgz"
+  "version" "1.0.4"
+
+"vue@^3.0.1", "vue@^3.2.0", "vue@^3.2.22", "vue@^3.2.25", "vue@^3.2.31", "vue@3.2.31":
   "integrity" "sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz"
   "version" "3.2.31"

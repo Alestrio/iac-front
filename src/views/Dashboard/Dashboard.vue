@@ -31,6 +31,12 @@
       class="overflow-x-scroll gap-5 p-2 shadow-xl bg-white grid grid-flow-col"
     >
       <div
+        v-if="this.vms.length === 0"
+        class="text-center h-32 text-gray-600 gap-1 block"
+      >
+        <Puff :height="128" />
+      </div>
+      <div
         v-for="machine in this.vms"
         :key="machine.id"
         class="gap-1 mt-2 w-64"
@@ -86,6 +92,12 @@
           class="overflow-x-scroll gap-2 p-2 shadow-xl bg-white grid grid-flow-col"
         >
           <div
+            v-if="this.networks.length === 0"
+            class="text-center h-32 text-gray-600 gap-1 block"
+          >
+            <Puff :height="128" />
+          </div>
+          <div
             v-for="net in this.networks"
             :key="net.id"
             class="gap-1 mt-2 w-64"
@@ -97,7 +109,11 @@
             <div class="md:text-base text-xs text-center font-normal">
               {{ net.zone }}
             </div>
-            <div class="md:text-xl text-sm text-center font-semibold" v-for="subnet in net.subnets" :key="subnet.name">
+            <div
+              class="md:text-xl text-sm text-center font-semibold"
+              v-for="subnet in net.subnets"
+              :key="subnet.name"
+            >
               {{ subnet.ip_cidr_range }}
             </div>
             <div class="md:text-xl text-sm text-center font-normal">
@@ -128,156 +144,49 @@
 
 <script>
   import axios from "axios";
+  import { Puff } from "svg-loaders-vue";
 
   export default {
-    components: {},
+    components: {
+      Puff,
+    },
     data: () => ({
-      vms: [
-        {
-          id: 1,
-          name: "iac-vm-1",
-          region: "europe-west-1b",
-          cpu: 2,
-          memory: 8,
-          disks_number: 3,
-          os: "debian",
-        },
-        {
-          id: 1,
-          name: "iac-vm-1",
-          region: "europe-west-1b",
-          cpu: 2,
-          memory: 8,
-          disks_number: 3,
-          os: "debian",
-        },
-        {
-          id: 1,
-          name: "iac-vm-1",
-          region: "europe-west-1b",
-          cpu: 2,
-          memory: 8,
-          disks_number: 3,
-          os: "debian",
-        },
-        {
-          id: 1,
-          name: "iac-vm-1",
-          region: "europe-west-1b",
-          cpu: 2,
-          memory: 8,
-          disks_number: 3,
-          os: "debian",
-        },
-        {
-          id: 1,
-          name: "iac-vm-1",
-          region: "europe-west-1b",
-          cpu: 2,
-          memory: 8,
-          disks_number: 3,
-          os: "debian",
-        },
-      ],
-      networks: [
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-        {
-          id: 1,
-          name: "iac-net-1",
-          region: "europe-west-1",
-          cidr: "10.128.0.0/24",
-          description: "Description courte du réseau...",
-          rules: "Routage mondial | régional",
-        },
-      ],
+      vms: [],
+      networks: [],
     }),
     mounted() {
       // from env vars
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
-      axios
-      .get(api_addr + "/existing/simple_machines/gcp")
-        .then((response) => {
+      axios.get(api_addr + "/existing/simple_machines/gcp").then((response) => {
+        if (this.vms.length > 0) {
+          this.vms.push(...response.data);
+        } else {
           this.vms = response.data;
+        }
+        this.vms = response.data;
       });
-      axios
-      .get(api_addr + "/existing/simple_machines/aws")
-        .then((response) => {
-          if (this.vms.length > 0) {
-            this.vms.push(...response.data);
-          } else {
-            this.vms = response.data;
-          }
-          this.updateIds();
+      axios.get(api_addr + "/existing/simple_machines/aws").then((response) => {
+        if (this.vms.length > 0) {
+          this.vms.push(...response.data);
+        } else {
+          this.vms = response.data;
+        }
+        this.updateIds();
       });
-      axios
-      .get(api_addr + "/existing/simple_networks/gcp")
-        .then((response) => {
+      axios.get(api_addr + "/existing/simple_networks/gcp").then((response) => {
+        if (this.networks.length > 0) {
+          this.networks.push(...response.data);
+        } else {
           this.networks = response.data;
+        }
       });
-      axios
-      .get(api_addr + "/existing/simple_networks/aws")
-        .then((response) => {
-          if (this.networks.length > 0) {
-            this.networks.push(...response.data);
-          } else {
-            this.networks = response.data;
-          }
-          this.updateIds();
+      axios.get(api_addr + "/existing/simple_networks/aws").then((response) => {
+        if (this.networks.length > 0) {
+          this.networks.push(...response.data);
+        } else {
+          this.networks = response.data;
+        }
+        this.updateIds();
       });
     },
     methods: {
@@ -289,9 +198,8 @@
         this.networks.forEach((network, index) => {
           network.id = index + 1;
         });
-        console.log(this.networks)
-     },
-   }
+      },
+    },
   };
 </script>
 <style scoped></style>
