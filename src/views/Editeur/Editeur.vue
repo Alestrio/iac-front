@@ -20,8 +20,13 @@
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <!-- <GoogleNetwork :network="network" /> -->
               <GoogleNetwork :network="network" />
+            </div>
+            <div class="flex flex-row">
+              <img
+                :src="'./src/assets/' + network.provider.name.toLowerCase() + '-icon.png'"
+                class="h-16"
+              />
             </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
@@ -173,6 +178,14 @@
           network.id = this.current.length;
           this.current.push(network);
         }
+        else if (item.type == "provider" && event.srcElement.id.includes("network-")) {
+          console.log(item)
+          console.log(event.srcElement.id)
+          let network = this.current.find(network => network.id == event.srcElement.id.split('-')[1]);
+          console.log(network)
+          network.provider = this.providers.find(provider => provider.id == item.id);
+          console.log(network.provider);
+        }
         else if (item.type == "instance" && event.srcElement.id.includes("network-")) {
           //copy object
           let instance = JSON.parse(JSON.stringify(this.instances.find(instance => instance.id == item.id)));
@@ -219,21 +232,20 @@
     data() {
       return {
         containers: [
-          { id: 0, name: "Conteneur", type:'container'   },
+          { id: 0, name: "Conteneur", type:'container' },
         ],
         networks: [
-          { id: 0, name: "default", cidr: "10.128.0.0/24", type:'network', instances:[]},
-          { id: 1, name: "test", cidr: "10.132.0.0/24", type:'network', instances:[] },
-          { id: 2, name: "test2", cidr: "10.143.0.0/24", type:'network', instances:[] },
+          { id: 0, name: "", cidr: "", type:'network', instances:[], provider:{name: ''} },
+          { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[], provider:{name: ''} },
         ],
-        instances: [{ id: 0, name: "debian", image: "debian-10-buster", type:'instance', containers:[] }],
+        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[] }],
         providers: [
           { id: 0, name: "GCP", type:'provider' },
           { id: 1, name: "AWS", type:'provider' },
         ],
-        current: [{ id: 0, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] },  { id: 3, name: "debian", image: "debian-10-buster", containers:[] },  { id: 4, name: "debian", image: "debian-10-buster", containers:[] }] },
-        { id: 1, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers:[] }, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }] },
-        { id: 2, name: "default", cidr: "10.128.0.0/24", instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers:[] }, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] }] }],
+        current: [
+          { id: 0, name: "default", cidr: "10.128.0.0/24", provider:{id: 0, name: 'GCP', type: 'provider'}, instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] },  { id: 3, name: "debian", image: "debian-10-buster", containers:[] },  { id: 4, name: "debian", image: "debian-10-buster", containers:[] }] },
+        ],
       };
     },
   };
