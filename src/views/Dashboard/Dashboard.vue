@@ -8,6 +8,7 @@
             type="text"
             name="name"
             class="border-b-2 border-gray-600 focus:border-purple-600 border-l-0 border-r-0 border-t-0 bg-violet-50 outline-none"
+            @input="updateSearchbarVms($event.target.value)"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +41,7 @@
         v-for="machine in this.vms"
         :key="machine.id"
         class="gap-1 mt-2 w-64"
+        :id='"machine-card-" + machine.id'
       >
         <div class="flex-row">
           <img class="w-1/2 m-auto" src="../../assets/vm-icon.png" />
@@ -70,6 +72,7 @@
               type="text"
               name="name"
               class="border-b-2 border-l-0 border-r-0 border-t-0 border-gray-600 bg-violet-50 outline-none"
+              @input="updateSearchbarNetworks($event.target.value)"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -101,6 +104,7 @@
             v-for="net in this.networks"
             :key="net.id"
             class="gap-1 mt-2 w-64"
+            :id='"network-card-" + net.id'
           >
             <img class="w-32 m-auto" src="../../assets/network-icon.png" />
             <div class="md:text-xl text-sm font-semibold text-center">
@@ -198,6 +202,30 @@
         this.networks.forEach((network, index) => {
           network.id = index + 1;
         });
+      },
+      updateSearchbarVms(search) {
+        console.log(search);
+        for (let vm of this.vms) {
+          if (vm.name.toLowerCase().includes(search.toLowerCase())) {
+            let card = document.getElementById("machine-card-" + vm.id);
+            card.style.display = "block";
+          } else {
+            let card = document.getElementById("machine-card-" + vm.id);
+            card.style.display = "none"; 
+          }
+        }
+      },
+      updateSearchbarNetworks(search) {
+        console.log(search);
+        for (let network of this.networks) {
+          if (network.name.toLowerCase().includes(search.toLowerCase())) {
+            let card = document.getElementById("network-card-" + network.id);
+            card.style.display = "block";
+          } else {
+            let card = document.getElementById("network-card-" + network.id);
+            card.style.display = "none"; 
+          }
+        }
       },
     },
   };
