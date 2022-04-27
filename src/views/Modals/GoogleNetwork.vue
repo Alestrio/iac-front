@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="flex justify-center">
-              <div class="cursor-pointer form-label inline-block mb-4 mt-3 text-black p-2 border border-gray-600 text-gray-600 rounded-md">
+              <div class="cursor-pointer form-label inline-block mb-4 mt-3 p-2 border border-gray-600 text-gray-600 rounded-md">
                 AJOUTER UN SOUS-RÉSEAU
               </div>
             </div>
