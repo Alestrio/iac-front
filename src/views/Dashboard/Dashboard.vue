@@ -40,7 +40,7 @@
       <div
         v-for="machine in this.vms"
         :key="machine.id"
-        class="gap-1 mt-2 w-64"
+        :class='"gap-1 mt-2 w-64 rounded " + machine.bg_color'
         :id='"machine-card-" + machine.id'
       >
         <div class="flex-row">
@@ -96,14 +96,14 @@
         >
           <div
             v-if="this.networks.length === 0"
-            class="text-center h-32 text-gray-600 gap-1 block"
+            class='text-center h-32 text-gray-600 gap-1 block'
           >
             <Puff :height="128" />
           </div>
           <div
             v-for="net in this.networks"
             :key="net.id"
-            class="gap-1 mt-2 w-64"
+            :class='"gap-1 mt-2 w-64 rounded " + net.bg_color'
             :id='"network-card-" + net.id'
           >
             <img class="w-32 m-auto" src="../../assets/network-icon.png" />
@@ -135,11 +135,11 @@
           <div>
             <img src="../../assets/gcp-icon.png" />
           </div>
-          <span class="col-span-3 text-xl"> Google Cloud Platform </span>
+          <span class="col-span-3 text-xl bg-blue-50 rounded p-1"> Google Cloud Platform </span>
           <div>
             <img src="../../assets/aws-icon.png" />
           </div>
-          <span class="col-span-3 text-xl"> Amazon Web Services </span>
+          <span class="col-span-3 text-xl bg-yellow-50 rounded p-1"> Amazon Web Services </span>
         </div>
       </div>
     </div>
@@ -162,6 +162,10 @@
       // from env vars
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
       axios.get(api_addr + "/existing/simple_machines/gcp").then((response) => {
+        let data = response.data;
+        for (let vm of data) {
+          vm.bg_color = "bg-blue-50";
+        }
         if (this.vms.length > 0) {
           this.vms.push(...response.data);
         } else {
@@ -170,6 +174,10 @@
         this.vms = response.data;
       });
       axios.get(api_addr + "/existing/simple_machines/aws").then((response) => {
+        let data = response.data;
+        for (let vm of data) {
+          vm.bg_color = "bg-yellow-50";
+        }
         if (this.vms.length > 0) {
           this.vms.push(...response.data);
         } else {
@@ -178,6 +186,10 @@
         this.updateIds();
       });
       axios.get(api_addr + "/existing/simple_networks/gcp").then((response) => {
+        let data = response.data;
+        for (let vm of data) {
+          vm.bg_color = "bg-blue-50";
+        }
         if (this.networks.length > 0) {
           this.networks.push(...response.data);
         } else {
@@ -185,6 +197,10 @@
         }
       });
       axios.get(api_addr + "/existing/simple_networks/aws").then((response) => {
+        let data = response.data;
+        for (let vm of data) {
+          vm.bg_color = "bg-yellow-50";
+        }
         if (this.networks.length > 0) {
           this.networks.push(...response.data);
         } else {
