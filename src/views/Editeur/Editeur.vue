@@ -24,9 +24,11 @@
             </div>
             <div class="flex flex-row">
               <img
+                v-if="network.provider.name"
                 :src="'./src/assets/' + network.provider.name.toLowerCase() + '-icon.png'"
-                class="h-16"
+                class="h-16 mt-2"
               />
+              <div v-else class="box-border h-16 w-16 p-4 border-4 border-indigo-50 mt-2"></div>
             </div>
             <h3 class="text-xl">{{ network.cidr }}</h3>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 p-2" :id='"network-" + network.id'>
@@ -179,12 +181,8 @@
           this.current.push(network);
         }
         else if (item.type == "provider" && event.srcElement.id.includes("network-")) {
-          console.log(item)
-          console.log(event.srcElement.id)
           let network = this.current.find(network => network.id == event.srcElement.id.split('-')[1]);
-          console.log(network)
           network.provider = this.providers.find(provider => provider.id == item.id);
-          console.log(network.provider);
         }
         else if (item.type == "instance" && event.srcElement.id.includes("network-")) {
           //copy object
@@ -235,8 +233,8 @@
           { id: 0, name: "Conteneur", type:'container' },
         ],
         networks: [
-          { id: 0, name: "", cidr: "", type:'network', instances:[], provider:{name: ''} },
-          { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[], provider:{name: ''} },
+          { id: 0, name: "", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
+          { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
         ],
         instances: [{ id: 0, name: "", image: "", type:'instance', containers:[] }],
         providers: [
