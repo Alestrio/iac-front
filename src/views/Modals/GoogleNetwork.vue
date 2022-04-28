@@ -11,7 +11,7 @@
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4"
       >
         <div
-          class="max-w-2xl h-3/4 overflow-auto p-6 bg-white rounded-md shadow-xl"
+          class="max-w-2xl h-3/4 overflow-auto p-6 bg-white rounded-md shadow-xl z-50"
         >
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-2xl">Google VPC</h3>
@@ -65,8 +65,7 @@
             </div>
           </div>
           <div class="mt-3">
-            <div class="flex justify-center"
-                 id="newName" >
+            <div class="flex justify-center" id="newName">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -82,9 +81,8 @@
                   v-model="netName"
                 />
               </div>
-             </div>
-            <div class="flex justify-center"
-                 id="newDesc">
+            </div>
+            <div class="flex justify-center" id="newDesc">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -101,8 +99,7 @@
                 />
               </div>
             </div>
-            <div class="flex justify-center"
-                 id="existing">
+            <div class="flex justify-center" id="existing">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -199,13 +196,8 @@
                 </label>
               </div>
             </div>
-            <div class="flex justify-center">
-              <div
-                class="cursor-pointer form-label inline-block mb-4 mt-3 p-2 border border-gray-600 text-gray-600 rounded-md"
-              >
-                AJOUTER UN SOUS-RÉSEAU
-              </div>
-            </div>
+            <hr class="my-4" />
+            <h1 class="text-3xl">Sous-réseaux</h1>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
@@ -275,6 +267,30 @@
               </div>
             </div>
             <div class="flex justify-center">
+              <button
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Ajouter
+              </button>
+            </div>
+            <table class="table-auto mt-2 rounded-lg bg-green-100">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Région</th>
+                  <th class="p-1">Plage d'adresses IP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="subnet in this.network.subnets" class="p-2">
+                  <td class="p-2">{{ subnet.name }}</td>
+                  <td>{{ subnet.gcp_zone }}</td>
+                  <td>{{ subnet.ip_cidr_range }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <hr class="my-4" />
+            <div class="flex justify-center">
               <div class="text-center mb-3">
                 <label
                   for="region"
@@ -290,6 +306,8 @@
                   type="radio"
                   name="routing"
                   id="routing1"
+                  value="REGIONAL"
+                  v-model="routing"
                 />
                 <label
                   class="form-check-label inline-block text-black"
@@ -305,6 +323,8 @@
                   name="routing"
                   id="routing2"
                   checked
+                  value="GLOBAL"
+                  v-model="routing"
                 />
                 <label
                   class="form-check-label inline-block text-black"
@@ -397,7 +417,22 @@
     data() {
       return {
         isOpen: false,
-        network: {},
+        network: {
+          name: this.netName,
+          description: this.netDesc,
+          routing_type: this.routing,
+          providers: ['gcp'],
+          subnets: [
+            {
+              id: "string",
+              name: "subnet-dd603003",
+              providers: ["gcp"],
+              ip_cidr_range: "10.128.0.0/24",
+              gcp_zone: "us-central1-a",
+            },
+          ],
+          firewall_rules: [],
+        },
       };
     },
     props: ["network"],
@@ -406,11 +441,10 @@
     },
     methods: {
       addFirewall(firewall) {
-        this.$emit("send-firewall", firewall);
+        this.network.firewall_rules.push(firewall);
       },
       toggleNewExisting() {
         let radio_new = document.getElementById("netType1");
-        let radio_existing = document.getElementById("netType2");
 
         let new_name = document.getElementById("newName");
         let new_desc = document.getElementById("newDesc");

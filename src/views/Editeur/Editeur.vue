@@ -125,8 +125,8 @@
             </div>
           </div>
         </div>
-        <div class="m-2 p-4 w-232 h-32 bg-gray-700 rounded opacity-80 z-50">
-          <svg class="w-full h-full m-auto z-30" viewBox="-15 -15 60 60" id="bin" @drop='onDrop($event, "bin")'
+        <div class="m-2 p-4 w-232 h-32 bg-gray-700 rounded opacity-80">
+          <svg class="w-full h-full m-auto" viewBox="-15 -15 60 60" id="bin" @drop='onDrop($event, "bin")'
           @dragover.prevent
           @dragenter.prevent>
             <!--- trash can --->
