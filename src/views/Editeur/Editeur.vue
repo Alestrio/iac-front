@@ -240,13 +240,13 @@
           { id: 0, name: "", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
           { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
         ],
-        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[] }],
+        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[], disks:[{id: 0}], ports:{} }],
         providers: [
           { id: 0, name: "GCP", type:'provider' },
           { id: 1, name: "AWS", type:'provider' },
         ],
         current: [
-          { id: 0, name: "default", cidr: "10.128.0.0/24", provider:{id: 0, name: 'GCP', type: 'provider'}, instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] },  { id: 3, name: "debian", image: "debian-10-buster", containers:[] },  { id: 4, name: "debian", image: "debian-10-buster", containers:[] }] },
+          { id: 0, name: "default", cidr: "10.128.0.0/24", provider:{id: 0, name: 'GCP', type: 'provider'}, instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }], disks:[{id: 0}], ports:{}}, { id: 1, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} }, { id: 2, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} },  { id: 3, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} },  { id: 4, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} }] },
         ],
       };
     },
