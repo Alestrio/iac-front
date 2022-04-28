@@ -100,28 +100,29 @@
               </div>
             </div>
             <div v-if="instance.profile == 'custom'">
-              <div class="flex justify-center">
-              <div class="mb-3 xl:w-1/5">
-                <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
+            <div class="flex justify-center">
+                <div class="mb-3 xl:w-1/5">
+                  <div class="text-right">
+                    <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
+                  </div>
+                  <select v-model="instance.profile" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                      <option selected></option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                  </select>
                 </div>
-                <select v-model="instance.profile" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-              </div>
-              <div class="mb-3 w-36 m-auto">
-                <div class="relative pt-1 mb-6">
-                  <label for="vcpus" class="text-black text-sm">vCPUs</label>
-                  <input v-model="instance.cpu" type="range" min="0" step="1" max="5" name="vcpus" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                <div class="mb-3 w-36 m-auto">
+                  <div class="relative pt-1 mb-6">
+                    <label for="vcpus" class="text-black text-sm">vCPUs</label>
+                    <input v-model="instance.cpu" type="range" min="0" step="1" max="5" name="vcpus" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                  </div>
                 </div>
-              </div>
-              <div class="mb-3 w-36 m-auto">
-                <div class="relative pt-1 mb-6">
-                  <label for="memory" class="text-black text-sm">RAM</label>
-                  <input v-model="instance.ports.http" type="range" min="0" step="1" max="5" name="memory" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                <div class="mb-3 w-36 m-auto">
+                  <div class="relative pt-1 mb-6">
+                    <label for="memory" class="text-black text-sm">RAM</label>
+                    <input v-model="instance.ports.http" type="range" min="0" step="1" max="5" name="memory" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -137,7 +138,6 @@
                     <option value="3">Windows 10</option>
                 </select>
               </div>
-            </div>
             </div>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
