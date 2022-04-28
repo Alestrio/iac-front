@@ -9,7 +9,8 @@
         <h1 class="text-3xl p-4">Infrastructure</h1>
         <hr class="border-b-1 border-blue-100 ml-10 mr-10" />
         <div
-          class="shadow-xl p-3 m-5 w-7/8 h-4/6 md:h-5/6 rounded flex flex-col md:grid md:grid-cols-2 gap-2 overflow-auto place-items-center"
+          class="shadow-xl p-3 m-5 w-7/8 h-4/6 md:h-5/6 rounded flex flex-col md:grid md:grid-cols-2 gap-2 overflow-auto place-items-center
+          "
           @drop='onDrop($event, "network")'
           @dragover.prevent
           @dragenter.prevent
@@ -51,6 +52,9 @@
             </div>
           </div>
         </div>
+        <button class="w-full h-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-2 rounded-full" @click="sendConfig">
+          Send config 
+        </button>
       </div>
       <div
         class="w-full md:w-1/4 h-3/2 md:h-full shadow-xl m-6 border overflow-auto flex-col text-center"
