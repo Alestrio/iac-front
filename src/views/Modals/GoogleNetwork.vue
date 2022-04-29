@@ -39,6 +39,7 @@
                 name="netType"
                 id="netType1"
                 @click="toggleNewExisting()"
+                checked
               />
               <label
                 class="form-check-label inline-block text-black"
@@ -53,7 +54,6 @@
                 type="radio"
                 name="netType"
                 id="netType2"
-                checked
                 @click="toggleNewExisting()"
               />
               <label
@@ -78,7 +78,7 @@
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
-                  v-model="netName"
+                  v-model="this.gcp_network.name"
                 />
               </div>
             </div>
@@ -95,11 +95,11 @@
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="desc"
-                  v-model="netDesc"
+                  v-model="this.gcp_network.description"
                 />
               </div>
             </div>
-            <div class="flex justify-center" id="existing">
+            <div class="flex justify-center hidden" id="existing">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -130,7 +130,7 @@
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
-                  name="netType"
+                  name="googleaccess"
                   id="googleaccess"
                 />
                 <label
@@ -146,7 +146,7 @@
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
-                  name="netType"
+                  name="googleaccess"
                   id="googleaccess"
                 />
                 <label
@@ -169,7 +169,7 @@
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
-                  name="netType"
+                  name="streamJournal"
                   id="logs"
                 />
                 <label
@@ -185,7 +185,7 @@
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
-                  name="netType"
+                  name="streamJournal"
                   id="logs"
                 />
                 <label
@@ -211,6 +211,7 @@
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
+                  v-model="this.sample_subnet.name"
                 />
               </div>
             </div>
@@ -227,6 +228,7 @@
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="desc"
+                  v-model="this.sample_subnet.description"
                 />
               </div>
             </div>
@@ -241,11 +243,12 @@
                 </div>
                 <select
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
+                  v-model="this.sample_subnet.gcp_zone"
                 >
                   <option selected></option>
-                  <option value="1">us-central-1</option>
-                  <option value="2">us</option>
-                  <option value="3">central</option>
+                  <option value="us-central-1">us-central-1</option>
+                  <option value="us">us</option>
+                  <option value="central">central</option>
                 </select>
               </div>
             </div>
@@ -263,12 +266,14 @@
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="desc"
                   placeholder="10.128.10.0/24"
+                  v-model="this.sample_subnet.ip_cidr_range"
                 />
               </div>
             </div>
             <div class="flex justify-center">
               <button
                 class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                @click="addSubnet"
               >
                 Ajouter
               </button>
@@ -282,7 +287,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="subnet in this.network.subnets" class="p-2">
+                <tr
+                  v-for="subnet in this.gcp_network.subnets"
+                  :key="subnet"
+                  class="p-2"
+                >
                   <td class="p-2">{{ subnet.name }}</td>
                   <td>{{ subnet.gcp_zone }}</td>
                   <td>{{ subnet.ip_cidr_range }}</td>
@@ -307,7 +316,7 @@
                   name="routing"
                   id="routing1"
                   value="REGIONAL"
-                  v-model="routing"
+                  v-model="this.gcp_network.routing_type"
                 />
                 <label
                   class="form-check-label inline-block text-black"
@@ -324,7 +333,7 @@
                   id="routing2"
                   checked
                   value="GLOBAL"
-                  v-model="routing"
+                  v-model="this.gcp_network.routing_type"
                 />
                 <label
                   class="form-check-label inline-block text-black"
@@ -404,6 +413,40 @@
                 </div>
               </div>
             </div>
+            <div class="flex justify-center">
+              <div class="flex">
+                <table class="table-auto mt-2 rounded-lg bg-green-100">
+                  <thead>
+                    <tr>
+                      <th class="p-2">Protocole</th>
+                      <th class="p-2">Ports</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    v-for="firewall in this.gcp_network.firewalls"
+                    :key="firewall"
+                    class="p-2"
+                  >
+                    <tr
+                      v-for="rule in firewall.rules"
+                      :key="rule.id"
+                      class="p-2"
+                    >
+                      <td class="p-2">{{ rule.protocol }}</td>
+                      <td>{{ stringifyPorts(rule.from_ports) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="flex justify-center m-4">
+              <button
+                class="bg-purple-600 text-white rounded p-2 font-bold"
+                @click="sendNetwork"
+              >
+                Valider
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -411,37 +454,75 @@
   </div>
 </template>
 <script>
-  import Firewall from "./Firewall.vue";
+import Firewall from "./Firewall.vue";
 
   export default {
     data() {
       return {
         isOpen: false,
-        network: {
-          name: this.netName,
-          description: this.netDesc,
-          routing_type: this.routing,
-          providers: ['gcp'],
+        sample_subnet: {
+          name: "",
+          providers: ["GCP"],
+          gcp_zone: "",
+          ip_cidr_range: "",
+        },
+        sample_rules: {
+          rdp: {
+            protocol: "tcp",
+            from_ports: [22],
+            to_ports: [22],
+            source_networks: ["0.0.0.0/0"],
+          },
+          ssh: {
+            protocol: "tcp",
+            from_ports: [22],
+            to_ports: [22],
+            source_networks: ["0.0.0.0/0"],
+          },
+        },
+        gcp_network: {
+          id: this.id,
+          name: "a",
+          description: "",
+          routing_type: "",
+          providers: ["gcp"],
           subnets: [
             {
-              id: "string",
-              name: "subnet-dd603003",
+              id: "default",
+              name: "default",
               providers: ["gcp"],
               ip_cidr_range: "10.128.0.0/24",
               gcp_zone: "us-central1-a",
             },
           ],
-          firewall_rules: [],
+          firewalls: [],
+        },
+        sample_firewall: {
+          name: "firewall-"/* + this.gcp_network.name*/,
+          is_allow: true,
+          rules: [],
         },
       };
     },
-    props: ["network"],
+    props: ["network", "id"],
     components: {
       Firewall,
     },
     methods: {
       addFirewall(firewall) {
-        this.network.firewall_rules.push(firewall);
+        let fire = JSON.parse(JSON.stringify(this.sample_firewall));
+        for (let i of firewall){
+          fire.rules.push(i);
+        }
+        this.gcp_network.firewalls.push(fire);
+      },
+      stringifyPorts(ports) {
+        return ports.join(", ");
+      },
+      addSubnet() {
+        this.gcp_network.subnets.push(
+          JSON.parse(JSON.stringify(this.sample_subnet))
+        );
       },
       toggleNewExisting() {
         let radio_new = document.getElementById("netType1");
@@ -449,7 +530,6 @@
         let new_name = document.getElementById("newName");
         let new_desc = document.getElementById("newDesc");
         let existing = document.getElementById("existing");
-        console.log(new_name);
 
         if (radio_new.checked) {
           new_name.style.display = "block";
@@ -460,6 +540,10 @@
           new_desc.style.display = "none";
           existing.style.display = "block";
         }
+      },
+      sendNetwork() {
+        this.gcp_network.firewalls[0].name = this.gcp_network.firewalls[0].name + this.gcp_network.name;
+        this.$emit("send-network", this.gcp_network);
       },
     },
   };

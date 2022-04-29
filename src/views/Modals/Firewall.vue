@@ -47,6 +47,7 @@
                   class="form-control block w-full px-3 py-1.5 text-left text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
                   placeholder="Exemple : 20, 50-60"
+                  v-model="tcpPorts"
                 />
               </div>
             </div>
@@ -64,6 +65,7 @@
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-left text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
+                  v-model="udpPorts"
                 />
               </div>
             </div>
@@ -92,31 +94,35 @@
     methods: {
       sendFirewall() {
         let rule = {
+          id:0,
           protocol: "tcp",
           from_ports: [22],
           to_ports: [22],
           source_networks: ["0.0.0.0/0"],
         };
-        let firewall = {
-          name: "firewall-" + randomString(4),
-          is_allow: true,
-          rules: [],
-        };
+        let rules = []
 
         if (this.tcpPorts) {
-          rule.protocol = "tcp";
-          rule.from_ports = this.tcpPorts.split(",").map(Number);
-          rule.to_ports = this.tcpPorts.split(",").map(Number);
-          firewall.rules.push(rule);
+          let r = JSON.parse(JSON.stringify(rule));
+          r.protocol = "tcp";
+          r.from_ports = this.tcpPorts.split(",").map(Number);
+          r.to_ports = this.tcpPorts.split(",").map(Number);
+          rules.push(r);
         }
         if (this.udpPorts) {
-          rule.protocol = "udp";
-          rule.from_ports = this.udpPorts.split(",").map(Number);
-          rule.to_ports = this.udpPorts.split(",").map(Number);
-          firewall.rules.push(rule);
+          let r = JSON.parse(JSON.stringify(rule));
+          r.protocol = "udp";
+          r.from_ports = this.udpPorts.split(",").map(Number);
+          r.to_ports = this.udpPorts.split(",").map(Number);
+          rules.push(r);
         }
 
-        this.$emit("send-firewall", firewall);
+        for (let i = 0; i < rules.length; i++) {
+          rule.id = i;
+        }
+
+        this.$emit("send-firewall", rules);
+        this.isOpen = false;
 
       },
     },
