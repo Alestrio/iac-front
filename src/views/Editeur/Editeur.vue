@@ -40,7 +40,7 @@
                   <div class="flex flex-row justify-center">
                     <h2 class="text-xl">{{ instance.name }}</h2>
                     <div class="w-auto">
-                      <Vm :instance="instance" :net-key="network.id" />
+                      <Vm :instance="instance" />
                     </div>
                   </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
@@ -240,13 +240,13 @@
           { id: 0, name: "", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
           { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
         ],
-        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[], disks:[{id: 0}], ports:{} }],
+        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[], disks:[{id: 0}], ports:{}, services:{} }],
         providers: [
           { id: 0, name: "GCP", type:'provider' },
           { id: 1, name: "AWS", type:'provider' },
         ],
         current: [
-          { id: 0, name: "default", cidr: "10.128.0.0/24", provider:{id: 0, name: 'GCP', type: 'provider'}, instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }], disks:[{id: 0}], ports:{}}, { id: 1, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} }, { id: 2, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} },  { id: 3, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} },  { id: 4, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{} }] },
+          { id: 0, name: "default", cidr: "10.128.0.0/24", provider:{id: 0, name: 'GCP', type: 'provider'}, instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }], disks:[{id: 0}], ports:{}, services:{}}, { id: 1, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{}, services:{} }, { id: 2, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{}, services:{} },  { id: 3, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{}, services:{} },  { id: 4, name: "debian", image: "debian-10-buster", containers:[], disks:[{id: 0}], ports:{}, services:{} }] },
         ],
       };
     },
