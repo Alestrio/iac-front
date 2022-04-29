@@ -247,7 +247,7 @@
           { id: 0, name: "", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
           { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
         ],
-        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[] }],
+        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[], disks:[{id: 0}], ports:{} }],
         providers: [
           { id: 0, name: "GCP", type:'provider' },
           { id: 1, name: "AWS", type:'provider' },

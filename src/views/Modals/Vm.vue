@@ -40,26 +40,15 @@
                 <div class="text-right">
                   <label for="name" class="form-label inline-block mb-0.5 text-black">Nom</label>
                 </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
+                <input v-model="instance.name" type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
               </div>
             </div>
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-1/2">
-                <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Région</label>
-                </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-              </div>
-              <div class="mb-3 xl:w-1/2">
+              <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label for="region" class="form-label inline-block mb-0.5 text-black">Zone</label>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="instance.zone" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -74,24 +63,24 @@
             </div>
             <div class="flex justify-center mb-4">
               <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing1">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="preset" v-model="instance.profile">
                 <label class="form-check-label inline-block text-black" for="netType1">
                   Prédéfini
                 </label>
               </div>
               <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="custom" v-model="instance.profile">
                 <label class="form-check-label inline-block text-black" for="netType2">
                   Personnalisé
                 </label>
               </div>
             </div>
-            <div class="flex justify-center">
+            <div v-if="instance.profile == 'preset'" class="flex justify-center">
               <div class="mb-3 xl:w-1/5">
                 <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
+                  <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="instance.profile" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -100,9 +89,9 @@
               </div>
               <div class="mb-3 xl:w-4/5">
                 <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
+                  <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="instance.vmType" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -110,28 +99,30 @@
                 </select>
               </div>
             </div>
+            <div v-if="instance.profile == 'custom'">
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-1/5">
-                <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
+                <div class="mb-3 xl:w-1/5">
+                  <div class="text-right">
+                    <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
+                  </div>
+                  <select v-model="instance.profile" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                      <option selected></option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                  </select>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-              </div>
-              <div class="mb-3 w-36 m-auto">
-                <div class="relative pt-1 mb-6">
-                  <label for="vcpus" class="text-black text-sm">vCPUs</label>
-                  <input type="range" min="0" step="1" max="5" name="vcpus" value="0" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                <div class="mb-3 w-36 m-auto">
+                  <div class="relative pt-1 mb-6">
+                    <label for="vcpus" class="text-black text-sm">vCPUs</label>
+                    <input v-model="instance.cpu" type="range" min="0" step="1" max="5" name="vcpus" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                  </div>
                 </div>
-              </div>
-              <div class="mb-3 w-36 m-auto">
-                <div class="relative pt-1 mb-6">
-                  <label for="memory" class="text-black text-sm">RAM</label>
-                  <input type="range" min="0" step="1" max="5" name="memory" value="0" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                <div class="mb-3 w-36 m-auto">
+                  <div class="relative pt-1 mb-6">
+                    <label for="memory" class="text-black text-sm">RAM</label>
+                    <input v-model="instance.ports.http" type="range" min="0" step="1" max="5" name="memory" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -140,7 +131,7 @@
                 <div class="text-right">
                   <label for="region" class="form-label inline-block mb-0.5 text-black">OS</label>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="instance.machine_image" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">Debian 10</option>
                     <option value="2">Debian 11</option>
@@ -155,12 +146,12 @@
                 </div>
               </div>
             </div>
-            <div class="flex justify-center">
+            <div :key="disk.key" v-for="disk in instance.disks" class="flex justify-center">
               <div class="mb-3 xl:w-1/4">
                 <div class="text-right">
                   <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="disk.diskType" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">SSD</option>
                     <option value="2">Two</option>
@@ -169,66 +160,14 @@
               </div>
               <div class="mb-3 xl:w-3/4">
                 <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Disque principal (GO)</label>
+                  <label for="name" class="form-label inline-block mb-0.5 text-black">Capacité du disque {{ disk. id }} </label>
                 </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
+                <input v-model="disk.diskCapacity" type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
               </div>
             </div>
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-1/4">
-                <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
-                </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">HDD</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-              </div>
-              <div class="mb-3 xl:w-3/4">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Disque additionnel (GO)</label>
-                </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <i class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-center">
-                  <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">Réseau</label>
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="text-center mb-1">
-                <label for="region" class="form-label inline-block mb-0.5 text-black">IP externe</label>
-              </div>
-            </div>
-            <div class="flex justify-center mb-4">
-              <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing1">
-                <label class="form-check-label inline-block text-black" for="netType1">
-                  Éphémère
-                </label>
-              </div>
-              <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
-                <label class="form-check-label inline-block text-black" for="netType2">
-                  Permanente
-                </label>
-              </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">IP interne</label>
-                </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" placeholder="Par défaut" />
-              </div>
+              <i @click='instance.disks.pop()' v-if='instance.disks.length > 1' class="fa-solid fa-minus mr-6 fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
+              <i @click='instance.disks.push({ id: instance.disks.length })' class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
             </div>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
@@ -252,14 +191,14 @@
             <div class="flex justify-center mb-4">
               <div>
                 <div class="form-check float-left mr-10">
-                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                  <input v-model='instance.ports.http' class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" id="http">
+                  <label class="form-check-label inline-block text-gray-800" for="http">
                     HTTP
                   </label>
                 </div>
                 <div class="form-check float-left">
-                  <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckChecked" checked>
-                  <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
+                  <input v-model='instance.ports.https' class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" id="https">
+                  <label class="form-check-label inline-block text-gray-800" for="https">
                     HTTPS
                   </label>
                 </div>
@@ -272,68 +211,70 @@
             </div>
             <div class="flex justify-center mb-4">
               <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing1">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="default" v-model="instance.netType">
                 <label class="form-check-label inline-block text-black" for="netType1">
                   Par défaut
                 </label>
               </div>
               <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="custom" v-model="instance.netType">
                 <label class="form-check-label inline-block text-black" for="netType2">
                   Personnalisé
                 </label>
               </div>
             </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Réseau</label>
+            <div v-if="instance.netType == 'custom'">
+              <div class="flex justify-center">
+                <div class="mb-3 xl:w-96">
+                  <div class="text-right">
+                    <label for="name" class="form-label inline-block mb-0.5 text-black">Réseau</label>
+                  </div>
+                  <select v-model="instance.network" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                      <option selected></option>
+                      <option value="1">pimahtic-network</option>
+                      <option value="2">net</option>
+                      <option value="3">work</option>
+                  </select>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">pimahtic-network</option>
-                    <option value="2">net</option>
-                    <option value="3">work</option>
-                </select>
               </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Sous-réseau</label>
+              <div class="flex justify-center">
+                <div class="mb-3 xl:w-96">
+                  <div class="text-right">
+                    <label for="name" class="form-label inline-block mb-0.5 text-black">Sous-réseau</label>
+                  </div>
+                  <select v-model="instance.subnetwork" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                      <option selected></option>
+                      <option value="1">pimahtic-network-one</option>
+                      <option value="2">net</option>
+                      <option value="3">work</option>
+                  </select>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">pimahtic-network-one</option>
-                    <option value="2">net</option>
-                    <option value="3">work</option>
-                </select>
               </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Adresse IP interne principale</label>
+              <div class="flex justify-center">
+                <div class="mb-3 xl:w-96">
+                  <div class="text-right">
+                    <label for="name" class="form-label inline-block mb-0.5 text-black">Adresse IP interne principale</label>
+                  </div>
+                  <select v-model="instance.intAddress" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                      <option selected></option>
+                      <option value="1">Éphèmère (automatique)</option>
+                      <option value="2">net</option>
+                      <option value="3">work</option>
+                  </select>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">Éphèmère (automatique)</option>
-                    <option value="2">net</option>
-                    <option value="3">work</option>
-                </select>
               </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label for="name" class="form-label inline-block mb-0.5 text-black">Plage d'adresses IP d'alias</label>
+              <div class="flex justify-center">
+                <div class="mb-3 xl:w-96">
+                  <div class="text-right">
+                    <label for="name" class="form-label inline-block mb-0.5 text-black">Adresse IP externe</label>
+                  </div>
+                  <select v-model="instance.extAddress" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                      <option selected></option>
+                      <option value="1">Éphèmère</option>
+                      <option value="2">net</option>
+                      <option value="3">work</option>
+                  </select>
                 </div>
-                <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">Éphèmère</option>
-                    <option value="2">net</option>
-                    <option value="3">work</option>
-                </select>
               </div>
             </div>
             <div class="flex justify-center">
@@ -343,14 +284,14 @@
             </div>
             <div class="flex justify-center mb-4">
               <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing1">
-                <label class="form-check-label inline-block text-black" for="netType1">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" v-model="instance.serviceType" value="premium">
+                <label class="form-check-label inline-block text-black" for="serviceType1">
                   Premium
                 </label>
               </div>
               <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="routing" id="routing2" checked>
-                <label class="form-check-label inline-block text-black" for="netType2">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" v-model="instance.serviceType" value="standard">
+                <label class="form-check-label inline-block text-black" for="serviceType2">
                   Standard
                 </label>
               </div>
