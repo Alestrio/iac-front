@@ -21,7 +21,7 @@
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <GoogleNetwork :network="network" />
+              <GoogleNetwork :network="network" :id="network.id" @send-network="updateNetwork" />
             </div>
             <div class="flex flex-row">
               <img
@@ -230,6 +230,13 @@
           }
         }
       },
+      updateNetwork(net) {
+        this.current.find(network => network.id == net.id).name = net.name;
+        this.current.find(network => network.id == net.id).provider = net.provider;
+        this.current.find(network => network.id == net.id).cidr = net.ip_cidr_range;
+
+        this.to_send.push(net);
+      },
     },
     data() {
       return {
@@ -246,12 +253,14 @@
           { id: 1, name: "AWS", type:'provider' },
         ],
         current: [
-          { id: 0, name: "default", cidr: "10.128.0.0/24", provider:{id: 0, name: 'GCP', type: 'provider'}, instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] },  { id: 3, name: "debian", image: "debian-10-buster", containers:[] },  { id: 4, name: "debian", image: "debian-10-buster", containers:[] }] },
+          { id: 125768, name: "default", cidr: "10.128.0.0/24", provider:{id: 0, name: 'GCP', type: 'provider'}, instances: [{ id: 0, name: "debian", image: "debian-10-buster", containers: [{ id: 1, name: "mongo" }, { id: 2, name: "mongo" }, { id: 3, name: "mongo" }]}, { id: 1, name: "debian", image: "debian-10-buster", containers:[] }, { id: 2, name: "debian", image: "debian-10-buster", containers:[] },  { id: 3, name: "debian", image: "debian-10-buster", containers:[] },  { id: 4, name: "debian", image: "debian-10-buster", containers:[] }] },
         ],
+        to_send: [],
       };
     },
   };
 </script>
 
 <style scoped>
+
 </style>
