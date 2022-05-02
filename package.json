@@ -9,11 +9,14 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@vuelidate/core": "^2.0.0-alpha.41",
+    "@vuelidate/validators": "^2.0.0-alpha.29",
     "axios": "^0.26.1",
     "svg-loaders-vue": "^1.2.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
-    "vue-spinner": "^1.0.4"
+    "vue-spinner": "^1.0.4",
+    "vuelidate": "^0.7.7"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

@@ -234,6 +234,20 @@
   "resolved" "https://registry.npmjs.org/@vue/test-utils/-/test-utils-2.0.0-rc.19.tgz"
   "version" "2.0.0-rc.19"
 
+"@vuelidate/core@^2.0.0-alpha.41":
+  "integrity" "sha512-fST7s5wiLW8ZNTexe8+7fDdBZYT7HjbuA43/XDtKTlHs1BMRDDaBoFLZbHSqmHisQvGXa7zLG9bvG8X5cHZaxg=="
+  "resolved" "https://registry.npmjs.org/@vuelidate/core/-/core-2.0.0-alpha.41.tgz"
+  "version" "2.0.0-alpha.41"
+  dependencies:
+    "vue-demi" "^0.12.0"
+
+"@vuelidate/validators@^2.0.0-alpha.29":
+  "integrity" "sha512-azVc2Fwx0umgJjVatzDwnVEdEGNhEdUISQKcLwTDJuNUFS9n1CUqMzfNW+CCTw1Wp8RwYiDS9/qKnEZs4ubF5w=="
+  "resolved" "https://registry.npmjs.org/@vuelidate/validators/-/validators-2.0.0-alpha.29.tgz"
+  "version" "2.0.0-alpha.29"
+  dependencies:
+    "vue-demi" "^0.12.0"
+
 "abab@^2.0.3", "abab@^2.0.5":
   "integrity" "sha512-9IK9EadsbHo6jLWIpxpR6pL0sazTXV6+SQv25ZB+F7Bj9mJNaOc4nCRabwd5M/JwmUa8idz6Eci6eKfJryPs6Q=="
   "resolved" "https://registry.npmjs.org/abab/-/abab-2.0.5.tgz"
@@ -1755,6 +1769,11 @@
     "tinyspy" "^0.3.0"
     "vite" "^2.9.1"
 
+"vue-demi@^0.12.0":
+  "integrity" "sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q=="
+  "resolved" "https://registry.npmjs.org/vue-demi/-/vue-demi-0.12.5.tgz"
+  "version" "0.12.5"
+
 "vue-eslint-parser@^8.0.1":
   "integrity" "sha512-dzHGG3+sYwSf6zFBa0Gi9ZDshD7+ad14DGOdTLjruRVgZXe2J+DcZ9iUhyR48z5g1PqRa20yt3Njna/veLJL/g=="
   "resolved" "https://registry.npmjs.org/vue-eslint-parser/-/vue-eslint-parser-8.3.0.tgz"
@@ -1780,7 +1799,7 @@
   "resolved" "https://registry.npmjs.org/vue-spinner/-/vue-spinner-1.0.4.tgz"
   "version" "1.0.4"
 
-"vue@^3.0.1", "vue@^3.2.0", "vue@^3.2.22", "vue@^3.2.25", "vue@^3.2.31", "vue@3.2.31":
+"vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.1", "vue@^3.2.0", "vue@^3.2.22", "vue@^3.2.25", "vue@^3.2.31", "vue@3.2.31":
   "integrity" "sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.31.tgz"
   "version" "3.2.31"
@@ -1790,6 +1809,11 @@
     "@vue/runtime-dom" "3.2.31"
     "@vue/server-renderer" "3.2.31"
     "@vue/shared" "3.2.31"
+
+"vuelidate@^0.7.7":
+  "integrity" "sha512-pT/U2lDI67wkIqI4tum7cMSIfGcAMfB+Phtqh2ttdXURwvHRBJEAQ0tVbUsW9Upg83Q5QH59bnCoXI7A9JDGnA=="
+  "resolved" "https://registry.npmjs.org/vuelidate/-/vuelidate-0.7.7.tgz"
+  "version" "0.7.7"
 
 "w3c-hr-time@^1.0.2":
   "integrity" "sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ=="

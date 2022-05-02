@@ -166,7 +166,7 @@
     components: {
       GoogleNetwork,
       // AmazonNetwork,
-      Vm,
+      //Vm,
       Container
     },
     mounted() {},
@@ -257,6 +257,11 @@
         ],
         to_send: [],
       };
+    },
+    validations: {
+      to_send: {
+        required: true,
+      },
     },
   };
 </script>

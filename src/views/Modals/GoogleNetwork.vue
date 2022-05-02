@@ -95,7 +95,7 @@
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="desc"
-                  v-model="this.gcp_network.description"
+                  v-model="gcp_network.description"
                 />
               </div>
             </div>
@@ -423,7 +423,7 @@
                     </tr>
                   </thead>
                   <tbody
-                    v-for="firewall in this.gcp_network.firewalls"
+                    v-for="firewall in gcp_network.firewalls"
                     :key="firewall"
                     class="p-2"
                   >
@@ -454,15 +454,21 @@
   </div>
 </template>
 <script>
-import Firewall from "./Firewall.vue";
+  import { reactive, toRefs } from "vue";
+  import Firewall from "./Firewall.vue";
+  import { computed } from "vue";
+  import { required } from "@vuelidate/validators";
+  import useVuelidate from "@vuelidate/core";
 
   export default {
+    props: ["network", "id"],
     data() {
       return {
         isOpen: false,
+        //id: this.id,
         sample_subnet: {
           name: "",
-          providers: ["GCP"],
+          providers: ["gcp"],
           gcp_zone: "",
           ip_cidr_range: "",
         },
@@ -480,38 +486,47 @@ import Firewall from "./Firewall.vue";
             source_networks: ["0.0.0.0/0"],
           },
         },
-        gcp_network: {
-          id: this.id,
-          name: "a",
-          description: "",
-          routing_type: "",
-          providers: ["gcp"],
-          subnets: [
-            {
-              id: "default",
-              name: "default",
-              providers: ["gcp"],
-              ip_cidr_range: "10.128.0.0/24",
-              gcp_zone: "us-central1-a",
-            },
-          ],
-          firewalls: [],
-        },
         sample_firewall: {
-          name: "firewall-"/* + this.gcp_network.name*/,
+          name: "firewall-" /* + this.gcp_network.name*/,
           is_allow: true,
           rules: [],
         },
       };
     },
-    props: ["network", "id"],
+    setup() {
+      const gcp_network = reactive({
+        //id: this.id,
+        name: "",
+        description: "",
+        routing_type: "",
+        providers: ["gcp"],
+        subnets: [],
+        firewalls: [],
+      });
+      const rules = computed(() => {
+        return {
+          name: { required },
+          description: { required },
+          routing_type: { required },
+          providers: { required },
+          subnets: { required },
+          firewalls: { required },
+        };
+      });
+      const v$ = useVuelidate(rules, gcp_network);
+      return {
+        v$,
+        gcp_network,
+        ...toRefs(gcp_network),
+      };
+    },
     components: {
       Firewall,
     },
     methods: {
       addFirewall(firewall) {
         let fire = JSON.parse(JSON.stringify(this.sample_firewall));
-        for (let i of firewall){
+        for (let i of firewall) {
           fire.rules.push(i);
         }
         this.gcp_network.firewalls.push(fire);
@@ -542,8 +557,12 @@ import Firewall from "./Firewall.vue";
         }
       },
       sendNetwork() {
-        this.gcp_network.firewalls[0].name = this.gcp_network.firewalls[0].name + this.gcp_network.name;
-        this.$emit("send-network", this.gcp_network);
+        this.v$.$validate();
+        if (this.gcp_network.firewalls.length != 0) {
+          this.gcp_network.firewalls[0].name =
+            this.gcp_network.firewalls[0].name + this.gcp_network.name;
+          this.$emit("send-network", this.gcp_network);
+        }
       },
     },
   };
