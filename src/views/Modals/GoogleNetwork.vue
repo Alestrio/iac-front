@@ -80,6 +80,12 @@
                   id="name"
                   v-model="this.gcp_network.name"
                 />
+                <span
+                  v-if="this.v$.name.$error"
+                  class="text-red-500 text-xs italic"
+                >
+                  {{ v$.name.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <div
@@ -101,6 +107,12 @@
                   id="desc"
                   v-model="gcp_network.description"
                 />
+                <span
+                  v-if="this.v$.description.$error"
+                  class="text-red-500 text-xs italic"
+                >
+                  {{ v$.description.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <div
@@ -135,9 +147,7 @@
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <label
-                  class="form-check-label inline-block text-black"
-                >
+                <label class="form-check-label inline-block text-black">
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
@@ -150,9 +160,7 @@
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <label
-                  class="form-check-label inline-block text-black"
-                >
+                <label class="form-check-label inline-block text-black">
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
@@ -172,9 +180,7 @@
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <label
-                  class="form-check-label inline-block text-black"
-                >
+                <label class="form-check-label inline-block text-black">
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
@@ -187,9 +193,7 @@
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <label
-                  class="form-check-label inline-block text-black"
-                >
+                <label class="form-check-label inline-block text-black">
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
@@ -218,6 +222,9 @@
                   id="name"
                   v-model="this.sample_subnet.name"
                 />
+                <span class="text-red-500" v-if="this.w$.name.$error">
+                  {{ this.w$.name.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <div class="flex justify-center">
@@ -235,6 +242,9 @@
                   id="desc"
                   v-model="this.sample_subnet.description"
                 />
+                <span class="text-red-500" v-if="this.w$.description.$error">
+                  {{ this.w$.description.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <div class="flex justify-center">
@@ -255,6 +265,9 @@
                   <option value="us">us</option>
                   <option value="central">central</option>
                 </select>
+                <span class="text-red-500" v-if="this.w$.gcp_zone.$error">
+                  {{ this.w$.gcp_zone.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <div class="flex justify-center">
@@ -273,6 +286,9 @@
                   placeholder="10.128.10.0/24"
                   v-model="this.sample_subnet.ip_cidr_range"
                 />
+                <span class="text-red-500" v-if="this.w$.ip_cidr_range.$error">
+                  {{ this.w$.ip_cidr_range.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <div class="flex justify-center">
@@ -303,6 +319,9 @@
                 </tr>
               </tbody>
             </table>
+            <span class="text-red-500" v-if="this.v$.subnets.$error">
+              {{ this.v$.subnets.$errors[0].$message }}
+            </span>
             <hr class="my-4" />
             <div class="flex justify-center">
               <div class="text-center mb-3">
@@ -315,9 +334,7 @@
             </div>
             <div class="flex justify-center">
               <div class="form-check float-left mr-10">
-                <label
-                  class="form-check-label inline-block text-black"
-                >
+                <label class="form-check-label inline-block text-black">
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
@@ -330,9 +347,7 @@
                 </label>
               </div>
               <div class="form-check float-left">
-                <label
-                  class="form-check-label inline-block text-black"
-                >
+                <label class="form-check-label inline-block text-black">
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
@@ -460,7 +475,7 @@
   import { reactive, toRefs } from "vue";
   import Firewall from "./Firewall.vue";
   import { computed } from "vue";
-  import { required } from "@vuelidate/validators";
+  import { required, helpers } from "@vuelidate/validators";
   import useVuelidate from "@vuelidate/core";
 
   export default {
@@ -470,12 +485,6 @@
         netType: "new",
         isOpen: false,
         //id: this.id,
-        sample_subnet: {
-          name: "",
-          providers: ["gcp"],
-          gcp_zone: "",
-          ip_cidr_range: "",
-        },
         sample_rules: {
           rdp: {
             protocol: "tcp",
@@ -498,11 +507,28 @@
       };
     },
     setup() {
+      let cidr = helpers.regex(
+        /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/\d{1,2}/
+      );
+      cidr = helpers.withMessage("Invalid CIDR", cidr);
+      const sample_subnet = reactive({
+        name: "",
+        description: "",
+        providers: ["gcp"],
+        gcp_zone: "",
+        ip_cidr_range: "",
+      });
+      const subnet_rules = reactive({
+        name: { required },
+        description: { required },
+        gcp_zone: { required },
+        ip_cidr_range: { required, cidr },
+      });
       const gcp_network = reactive({
         //id: this.id,
         name: "",
         description: "",
-        routing_type: "",
+        routing_type: "GLOBAL",
         providers: ["gcp"],
         subnets: [],
         firewalls: [],
@@ -513,15 +539,17 @@
           description: { required },
           routing_type: { required },
           providers: { required },
-          subnets: { required },
+          subnets: { required, minLength: 1 },
           firewalls: { required },
         };
       });
       const v$ = useVuelidate(rules, gcp_network);
+      const w$ = useVuelidate(subnet_rules, sample_subnet);
       return {
         v$,
+        w$,
+        sample_subnet,
         gcp_network,
-        ...toRefs(gcp_network),
       };
     },
     components: {
@@ -539,16 +567,23 @@
         return ports.join(", ");
       },
       addSubnet() {
-        this.gcp_network.subnets.push(
-          JSON.parse(JSON.stringify(this.sample_subnet))
-        );
+        this.w$.$validate();
+        if (!this.w$.$error) {
+          this.gcp_network.subnets.push(
+            JSON.parse(JSON.stringify(this.sample_subnet))
+          );
+        }
       },
       sendNetwork() {
         this.v$.$validate();
-        if (this.gcp_network.firewalls.length != 0) {
-          this.gcp_network.firewalls[0].name =
-            this.gcp_network.firewalls[0].name + this.gcp_network.name;
+        console.log(this.v$.$errors);
+        if (!this.v$.$error) {
+          if (this.gcp_network.firewalls.length != 0) {
+            this.gcp_network.firewalls[0].name =
+              this.gcp_network.firewalls[0].name + this.gcp_network.name;
+          }
           this.$emit("send-network", this.gcp_network);
+          this.isOpen = false;
         }
       },
     },
