@@ -176,12 +176,12 @@
                 </div>
               </div>
             </div>
-            <div class="flex justify-center ">
-              <Nginx class="w-10 m-auto" />
-              <Traefik class="w-10 m-auto" />
-              <Git class="w-10 m-auto" />
-              <Nodejs class="w-10 m-auto" />
-              <StartupScript class="w-10 m-auto" />
+            <div class="flex justify-center">
+              <Nginx :services="instance.services" class="w-10 m-auto" />
+              <Traefik :services="instance.services" class="w-10 m-auto" />
+              <Git :services="instance.services" class="w-10 m-auto" />
+              <Nodejs :services="instance.services" class="w-10 m-auto" />
+              <StartupScript :services="instance.services" class="w-10 m-auto" />
             </div>
             <div class="flex justify-center">
               <div class="text-center mb-3 mt-4">
@@ -313,9 +313,14 @@ export default {
   data() {
     return {
       isOpen: false,
+      nginxAdd: false,
+      traefikAdd: false,
+      gitAdd: false,
+      nodeAdd: false,
+      startupScriptAdd: false
     };
   },
-  props: ["instance", "net-key"],
+  props: ["instance"],
   components: {
       Nodejs,
       Nginx,

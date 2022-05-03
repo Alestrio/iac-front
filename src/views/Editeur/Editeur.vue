@@ -40,7 +40,7 @@
                   <div class="flex flex-row justify-center">
                     <h2 class="text-xl">{{ instance.name }}</h2>
                     <div class="w-auto">
-                      <Vm :instance="instance" :net-key="network.id" />
+                      <Vm :instance="instance" />
                     </div>
                   </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
@@ -247,7 +247,7 @@
           { id: 0, name: "", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
           { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
         ],
-        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[], disks:[{id: 0}], ports:{} }],
+        instances: [{ id: 0, name: "", image: "", type:'instance', containers:[], disks:[{id: 0}], ports:{}, services:{} }],
         providers: [
           { id: 0, name: "GCP", type:'provider' },
           { id: 1, name: "AWS", type:'provider' },

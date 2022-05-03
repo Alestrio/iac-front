@@ -2,7 +2,7 @@
   <div class="container mx-auto">
     <div class="flex justify-center">
       
-      <img class="cursor-pointer" src="../../assets/nginx-icon.png" @click="isOpen = true">
+      <img class="cursor-pointer" src="../../assets/nginx-icon.png" @click="addNginx()">
 
       <div
         v-show="isOpen"
@@ -40,7 +40,7 @@
                 <div class="text-right">
                   <label for="name" class="form-label inline-block mb-0.5 text-black">Nom de domaine</label>
                 </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" placeholder="mondomaine.com" />
+                <input v-model="services.nginx" type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" placeholder="mondomaine.com" />
               </div>
             </div>
             <div class="flex justify-center">
@@ -48,7 +48,7 @@
                 <div class="text-right">
                   <label for="name" class="form-label inline-block mb-0.5 text-black">Racine</label>
                 </div>
-                <input type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" placeholder="/var/www/html" />
+                <input v-model="services.nginx" type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" placeholder="/var/www/html" />
               </div>
             </div>
             <div class="flex justify-center">
@@ -65,7 +65,18 @@ export default {
   data() {
     return {
       isOpen: false,
+      nginxAdd: false
     };
   },
+  methods: {
+    addNginx() {
+      if (this.nginxAdd == false) {
+        this.nginxAdd = true;
+        this.services.nginx = {domainName: '', root: ''};
+      }
+      this.isOpen = true;
+    },
+  },
+  props: ["services"],
 };
 </script>
