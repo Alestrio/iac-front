@@ -33,39 +33,39 @@
           </div>
           <div class="flex justify-center">
             <div class="form-check float-left mr-10">
-              <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="radio"
-                name="netType"
-                id="netType1"
-                @click="toggleNewExisting()"
-                checked
-              />
-              <label
-                class="form-check-label inline-block text-black"
-                for="netType1"
-              >
-                Nouveau
+              <label class="text-black">
+                <input
+                  class="appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="radio"
+                  name="netType"
+                  id="netType1"
+                  value="new"
+                  v-model="netType"
+                  checked
+                />
+                <span>Nouveau</span>
               </label>
             </div>
             <div class="form-check float-left">
-              <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="radio"
-                name="netType"
-                id="netType2"
-                @click="toggleNewExisting()"
-              />
-              <label
-                class="form-check-label inline-block text-black"
-                for="netType2"
-              >
+              <label class="form-check-label inline-block text-black">
+                <input
+                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="radio"
+                  name="netType"
+                  id="netType2"
+                  value="existing"
+                  v-model="netType"
+                />
                 Existant
               </label>
             </div>
           </div>
           <div class="mt-3">
-            <div class="flex justify-center" id="newName">
+            <div
+              class="flex justify-center"
+              id="newName"
+              v-if="this.netType == 'new'"
+            >
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -82,7 +82,11 @@
                 />
               </div>
             </div>
-            <div class="flex justify-center" id="newDesc">
+            <div
+              class="flex justify-center"
+              id="newDesc"
+              v-if="this.netType == 'new'"
+            >
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -99,7 +103,11 @@
                 />
               </div>
             </div>
-            <div class="flex justify-center hidden" id="existing">
+            <div
+              class="flex justify-center"
+              id="existing"
+              v-if="this.netType != 'new'"
+            >
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -127,71 +135,68 @@
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  name="googleaccess"
-                  id="googleaccess"
-                />
                 <label
                   class="form-check-label inline-block text-black"
-                  for="googleaccess"
                 >
+                  <input
+                    class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    type="radio"
+                    name="googleaccess"
+                    value="enabled"
+                  />
                   Activé
                 </label>
               </div>
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  name="googleaccess"
-                  id="googleaccess"
-                />
                 <label
                   class="form-check-label inline-block text-black"
-                  for="googleaccess"
                 >
+                  <input
+                    class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    type="radio"
+                    name="googleaccess"
+                    checked
+                    value="disabled"
+                  />
                   Désactivé
                 </label>
               </div>
             </div>
             <div class="flex justify-start">
               <label
-                for="name"
                 class="form-label inline-block mb-2 mt-3 text-black font-bold"
                 >Journaux de flux</label
               >
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  name="streamJournal"
-                  id="logs"
-                />
                 <label
                   class="form-check-label inline-block text-black"
-                  for="logs"
                 >
+                  <input
+                    class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    type="radio"
+                    value="enabled"
+                    name="streamJournal"
+                  />
                   Activé
                 </label>
               </div>
             </div>
             <div class="flex justify-start">
               <div class="form-check float-left mb-3">
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  name="streamJournal"
-                  id="logs"
-                />
                 <label
                   class="form-check-label inline-block text-black"
-                  for="logs"
                 >
+                  <input
+                    class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    type="radio"
+                    value="disabled"
+                    name="streamJournal"
+                    checked
+                  />
                   Désactivé
                 </label>
               </div>
@@ -464,6 +469,7 @@
     props: ["network", "id"],
     data() {
       return {
+        netType: "new",
         isOpen: false,
         //id: this.id,
         sample_subnet: {
@@ -538,23 +544,6 @@
         this.gcp_network.subnets.push(
           JSON.parse(JSON.stringify(this.sample_subnet))
         );
-      },
-      toggleNewExisting() {
-        let radio_new = document.getElementById("netType1");
-
-        let new_name = document.getElementById("newName");
-        let new_desc = document.getElementById("newDesc");
-        let existing = document.getElementById("existing");
-
-        if (radio_new.checked) {
-          new_name.style.display = "block";
-          new_desc.style.display = "block";
-          existing.style.display = "none";
-        } else {
-          new_name.style.display = "none";
-          new_desc.style.display = "none";
-          existing.style.display = "block";
-        }
       },
       sendNetwork() {
         this.v$.$validate();
