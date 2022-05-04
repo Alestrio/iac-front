@@ -233,10 +233,9 @@
       updateGCPNetwork(net) {
         console.log(net);
         let $net = this.networks.find(network => network.id == net.id);
+        let inst = [];
         if ($net) {
-          $net.name = net.name;
-          $net.cidr = net.cidr;
-          $net.provider = net.provider;
+          inst = $net.instances;
         }
 
         this.to_send.push(net);
@@ -244,13 +243,15 @@
         for (let i of net.subnets) {
           cidrs += i.ip_cidr_range + "\n";
         }
-        this.current.push({
+        $net = {
           id: this.current.length,
           name: net.name,
           cidr: cidrs,
           provider: { id: 0, name: "GCP", type:'provider' },
-          instances: []
-        });
+          instances: inst
+        };
+        // replace the old network with the new one
+        this.current.splice(this.current.findIndex(network => network.id == net.id), 1, $net);
       },
     },
     data() {
