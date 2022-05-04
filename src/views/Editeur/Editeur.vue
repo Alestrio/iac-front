@@ -17,12 +17,14 @@
           id="infra-container"
         >
           <div v-for="network in this.current" :key="network.id" class="w-60 md:w-72 border m-4 shadow-xl rounded p-2 flex flex-col bg-red-300 place-items-center"
-            draggable="true" :id='"placed-network-" + network.id'
+            draggable="true" :id='"placedNetwork-" + network.id'
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <GoogleNetwork :network="network" :nid="network.id" :apiNet="this.to_send.find(n => n.id == network.id)"
+              <GoogleNetwork v-if="network.provider.name == 'GCP'" :network="network" :nid="network.id" :apiNet="this.to_send.find(n => n.id == network.id)"
                @send-network="updateGCPNetwork" />
+              <AmazonNetwork v-if="network.provider.name == 'AWS'" :network="network" :nid="network.id" :apiNet="this.to_send.find(n => n.id == network.id)"
+               @send-network="updateAWSNetwork" />
             </div>
             <div class="flex flex-row">
               <img
@@ -146,7 +148,7 @@
 <script>
   import Vm from "../Modals/Vm.vue";
   import Container from "../Modals/Container.vue";
-  // import AmazonNetwork from "../Modals/AmazonNetwork.vue";
+  import AmazonNetwork from "../Modals/AmazonNetwork.vue";
   import GoogleNetwork from "../Modals/GoogleNetwork.vue";
 
   export default {
@@ -166,7 +168,7 @@
     },
     components: {
       GoogleNetwork,
-      // AmazonNetwork,
+      AmazonNetwork,
       //Vm,
       Container
     },
