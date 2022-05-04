@@ -89,6 +89,8 @@
     data() {
       return {
         isOpen: false,
+        tcpPorts: [],
+        udpPorts: [],
       };
     },
     methods: {
@@ -102,14 +104,14 @@
         };
         let rules = []
 
-        if (this.tcpPorts) {
+        if (this.tcpPorts.length > 0) {
           let r = JSON.parse(JSON.stringify(rule));
           r.protocol = "tcp";
           r.from_ports = this.tcpPorts.split(",").map(Number);
           r.to_ports = this.tcpPorts.split(",").map(Number);
           rules.push(r);
         }
-        if (this.udpPorts) {
+        if (this.udpPorts.length > 0) {
           let r = JSON.parse(JSON.stringify(rule));
           r.protocol = "udp";
           r.from_ports = this.udpPorts.split(",").map(Number);

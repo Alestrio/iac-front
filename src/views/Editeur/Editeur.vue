@@ -21,7 +21,7 @@
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <GoogleNetwork :network="network" :id="network.id" @send-network="updateNetwork" />
+              <GoogleNetwork :network="network" :nid="network.id" @send-network="updateGCPNetwork" />
             </div>
             <div class="flex flex-row">
               <img
@@ -230,12 +230,27 @@
           }
         }
       },
-      updateNetwork(net) {
-        this.current.find(network => network.id == net.id).name = net.name;
-        this.current.find(network => network.id == net.id).provider = net.provider;
-        this.current.find(network => network.id == net.id).cidr = net.ip_cidr_range;
+      updateGCPNetwork(net) {
+        console.log(net);
+        let $net = this.networks.find(network => network.id == net.id);
+        if ($net) {
+          $net.name = net.name;
+          $net.cidr = net.cidr;
+          $net.provider = net.provider;
+        }
 
         this.to_send.push(net);
+        let cidrs = "";
+        for (let i of net.subnets) {
+          cidrs += i.ip_cidr_range + "\n";
+        }
+        this.current.push({
+          id: this.current.length,
+          name: net.name,
+          cidr: cidrs,
+          provider: { id: 0, name: "GCP", type:'provider' },
+          instances: []
+        });
       },
     },
     data() {
@@ -244,8 +259,8 @@
           { id: 0, name: "Conteneur", type:'container' },
         ],
         networks: [
-          { id: 0, name: "", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
-          { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[{}], provider:{name: ''} },
+          { id: 0, name: "", cidr: "", type:'network', instances:[], provider:{name: ''} },
+          { id: 1, name: "Par défaut", cidr: "", type:'network', instances:[], provider:{name: ''} },
         ],
         instances: [{ id: 0, name: "", image: "", type:'instance', containers:[], disks:[{id: 0}], ports:{}, services:{} }],
         providers: [

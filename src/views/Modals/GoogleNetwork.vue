@@ -479,12 +479,11 @@
   import useVuelidate from "@vuelidate/core";
 
   export default {
-    props: ["network", "id"],
+    props: ["network", "nid"],
     data() {
       return {
         netType: "new",
         isOpen: false,
-        //id: this.id,
         sample_rules: {
           rdp: {
             protocol: "tcp",
@@ -525,7 +524,7 @@
         ip_cidr_range: { required, cidr },
       });
       const gcp_network = reactive({
-        //id: this.id,
+        id: 0,
         name: "",
         description: "",
         routing_type: "GLOBAL",
@@ -577,6 +576,7 @@
       sendNetwork() {
         this.v$.$validate();
         console.log(this.v$.$errors);
+        this.gcp_network.id = this.nid;
         if (!this.v$.$error) {
           if (this.gcp_network.firewalls.length != 0) {
             this.gcp_network.firewalls[0].name =
