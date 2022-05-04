@@ -321,6 +321,24 @@
                   <td class="p-2">{{ subnet.name }}</td>
                   <td>{{ subnet.gcp_zone }}</td>
                   <td>{{ subnet.ip_cidr_range }}</td>
+                  <!-- Deletion button as an svg -->
+                  <td class="p-2">
+                    <svg
+                      class="h-6 w-6 text-red-500 hover:text-red-600 cursor-pointer"
+                      @click="deleteSubnet(subnet)"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      :title="'Supprimer'"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="9" y1="9" x2="15" y2="15" />
+                      <line x1="9" y1="15" x2="15" y2="9" />
+                    </svg>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -457,6 +475,24 @@
                     >
                       <td class="p-2">{{ rule.protocol }}</td>
                       <td>{{ stringifyPorts(rule.from_ports) }}</td>
+                      <!-- Deletion button as an svg -->
+                      <td class="p-2">
+                        <svg
+                          class="h-6 w-6 text-red-500 hover:text-red-600 cursor-pointer"
+                          @click="deleteRule(firewall, rule)"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          :title="'Supprimer'"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="9" y1="9" x2="15" y2="15" />
+                          <line x1="9" y1="15" x2="15" y2="9" />
+                        </svg>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -592,6 +628,15 @@
             JSON.parse(JSON.stringify(this.sample_subnet))
           );
         }
+      },
+      deleteSubnet(subnet) {
+        this.gcp_network.subnets.splice(
+          this.gcp_network.subnets.indexOf(subnet),
+          1
+        );
+      },
+      deleteRule(firewall, rule) {
+        firewall.rules.splice(firewall.rules.indexOf(rule), 1);
       },
       sendNetwork() {
         this.v$.$validate();
