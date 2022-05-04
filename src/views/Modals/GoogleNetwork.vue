@@ -539,7 +539,7 @@
           },
         },
         sample_firewall: {
-          name: "firewall-" /* + this.gcp_network.name*/,
+        name: "firewall-",
           is_allow: true,
           rules: [],
         },
@@ -592,8 +592,7 @@
           routing_type: { required },
           providers: { required },
           subnets: { required, minLength: 1 },
-          firewalls: { required },
-        };
+         };
       });
       const v$ = useVuelidate(rules, gcp_network);
       const w$ = useVuelidate(subnet_rules, sample_subnet);
@@ -637,20 +636,22 @@
       },
       sendNetwork() {
         this.v$.$validate();
-        console.log(this.v$.$errors);
-        if (document.getElementById('ssh_rule').checked) {
-          this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
-        }
-        if (document.getElementById('rdp_rule').checked) {
-          this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
-        }
-        //TODO Rule for ICMP
         this.gcp_network.id = this.nid;
+        if (this.gcp_network.firewalls.length == 0) {
+          this.gcp_network.firewalls.push(this.sample_firewall);
+        }
         if (!this.v$.$error) {
-          if (this.gcp_network.firewalls.length != 0) {
-            this.gcp_network.firewalls[0].name =
-              this.gcp_network.firewalls[0].name + this.gcp_network.name;
+          console.log(this.gcp_network);
+          this.gcp_network.firewalls[0].name =
+            this.gcp_network.firewalls[0].name.split("-")[0] + '-' + this.gcp_network.name;
+          if (document.getElementById('ssh_rule').checked) {
+            console.log('salut');
+            this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
           }
+          if (document.getElementById('rdp_rule').checked) {
+            this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
+          }
+          //TODO Rule for ICMP
           this.$emit("send-network", this.gcp_network);
           this.isOpen = false;
         }
