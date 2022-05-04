@@ -400,11 +400,10 @@
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox"
                     value=""
-                    id="flexCheckDefault"
+                    id="ssh_rule"
                   />
                   <label
                     class="form-check-label inline-block text-gray-800"
-                    for="flexCheckDefault"
                   >
                     SSH
                   </label>
@@ -414,12 +413,11 @@
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox"
                     value=""
-                    id="flexCheckChecked"
+                    id="rdp_rule"
                     checked
                   />
                   <label
                     class="form-check-label inline-block text-gray-800"
-                    for="flexCheckChecked"
                   >
                     RDP
                   </label>
@@ -433,11 +431,10 @@
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox"
                     value=""
-                    id="flexCheckDefault"
+                    id="icmp_rule"
                   />
                   <label
                     class="form-check-label inline-block text-gray-800"
-                    for="flexCheckDefault"
                   >
                     ICMP
                   </label>
@@ -641,6 +638,13 @@
       sendNetwork() {
         this.v$.$validate();
         console.log(this.v$.$errors);
+        if (document.getElementById('ssh_rule').checked) {
+          this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
+        }
+        if (document.getElementById('rdp_rule').checked) {
+          this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
+        }
+        //TODO Rule for ICMP
         this.gcp_network.id = this.nid;
         if (!this.v$.$error) {
           if (this.gcp_network.firewalls.length != 0) {
