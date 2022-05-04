@@ -257,13 +257,18 @@
                   >
                 </div>
                 <select
-                  class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-                  v-model="this.sample_subnet.gcp_zone"
+                  @change="updateGCPZone($event.target.value)"
+                  class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  aria-label="GCP Zone"
                 >
-                  <option selected></option>
-                  <option value="us-central-1">us-central-1</option>
-                  <option value="us">us</option>
-                  <option value="central">central</option>
+                  <option selected>{{ this.selected_gcp_zone }}</option>
+                  <option
+                    v-for="zone in this.gcp_zones"
+                    :value="zone"
+                    :key="zone"
+                  >
+                    {{ zone }}
+                  </option>
                 </select>
                 <span class="text-red-500" v-if="this.w$.gcp_zone.$error">
                   {{ this.w$.gcp_zone.$errors[0].$message }}
@@ -477,6 +482,7 @@
   import { computed } from "vue";
   import { required, helpers } from "@vuelidate/validators";
   import useVuelidate from "@vuelidate/core";
+  import axios from "axios";
 
   export default {
     props: ["network", "nid"],
@@ -586,6 +592,26 @@
           this.isOpen = false;
         }
       },
+    },
+    mounted() {
+      let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      axios.get(api_addr + "/settings/zones/gcp").then((response) => {
+        this.gcp_zones = response.data.zones;
+        for (let i = 0; i < this.gcp_zones.length; i++) {
+          if (this.gcp_zones[i] === this.selected_gcp_zone) {
+            this.gcp_zones.splice(i, 1);
+            break;
+          }
+        }
+      });
+      axios.get(api_addr + "/settings/zone/gcp").then((response) => {
+        this.selected_gcp_zone = response.data.zone;
+      });
+      if (this.network.name != "") {
+        this.netType = "new";
+        this.gcp_network.name = this.network.name;
+        this.gcp_network.description = this.network.description;
+      }
     },
   };
 </script>
