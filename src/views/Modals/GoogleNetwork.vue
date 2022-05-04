@@ -477,7 +477,7 @@
   </div>
 </template>
 <script>
-  import { reactive, toRefs } from "vue";
+  import { reactive } from "vue";
   import Firewall from "./Firewall.vue";
   import { computed } from "vue";
   import { required, helpers } from "@vuelidate/validators";
@@ -488,6 +488,7 @@
     props: ["network", "nid", "apiNet"],
     data() {
       return {
+        forbidden_networks: [],
         netType: "new",
         isOpen: false,
         sample_rules: {
@@ -516,6 +517,19 @@
         /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|[1-2][0-9]|3[0-2])/
       );
       cidr = helpers.withMessage("Invalid CIDR", cidr);
+      const forbidden_networks = [
+        "199.36.153.4/30",
+        "199.36.153.8/30",
+        "0.0.0.0/8",
+        "127.0.0.0/8",
+        "169.254.0.0/16",
+        "224.0.0.0/4",
+        "255.255.255.255/32",
+      ];
+      const notForbidden = helpers.withMessage(
+        "Forbidden network",
+        (value) => !forbidden_networks.includes(value)
+      );
       const sample_subnet = reactive({
         name: "",
         description: "",
@@ -527,7 +541,7 @@
         name: { required },
         description: { required },
         gcp_zone: { required },
-        ip_cidr_range: { required, cidr },
+        ip_cidr_range: { required, cidr, notForbidden },
       });
       const gcp_network = reactive({
         id: 0,
