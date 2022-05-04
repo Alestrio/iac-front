@@ -21,7 +21,8 @@
             @dragstart="startDrag($event, 'network-' + network.id)">
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
-              <GoogleNetwork :network="network" :nid="network.id" @send-network="updateGCPNetwork" />
+              <GoogleNetwork :network="network" :nid="network.id" :apiNet="this.to_send.find(n => n.id == network.id)"
+               @send-network="updateGCPNetwork" />
             </div>
             <div class="flex flex-row">
               <img
@@ -244,7 +245,7 @@
           cidrs += i.ip_cidr_range + "\n";
         }
         $net = {
-          id: this.current.length,
+          id: net.id,
           name: net.name,
           cidr: cidrs,
           provider: { id: 0, name: "GCP", type:'provider' },

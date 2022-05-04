@@ -485,7 +485,7 @@
   import axios from "axios";
 
   export default {
-    props: ["network", "nid"],
+    props: ["network", "nid", "apiNet"],
     data() {
       return {
         netType: "new",
@@ -607,10 +607,8 @@
       axios.get(api_addr + "/settings/zone/gcp").then((response) => {
         this.selected_gcp_zone = response.data.zone;
       });
-      if (this.network.name != "") {
-        this.netType = "new";
-        this.gcp_network.name = this.network.name;
-        this.gcp_network.description = this.network.description;
+      if (this.apiNet != null) {
+        this.gcp_network = this.apiNet;
       }
     },
   };
