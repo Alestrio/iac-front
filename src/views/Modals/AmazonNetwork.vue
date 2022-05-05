@@ -33,9 +33,7 @@
           </div>
           <div class="flex justify-center">
             <div class="form-check float-left mr-10">
-              <label
-                class="form-check-label inline-block text-black"
-              >
+              <label class="form-check-label inline-block text-black">
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
@@ -47,9 +45,7 @@
               </label>
             </div>
             <div class="form-check float-left">
-              <label
-                class="form-check-label inline-block text-black"
-              >
+              <label class="form-check-label inline-block text-black">
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
@@ -64,9 +60,7 @@
           </div>
           <div class="flex justify-center">
             <div class="form-check float-left mr-10 mt-8">
-              <label
-                class="form-check-label inline-block text-black"
-              >
+              <label class="form-check-label inline-block text-black">
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
@@ -78,9 +72,7 @@
               </label>
             </div>
             <div class="form-check float-left mt-8">
-              <label
-                class="form-check-label inline-block text-black"
-              >
+              <label class="form-check-label inline-block text-black">
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
@@ -94,9 +86,7 @@
           </div>
           <div class="flex justify-center">
             <div class="form-check mt-2">
-              <label
-                class="form-check-label inline-block text-black"
-              >
+              <label class="form-check-label inline-block text-black">
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
@@ -150,9 +140,36 @@
             >
           </div>
           <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
-            <div class="border cursor-pointer border-gray-300">1</div>
-            <div class="border cursor-pointer border-gray-300">2</div>
-            <div class="border cursor-pointer border-gray-300">3</div>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="availability_zones"
+                v-model="availability_zones"
+                value="1"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">1</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="availability_zones"
+                v-model="availability_zones"
+                value="2"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">2</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="availability_zones"
+                v-model="availability_zones"
+                value="3"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">3</div>
+            </label>
           </div>
           <div class="flex justify-end">
             <span class="mb-0.5 text-black text-right mt-5"
@@ -160,8 +177,26 @@
             >
           </div>
           <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5">
-            <div class="border cursor-pointer border-gray-300">0</div>
-            <div class="border cursor-pointer border-gray-300">2</div>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="public_subnets"
+                v-model="public_subnets"
+                value="0"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">0</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="public_subnets"
+                v-model="public_subnets"
+                value="2"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">2</div>
+            </label>
           </div>
           <div class="flex justify-end">
             <span class="mb-0.5 text-black text-right mt-5"
@@ -169,9 +204,36 @@
             >
           </div>
           <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
-            <div class="border cursor-pointer border-gray-300">0</div>
-            <div class="border cursor-pointer border-gray-300">2</div>
-            <div class="border cursor-pointer border-gray-300">4</div>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="private_subnets"
+                v-model="private_subnets"
+                value="0"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">0</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="private_subnets"
+                v-model="private_subnets"
+                value="2"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">2</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="private_subnets"
+                v-model="private_subnets"
+                value="4"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">4</div>
+            </label>
           </div>
           <div class="flex justify-end">
             <span class="mb-0.5 text-black text-right mt-5"
@@ -179,13 +241,36 @@
             >
           </div>
           <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
-            <div class="border cursor-pointer border-gray-300">Aucune</div>
-            <div class="border cursor-pointer border-gray-300">
-              Dans une zone
-            </div>
-            <div class="border cursor-pointer border-gray-300">
-              Une par zone
-            </div>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="nat_gateways"
+                v-model="nat_gateways"
+                value="none"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Aucune</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="nat_gateways"
+                v-model="nat_gateways"
+                value="in_a_zone"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Dans une zone</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="nat_gateways"
+                v-model="nat_gateways"
+                value="one_per_zone"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Une par zone</div>
+            </label>
           </div>
           <div class="flex justify-end">
             <span class="mb-0.5 text-black text-right mt-5"
@@ -193,10 +278,26 @@
             >
           </div>
           <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5">
-            <div class="border cursor-pointer border-gray-300">Aucune</div>
-            <div class="border cursor-pointer border-gray-300">
-              Passerelle S3
-            </div>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="vpc_endpoints"
+                v-model="vpc_endpoints"
+                value="none"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Aucun</div>
+            </label>
+            <label class="border-gray-300 border cursor-pointer rounded">
+              <input
+                type="radio"
+                name="vpc_endpoints"
+                v-model="vpc_endpoints"
+                value="s3_gateway"
+                class="hidden peer"
+              />
+              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Passerelle S3</div>
+            </label>
           </div>
           <div class="flex justify-center">
             <div class="text-center mb-3">
@@ -209,9 +310,7 @@
           </div>
           <div class="flex justify-center">
             <div class="form-check float-left mr-10">
-              <label
-                class="form-check-label inline-block text-black"
-              >
+              <label class="form-check-label inline-block text-black">
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
@@ -223,9 +322,7 @@
               </label>
             </div>
             <div class="form-check float-left">
-              <label
-                class="form-check-label inline-block text-black"
-              >
+              <label class="form-check-label inline-block text-black">
                 <input
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
@@ -250,6 +347,7 @@
     data() {
       return {
         isOpen: false,
+        availability_zones: "1",
       };
     },
     props: ["network"],
