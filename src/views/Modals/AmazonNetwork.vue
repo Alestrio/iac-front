@@ -374,8 +374,109 @@
               </label>
             </div>
           </div>
+          <div class="flex justify-center" v-if="this.AWSNetwork.vpc_only == 'false'">
+            <div class="text-center mb-3 mt-4">
+              <label
+                for="region"
+                class="form-label inline-block text-xl mb-0.5 text-black"
+                >Pare-feu</label
+              >
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 w-1/2 m-auto" v-if="this.AWSNetwork.vpc_only == 'false'">
+            <div class="form-check float-left flex">
+              <input
+                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                value=""
+                id="ssh_rule"
+              />
+              <label class="form-check-label inline-block text-gray-800">
+                SSH
+              </label>
+            </div>
+            <div class="form-check float-left flex">
+              <input
+                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                value=""
+                id="rdp_rule"
+                checked
+              />
+              <label class="form-check-label inline-block text-gray-800">
+                RDP
+              </label>
+            </div>
+            <div class="form-check float-left flex">
+              <input
+                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                value=""
+                id="icmp_rule"
+              />
+              <label class="form-check-label inline-block text-gray-800">
+                ICMP
+              </label>
+            </div>
+            <div class="form-check float-left flex">
+              <input
+                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                type="checkbox"
+                value=""
+                id="flexCheckChecked"
+                checked
+              />
+              <Firewall @send-firewall="addFirewall" />
+            </div>
+          </div>
           <div class="flex justify-center">
-            <button class="bg-purple-600 p-2 rounded text-white mt-2" @click="createNetwork()">
+            <div class="flex">
+              <table
+                class="table-auto mt-2 rounded-lg bg-purple-600"
+                v-if="this.AWSNetwork.firewall_rules.length > 0"
+              >
+                <thead>
+                  <tr>
+                    <th class="p-2 text-white justify-center">Protocole</th>
+                    <th class="p-2 text-white justify-center">Ports</th>
+                  </tr>
+                </thead>
+                <tbody
+                  v-for="firewall in AWSNetwork.firewall_rules"
+                  :key="firewall"
+                  class="p-2 bg-purple-100"
+                >
+                  <tr v-for="rule in firewall.rules" :key="rule.id" class="p-2">
+                    <td class="p-2">{{ rule.protocol }}</td>
+                    <td>{{ stringifyPorts(rule.from_ports) }}</td>
+                    <!-- Deletion button as an svg -->
+                    <td class="p-2">
+                      <svg
+                        class="h-6 w-6 text-red-500 hover:text-red-600 cursor-pointer"
+                        @click="deleteRule(firewall, rule)"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        :title="'Supprimer'"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="9" y1="9" x2="15" y2="15" />
+                        <line x1="9" y1="15" x2="15" y2="9" />
+                      </svg>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="flex justify-center">
+            <button
+              class="bg-purple-600 p-2 rounded text-white mt-2"
+              @click="createNetwork()"
+            >
               Valider
             </button>
           </div>
