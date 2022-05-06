@@ -625,6 +625,12 @@
       },
       deleteRule(firewall, rule) {
         firewall.rules.splice(firewall.rules.indexOf(rule), 1);
+        if (firewall.rules.length === 0) {
+          this.gcp_network.firewalls.splice(
+            this.gcp_network.firewalls.indexOf(firewall),
+            1
+          );
+        }
       },
       sendNetwork() {
         this.v$.$validate();
