@@ -123,17 +123,22 @@
             </div>
           </div>
           <div class="flex justify-end">
-            <span class="mb-0.5 text-black text-right mt-5" v-if="this.AWSNetwork.vpc_only=='false'"
+            <span
+              class="mb-0.5 text-black text-right mt-5"
+              v-if="this.AWSNetwork.vpc_only == 'false'"
               >Zone de disponibilité</span
             >
           </div>
-          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="availability_zones"
                 v-model="this.AWSNetwork.availability_zones"
-                value=1
+                value="1"
                 class="hidden peer"
               />
               <div
@@ -147,7 +152,7 @@
                 type="radio"
                 name="availability_zones"
                 v-model="this.AWSNetwork.availability_zones"
-                value=2
+                value="2"
                 class="hidden peer"
               />
               <div
@@ -161,7 +166,7 @@
                 type="radio"
                 name="availability_zones"
                 v-model="this.AWSNetwork.availability_zones"
-                value=3
+                value="3"
                 class="hidden peer"
               />
               <div
@@ -171,18 +176,24 @@
               </div>
             </label>
           </div>
-          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="flex justify-end"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <span class="mb-0.5 text-black text-right mt-5"
               >Sous-réseaux publics</span
             >
           </div>
-          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="public_subnets"
                 v-model="this.AWSNetwork.public_subnet_count"
-                value=1
+                value="1"
                 class="hidden peer"
               />
               <div
@@ -196,7 +207,7 @@
                 type="radio"
                 name="public_subnets"
                 v-model="this.AWSNetwork.public_subnet_count"
-                value=2
+                value="2"
                 class="hidden peer"
               />
               <div
@@ -206,18 +217,24 @@
               </div>
             </label>
           </div>
-          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="flex justify-end"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <span class="mb-0.5 text-black text-right mt-5"
               >Sous-réseaux privés</span
             >
           </div>
-          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="private_subnets"
                 v-model="this.AWSNetwork.private_subnet_count"
-                value=0
+                value="0"
                 class="hidden peer"
               />
               <div
@@ -231,7 +248,7 @@
                 type="radio"
                 name="private_subnets"
                 v-model="this.AWSNetwork.private_subnet_count"
-                value=1
+                value="1"
                 class="hidden peer"
               />
               <div
@@ -245,7 +262,7 @@
                 type="radio"
                 name="private_subnets"
                 v-model="this.AWSNetwork.private_subnet_count"
-                value=2
+                value="2"
                 class="hidden peer"
               />
               <div
@@ -255,12 +272,18 @@
               </div>
             </label>
           </div>
-          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="flex justify-end"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <span class="mb-0.5 text-black text-right mt-5"
               >Passerelles NAT</span
             >
           </div>
-          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
@@ -305,18 +328,24 @@
               </div>
             </label>
           </div>
-          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="flex justify-end"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <span class="mb-0.5 text-black text-right mt-5"
               >Point de terminaison d'un VPC</span
             >
           </div>
-          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="vpc_endpoints"
                 v-model="this.AWSNetwork.vpc_s3_out"
-                value=false
+                value="false"
                 class="hidden peer"
               />
               <div
@@ -330,7 +359,7 @@
                 type="radio"
                 name="vpc_endpoints"
                 v-model="this.AWSNetwork.vpc_s3_out"
-                value=true
+                value="true"
                 class="hidden peer"
               />
               <div
@@ -340,7 +369,10 @@
               </div>
             </label>
           </div>
-          <div class="flex justify-center" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="flex justify-center"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <div class="text-center mb-3">
               <label
                 for="region"
@@ -349,7 +381,10 @@
               >
             </div>
           </div>
-          <div class="flex justify-center" v-if="this.AWSNetwork.vpc_only=='false'">
+          <div
+            class="flex justify-center"
+            v-if="this.AWSNetwork.vpc_only == 'false'"
+          >
             <div class="form-check float-left mr-10">
               <label class="form-check-label inline-block text-black">
                 <input
@@ -489,6 +524,7 @@
   import { reactive } from "vue";
   import Firewall from "./Firewall.vue";
   import { required, helpers } from "@vuelidate/validators";
+  import useVuelidate from "@vuelidate/core";
 
   export default {
     setup() {
@@ -497,6 +533,7 @@
       );
       cidr = helpers.withMessage("Invalid CIDR", cidr);
       const AWSNetwork = reactive({
+        id: "",
         name: "",
         // subnets is unused here
         firewall_rules: [],
@@ -525,7 +562,7 @@
       const network_validator = reactive({
         name: { required },
         zone: { required },
-        ip_cidr_range: { required },
+        ip_cidr_range: { required, cidr },
         nat_gateway: { required },
         vpc_s3_out: { required },
         dns_hostnames: { required },
@@ -535,10 +572,13 @@
         public_subnet_count: { required },
       });
 
+      const v$ = useVuelidate(network_validator, AWSNetwork);
+
       return {
         AWSNetwork,
         sample_firewall,
         sample_rule,
+        v$,
       };
     },
     data() {
@@ -547,11 +587,75 @@
         availability_zones: "1",
         dns: "hostnames",
         netType: "new",
+        sample_rules: {
+          rdp: {
+            protocol: "tcp",
+            from_ports: [22],
+            to_ports: [22],
+            source_networks: ["0.0.0.0/0"],
+          },
+          ssh: {
+            protocol: "tcp",
+            from_ports: [22],
+            to_ports: [22],
+            source_networks: ["0.0.0.0/0"],
+          },
+        },
+        sample_firewall: {
+          name: "firewall-",
+          is_allow: true,
+          rules: [],
+        },
       };
     },
     props: ["network"],
     components: {
       Firewall,
+    },
+    methods: {
+      addFirewall(firewall) {
+        let fire = JSON.parse(JSON.stringify(this.sample_firewall));
+        for (let i of firewall) {
+          fire.rules.push(i);
+        }
+        this.AWSNetwork.firewall_rules.push(fire);
+      },
+      stringifyPorts(ports) {
+        return ports.join(", ");
+      },
+      deleteRule(firewall, rule) {
+        firewall.rules.splice(firewall.rules.indexOf(rule), 1);
+        if (firewall.rules.length === 0) {
+          this.AWSNetwork.firewall_rules.splice(
+            this.AWSNetwork.firewall_rules.indexOf(firewall),
+            1
+          );
+        }
+      },
+      sendNetwork() {
+        this.v$.$validate();
+        this.AWSNetwork.id = this.nid;
+        if (this.AWSNetwork.firewall_rules.length == 0) {
+          this.gcp_network.firewall_rules.push(this.sample_firewall);
+        }
+        if (!this.v$.$error) {
+          console.log(this.gcp_network);
+          this.gcp_network.firewalls[0].name =
+            this.gcp_network.firewalls[0].name.split("-")[0] +
+            "-" +
+            this.gcp_network.name;
+          if (document.getElementById("ssh_rule").checked) {
+            console.log("salut");
+            this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
+          }
+          if (document.getElementById("rdp_rule").checked) {
+            this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
+          }
+          //TODO Rule for ICMP
+          this.$emit("send-network", this.gcp_network);
+          this.isOpen = false;
+        }
+      },
     },
   };
 </script>
