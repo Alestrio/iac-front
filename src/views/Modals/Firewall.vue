@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto">
-    <div class="flex justify-center">
+    <div class="flex">
       <label
-        class="form-check-label inline-block underline text-gray-800 cursor-pointer"
+        class="form-check-label underline text-gray-800 cursor-pointer"
         for="flexCheckChecked"
         @click="isOpen = true"
         >Personnalisé</label

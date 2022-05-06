@@ -304,15 +304,19 @@
                 Ajouter
               </button>
             </div>
-            <table class="table-auto mt-2 rounded-lg bg-green-100">
-              <thead>
+            <table
+              class="table-auto mt-6"
+              v-if="this.gcp_network.subnets.length > 0"
+            >
+              <thead class="bg-purple-600 text-white">
                 <tr>
-                  <th>Nom</th>
+                  <th class="rounded-tl-lg">Nom</th>
                   <th>Région</th>
                   <th class="p-1">Plage d'adresses IP</th>
+                  <th class="p-1 rounded-tr-lg"></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="bg-purple-100">
                 <tr
                   v-for="subnet in this.gcp_network.subnets"
                   :key="subnet"
@@ -393,22 +397,19 @@
                 >
               </div>
             </div>
-            <div class="flex justify-center mb-4">
-              <div>
-                <div class="form-check float-left mr-10">
+            <div class="grid grid-cols-2 gap-2 w-1/2 m-auto">
+                <div class="form-check float-left flex">
                   <input
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox"
                     value=""
                     id="ssh_rule"
                   />
-                  <label
-                    class="form-check-label inline-block text-gray-800"
-                  >
+                  <label class="form-check-label inline-block text-gray-800">
                     SSH
                   </label>
                 </div>
-                <div class="form-check float-left">
+                <div class="form-check float-left flex">
                   <input
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox"
@@ -416,30 +417,22 @@
                     id="rdp_rule"
                     checked
                   />
-                  <label
-                    class="form-check-label inline-block text-gray-800"
-                  >
+                  <label class="form-check-label inline-block text-gray-800">
                     RDP
                   </label>
-                </div>
               </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="w-auto float-left">
-                <div class="form-check float-left mr-10">
+                <div class="form-check float-left flex">
                   <input
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox"
                     value=""
                     id="icmp_rule"
                   />
-                  <label
-                    class="form-check-label inline-block text-gray-800"
-                  >
+                  <label class="form-check-label inline-block text-gray-800">
                     ICMP
                   </label>
                 </div>
-                <div class="form-check float-left">
+                <div class="form-check float-left flex">
                   <input
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox"
@@ -447,23 +440,22 @@
                     id="flexCheckChecked"
                     checked
                   />
-                  <Firewall class="ml-3" @send-firewall="addFirewall" />
+                  <Firewall @send-firewall="addFirewall" />
                 </div>
-              </div>
             </div>
             <div class="flex justify-center">
               <div class="flex">
-                <table class="table-auto mt-2 rounded-lg bg-green-100">
+                <table class="table-auto mt-2 rounded-lg bg-purple-600" v-if="this.gcp_network.firewalls.length > 0">
                   <thead>
                     <tr>
-                      <th class="p-2">Protocole</th>
-                      <th class="p-2">Ports</th>
+                      <th class="p-2 text-white justify-center">Protocole</th>
+                      <th class="p-2 text-white justify-center">Ports</th>
                     </tr>
                   </thead>
-                  <tbody
+                  <tbody 
                     v-for="firewall in gcp_network.firewalls"
                     :key="firewall"
-                    class="p-2"
+                    class="p-2 bg-purple-100"
                   >
                     <tr
                       v-for="rule in firewall.rules"
@@ -539,7 +531,7 @@
           },
         },
         sample_firewall: {
-        name: "firewall-",
+          name: "firewall-",
           is_allow: true,
           rules: [],
         },
@@ -592,7 +584,7 @@
           routing_type: { required },
           providers: { required },
           subnets: { required, minLength: 1 },
-         };
+        };
       });
       const v$ = useVuelidate(rules, gcp_network);
       const w$ = useVuelidate(subnet_rules, sample_subnet);
@@ -643,12 +635,14 @@
         if (!this.v$.$error) {
           console.log(this.gcp_network);
           this.gcp_network.firewalls[0].name =
-            this.gcp_network.firewalls[0].name.split("-")[0] + '-' + this.gcp_network.name;
-          if (document.getElementById('ssh_rule').checked) {
-            console.log('salut');
+            this.gcp_network.firewalls[0].name.split("-")[0] +
+            "-" +
+            this.gcp_network.name;
+          if (document.getElementById("ssh_rule").checked) {
+            console.log("salut");
             this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
           }
-          if (document.getElementById('rdp_rule').checked) {
+          if (document.getElementById("rdp_rule").checked) {
             this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
           }
           //TODO Rule for ICMP
