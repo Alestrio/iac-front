@@ -65,8 +65,9 @@
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
                   name="creationType"
-                  value="vpc_only"
-                  v-model="creationType"
+                  value="true"
+                  v-model="this.AWSNetwork.vpc_only"
+                  checked
                 />
                 VPC uniquement
               </label>
@@ -77,25 +78,10 @@
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
                   name="creationType"
-                  value="vpc_and_subnet"
-                  v-model="creationType"
+                  value="false"
+                  v-model="this.AWSNetwork.vpc_only"
                 />
                 VPC et sous-réseaux
-              </label>
-            </div>
-          </div>
-          <div class="flex justify-center">
-            <div class="form-check mt-2">
-              <label class="form-check-label inline-block text-black">
-                <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  name="creationType"
-                  checked
-                  value="auto"
-                  v-model="creationType"
-                />
-                Automatique
               </label>
             </div>
           </div>
@@ -113,6 +99,7 @@
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
+                  v-model="this.AWSNetwork.name"
                 />
               </div>
             </div>
@@ -130,176 +117,230 @@
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="desc"
                   placeholder="10.0.0.0/16"
+                  v-model="this.AWSNetwork.ip_cidr_range"
                 />
               </div>
             </div>
           </div>
           <div class="flex justify-end">
-            <span class="mb-0.5 text-black text-right mt-5"
+            <span class="mb-0.5 text-black text-right mt-5" v-if="this.AWSNetwork.vpc_only=='false'"
               >Zone de disponibilité</span
             >
           </div>
-          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
+          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="availability_zones"
-                v-model="availability_zones"
-                value="1"
+                v-model="this.AWSNetwork.availability_zones"
+                value=1
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">1</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                1
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="availability_zones"
-                v-model="availability_zones"
-                value="2"
+                v-model="this.AWSNetwork.availability_zones"
+                value=2
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">2</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                2
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="availability_zones"
-                v-model="availability_zones"
-                value="3"
+                v-model="this.AWSNetwork.availability_zones"
+                value=3
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">3</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                3
+              </div>
             </label>
           </div>
-          <div class="flex justify-end">
+          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
             <span class="mb-0.5 text-black text-right mt-5"
               >Sous-réseaux publics</span
             >
           </div>
-          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5">
+          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="public_subnets"
-                v-model="public_subnets"
-                value="0"
+                v-model="this.AWSNetwork.public_subnet_count"
+                value=1
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">0</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                0
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="public_subnets"
-                v-model="public_subnets"
-                value="2"
+                v-model="this.AWSNetwork.public_subnet_count"
+                value=2
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">2</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                2
+              </div>
             </label>
           </div>
-          <div class="flex justify-end">
+          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
             <span class="mb-0.5 text-black text-right mt-5"
               >Sous-réseaux privés</span
             >
           </div>
-          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
+          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="private_subnets"
-                v-model="private_subnets"
-                value="0"
+                v-model="this.AWSNetwork.private_subnet_count"
+                value=0
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">0</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                0
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="private_subnets"
-                v-model="private_subnets"
-                value="2"
+                v-model="this.AWSNetwork.private_subnet_count"
+                value=1
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">2</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                1
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="private_subnets"
-                v-model="private_subnets"
-                value="4"
+                v-model="this.AWSNetwork.private_subnet_count"
+                value=2
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">4</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                2
+              </div>
             </label>
           </div>
-          <div class="flex justify-end">
+          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
             <span class="mb-0.5 text-black text-right mt-5"
               >Passerelles NAT</span
             >
           </div>
-          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5">
+          <div class="grid col-span-3 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="nat_gateways"
-                v-model="nat_gateways"
+                v-model="this.AWSNetwork.nat_gateway"
                 value="none"
                 class="hidden peer"
+                checked
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Aucune</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                Aucune
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="nat_gateways"
-                v-model="nat_gateways"
+                v-model="this.AWSNetwork.nat_gateway"
                 value="in_a_zone"
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Dans une zone</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                Dans une zone
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="nat_gateways"
-                v-model="nat_gateways"
+                v-model="this.AWSNetwork.nat_gateway"
                 value="one_per_zone"
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Une par zone</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                Une par zone
+              </div>
             </label>
           </div>
-          <div class="flex justify-end">
+          <div class="flex justify-end" v-if="this.AWSNetwork.vpc_only=='false'">
             <span class="mb-0.5 text-black text-right mt-5"
               >Point de terminaison d'un VPC</span
             >
           </div>
-          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5">
+          <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5" v-if="this.AWSNetwork.vpc_only=='false'">
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="vpc_endpoints"
-                v-model="vpc_endpoints"
-                value="none"
+                v-model="this.AWSNetwork.vpc_s3_out"
+                value=false
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Aucun</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                Aucun
+              </div>
             </label>
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
                 type="radio"
                 name="vpc_endpoints"
-                v-model="vpc_endpoints"
-                value="s3_gateway"
+                v-model="this.AWSNetwork.vpc_s3_out"
+                value=true
                 class="hidden peer"
               />
-              <div class="peer-checked:bg-purple-600 peer-checked:text-white rounded">Passerelle S3</div>
+              <div
+                class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+              >
+                Passerelle S3
+              </div>
             </label>
           </div>
-          <div class="flex justify-center">
+          <div class="flex justify-center" v-if="this.AWSNetwork.vpc_only=='false'">
             <div class="text-center mb-3">
               <label
                 for="region"
@@ -308,15 +349,14 @@
               >
             </div>
           </div>
-          <div class="flex justify-center">
+          <div class="flex justify-center" v-if="this.AWSNetwork.vpc_only=='false'">
             <div class="form-check float-left mr-10">
               <label class="form-check-label inline-block text-black">
                 <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
+                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
                   name="dns"
-                  value="hostnames"
-                  v-model="dns"
+                  v-model="this.AWSNetwork.dns_hostnames"
                 />
                 Noms d'hôtes DNS
               </label>
@@ -324,16 +364,20 @@
             <div class="form-check float-left">
               <label class="form-check-label inline-block text-black">
                 <input
-                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
+                  class="appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
                   name="dns"
                   checked
-                  value="dns_resolution"
-                  v-model="dns"
+                  v-model="this.AWSNetwork.dns_resolution"
                 />
                 Résolution DNS
               </label>
             </div>
+          </div>
+          <div class="flex justify-center">
+            <button class="bg-purple-600 p-2 rounded text-white mt-2" @click="createNetwork()">
+              Valider
+            </button>
           </div>
         </div>
       </div>
@@ -341,13 +385,67 @@
   </div>
 </template>
 <script>
+  import { reactive } from "vue";
   import Firewall from "./Firewall.vue";
+  import { required, helpers } from "@vuelidate/validators";
 
   export default {
+    setup() {
+      let cidr = helpers.regex(
+        /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|[1-2][0-9]|3[0-2])/
+      );
+      cidr = helpers.withMessage("Invalid CIDR", cidr);
+      const AWSNetwork = reactive({
+        name: "",
+        // subnets is unused here
+        firewall_rules: [],
+        availability_zones: 1,
+        zone: "",
+        vpc_only: true,
+        private_subnet_count: 1,
+        public_subnet_count: 1,
+        ip_cidr_range: "",
+        nat_gateway: "",
+        vpc_s3_out: false,
+        dns_hostnames: false,
+        dns_resolution: false,
+      });
+      const sample_firewall = reactive({
+        name: "",
+        is_allow: true,
+        rules: [],
+      });
+      const sample_rule = reactive({
+        protocol: "",
+        from_ports: [],
+        to_ports: [],
+        source_networks: [],
+      });
+      const network_validator = reactive({
+        name: { required },
+        zone: { required },
+        ip_cidr_range: { required },
+        nat_gateway: { required },
+        vpc_s3_out: { required },
+        dns_hostnames: { required },
+        dns_resolution: { required },
+        firewall_rules: { required },
+        private_subnet_count: { required },
+        public_subnet_count: { required },
+      });
+
+      return {
+        AWSNetwork,
+        sample_firewall,
+        sample_rule,
+      };
+    },
     data() {
       return {
         isOpen: false,
         availability_zones: "1",
+        dns: "hostnames",
+        netType: "new",
       };
     },
     props: ["network"],
