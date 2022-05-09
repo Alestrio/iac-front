@@ -160,7 +160,9 @@
           <div class="flex justify-end">
             <span
               class="mb-0.5 text-black text-right mt-5"
-              v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
+              v-if="
+                this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'
+              "
               >Zone de disponibilité</span
             >
           </div>
@@ -640,9 +642,9 @@
       });
       const network_validator = reactive({
         name: { required },
-        zone: { required },
+        zone: { requiredIf: (v) => !v.vpc_only },
         ip_cidr_range: { required, cidr },
-        firewall_rules: { required },
+        firewall_rules: { requiredIf: (v) => !v.vpc_only },
       });
 
       const v$ = useVuelidate(network_validator, AWSNetwork);
@@ -708,20 +710,29 @@
       sendNetwork() {
         this.v$.$validate();
         this.AWSNetwork.id = this.nid;
-        if (this.AWSNetwork.firewall_rules.length == 0) {
+        if (
+          this.AWSNetwork.firewall_rules.length == 0 &&
+          !this.AWSNetwork.vpc_only
+        ) {
           this.AWSNetwork.firewall_rules.push(this.sample_firewall);
         }
         if (!this.v$.$error) {
-          console.log(this.gcp_network);
-          this.AWSNetwork.firewall_rules[0].name =
-            this.AWSNetwork.firewall_rules[0].name.split("-")[0] +
-            "-" +
-            this.AWSNetwork.name;
-          if (document.getElementById("ssh_rule").checked) {
-            this.AWSNetwork.firewall_rules[0].rules.push(this.sample_rules.ssh);
-          }
-          if (document.getElementById("rdp_rule").checked) {
-            this.AWSNetwork.firewall_rules[0].rules.push(this.sample_rules.rdp);
+          if (!this.AWSNetwork.vpc_only) {
+            console.log(this.gcp_network);
+            this.AWSNetwork.firewall_rules[0].name =
+              this.AWSNetwork.firewall_rules[0].name.split("-")[0] +
+              "-" +
+              this.AWSNetwork.name;
+            if (document.getElementById("ssh_rule").checked) {
+              this.AWSNetwork.firewall_rules[0].rules.push(
+                this.sample_rules.ssh
+              );
+            }
+            if (document.getElementById("rdp_rule").checked) {
+              this.AWSNetwork.firewall_rules[0].rules.push(
+                this.sample_rules.rdp
+              );
+            }
           }
           //TODO Rule for ICMP
           this.$emit("send-network", this.AWSNetwork);
