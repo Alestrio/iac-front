@@ -674,24 +674,6 @@ export default {
         this.isOpen = false;
       }
     },
-<<<<<<< Updated upstream
-    mounted() {
-      let api_addr = import.meta.env.VITE_APP_API_ADDR;
-      axios.get(api_addr + "/settings/zone/gcp").then((response) => {
-        this.selected_gcp_zone = response.data.zone;
-      });
-      axios.get(api_addr + "/settings/zones/gcp").then((response) => {
-        this.gcp_zones = response.data.zones;
-        for (let i = 0; i < this.gcp_zones.length; i++) {
-          if (this.gcp_zones[i] === this.selected_gcp_zone) {
-            this.gcp_zones.splice(i, 1);
-            break;
-          }
-        }
-      });
-      if (this.apiNet != null) {
-        this.gcp_network = this.apiNet;
-=======
   },
   mounted() {
     let api_addr = import.meta.env.VITE_APP_API_ADDR;
@@ -702,7 +684,6 @@ export default {
           this.gcp_zones.splice(i, 1);
           break;
         }
->>>>>>> Stashed changes
       }
     });
     axios.get(api_addr + "/settings/zone/gcp").then((response) => {
