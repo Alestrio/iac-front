@@ -40,6 +40,7 @@
                   name="netType"
                   value="new"
                   v-model="netType"
+                  checked
                 />
                 Nouveau
               </label>
@@ -50,7 +51,6 @@
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
                   name="netType"
-                  checked
                   value="existing"
                   v-model="netType"
                 />
@@ -58,7 +58,50 @@
               </label>
             </div>
           </div>
-          <div class="flex justify-center">
+          <div
+            class="flex justify-center"
+            id="existing"
+            v-if="this.netType != 'new'"
+          >
+            <div class="mb-3 xl:w-96">
+              <div class="text-right">
+                <label
+                  for="name"
+                  class="form-label inline-block mb-0.5 text-black"
+                  >Zone</label
+                >
+              </div>
+              <select
+                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                aria-label="GCP Zone"
+                v-model="this.AWSNetwork.zone"
+              >
+                <option selected>{{ this.selected_aws_zone }}</option>
+                <option
+                  v-for="zone in this.aws_zones"
+                  :value="zone"
+                  :key="zone"
+                >
+                  {{ zone }}
+                </option>
+              </select>
+              <div class="text-right">
+                <label
+                  for="name"
+                  class="form-label inline-block mb-0.5 text-black"
+                  >Nom</label
+                >
+              </div>
+              <select
+                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
+              >
+                <option>------------</option>
+                <option selected>Veuillez sélectionner une zone</option>
+                <option>------------</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex justify-center" v-if="this.netType == 'new'">
             <div class="form-check float-left mr-10 mt-8">
               <label class="form-check-label inline-block text-black">
                 <input
@@ -85,8 +128,8 @@
               </label>
             </div>
           </div>
-          <div class="mt-3">
-            <div class="flex justify-center">
+          <div class="mt-3" v-if="this.netType == 'new'">
+            <div class="flex flec-col justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -103,7 +146,13 @@
                 />
               </div>
             </div>
-            <div class="flex justify-center">
+            <span
+              v-if="this.v$.name.$error"
+              class="text-red-500 text-xs italic"
+            >
+              {{ v$.name.$errors[0].$message }}
+            </span>
+            <div class="flex justify-center" v-if="this.netType == 'new'">
               <div class="mb-2 xl:w-96">
                 <div class="text-right">
                   <label
@@ -122,16 +171,24 @@
               </div>
             </div>
           </div>
+          <span
+            v-if="this.v$.ip_cidr_range.$error"
+            class="text-red-500 text-xs italic"
+          >
+            {{ v$.ip_cidr_range.$errors[0].$message }}
+          </span>
           <div class="flex justify-end">
             <span
               class="mb-0.5 text-black text-right mt-5"
-              v-if="this.AWSNetwork.vpc_only == 'false'"
+              v-if="
+                this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'
+              "
               >Zone de disponibilité</span
             >
           </div>
           <div
             class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -177,16 +234,47 @@
             </label>
           </div>
           <div
-            class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            class="flex justify-center mt-1"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
-            <span class="mb-0.5 text-black text-right mt-5"
+            <div class="mb-3 xl:w-96">
+              <div class="text-right">
+                <label
+                  for="name"
+                  class="form-label inline-block mb-0.5 text-black"
+                  >Région</label
+                >
+              </div>
+              <select
+                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                aria-label="GCP Zone"
+                v-model="this.AWSNetwork.zone"
+              >
+                <option selected>{{ this.selected_aws_zone }}</option>
+                <option
+                  v-for="zone in this.aws_zones"
+                  :value="zone"
+                  :key="zone"
+                >
+                  {{ zone }}
+                </option>
+              </select>
+              <span class="text-red-500" v-if="this.v$.zone.$error">
+                {{ this.v$.zone.$errors[0].$message }}
+              </span>
+            </div>
+          </div>
+          <div
+            class="flex justify-end"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
+          >
+            <span class="mb-0.5 text-black text-right"
               >Sous-réseaux publics</span
             >
           </div>
           <div
             class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -219,7 +307,7 @@
           </div>
           <div
             class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <span class="mb-0.5 text-black text-right mt-5"
               >Sous-réseaux privés</span
@@ -227,7 +315,7 @@
           </div>
           <div
             class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -274,15 +362,21 @@
           </div>
           <div
             class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <span class="mb-0.5 text-black text-right mt-5"
-              >Passerelles NAT</span
+              >Passerelles NAT (€)
+              <a
+                href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html"
+                class="text-blue-500 hover:text-blue-600"
+                target="_blank"
+                >?</a
+              ></span
             >
           </div>
           <div
             class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -330,7 +424,7 @@
           </div>
           <div
             class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <span class="mb-0.5 text-black text-right mt-5"
               >Point de terminaison d'un VPC</span
@@ -338,7 +432,7 @@
           </div>
           <div
             class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -371,7 +465,7 @@
           </div>
           <div
             class="flex justify-center"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <div class="text-center mb-3">
               <label
@@ -383,7 +477,7 @@
           </div>
           <div
             class="flex justify-center"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <div class="form-check float-left mr-10">
               <label class="form-check-label inline-block text-black">
@@ -409,7 +503,10 @@
               </label>
             </div>
           </div>
-          <div class="flex justify-center" v-if="this.AWSNetwork.vpc_only == 'false'">
+          <div
+            class="flex justify-center"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
+          >
             <div class="text-center mb-3 mt-4">
               <label
                 for="region"
@@ -418,7 +515,10 @@
               >
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-2 w-1/2 m-auto" v-if="this.AWSNetwork.vpc_only == 'false'">
+          <div
+            class="grid grid-cols-2 gap-2 w-1/2 m-auto"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
+          >
             <div class="form-check float-left flex">
               <input
                 class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
@@ -510,7 +610,7 @@
           <div class="flex justify-center">
             <button
               class="bg-purple-600 p-2 rounded text-white mt-2"
-              @click="createNetwork()"
+              @click="sendNetwork()"
             >
               Valider
             </button>
@@ -525,6 +625,7 @@
   import Firewall from "./Firewall.vue";
   import { required, helpers } from "@vuelidate/validators";
   import useVuelidate from "@vuelidate/core";
+  import axios from "axios";
 
   export default {
     setup() {
@@ -561,15 +662,9 @@
       });
       const network_validator = reactive({
         name: { required },
-        zone: { required },
+        zone: { requiredIf: (v) => !v.vpc_only },
         ip_cidr_range: { required, cidr },
-        nat_gateway: { required },
-        vpc_s3_out: { required },
-        dns_hostnames: { required },
-        dns_resolution: { required },
-        firewall_rules: { required },
-        private_subnet_count: { required },
-        public_subnet_count: { required },
+        firewall_rules: { requiredIf: (v) => !v.vpc_only },
       });
 
       const v$ = useVuelidate(network_validator, AWSNetwork);
@@ -608,12 +703,16 @@
         },
       };
     },
-    props: ["network"],
+    props: ["network", "nid"],
     components: {
       Firewall,
     },
     methods: {
       addFirewall(firewall) {
+        /*
+         * Add a firewall rule to the network
+         * This should be used only once, and will be refactored one the API refactored to only one firewall
+         */
         let fire = JSON.parse(JSON.stringify(this.sample_firewall));
         for (let i of firewall) {
           fire.rules.push(i);
@@ -621,9 +720,10 @@
         this.AWSNetwork.firewall_rules.push(fire);
       },
       stringifyPorts(ports) {
-        return ports.join(", ");
+        return ports.join(", "); //Allows to display ports array as a string
       },
       deleteRule(firewall, rule) {
+        // Delete a rule from the firewall of the network
         firewall.rules.splice(firewall.rules.indexOf(rule), 1);
         if (firewall.rules.length === 0) {
           this.AWSNetwork.firewall_rules.splice(
@@ -633,29 +733,54 @@
         }
       },
       sendNetwork() {
-        this.v$.$validate();
-        this.AWSNetwork.id = this.nid;
-        if (this.AWSNetwork.firewall_rules.length == 0) {
-          this.gcp_network.firewall_rules.push(this.sample_firewall);
-        }
+        this.v$.$validate(); // Perform validation
+        this.AWSNetwork.id = this.nid; // Set the network id
         if (!this.v$.$error) {
-          console.log(this.gcp_network);
-          this.gcp_network.firewalls[0].name =
-            this.gcp_network.firewalls[0].name.split("-")[0] +
-            "-" +
-            this.gcp_network.name;
-          if (document.getElementById("ssh_rule").checked) {
-            console.log("salut");
-            this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
-          }
-          if (document.getElementById("rdp_rule").checked) {
-            this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
+          // If there are no errors
+          if (!this.AWSNetwork.vpc_only) {
+            // If the network is not in vpc only mode
+            if (this.AWSNetwork.firewall_rules.length == 0) {
+              this.AWSNetwork.firewall_rules.push(this.sample_firewall); // add a firewall rule if none are present
+            }
+            this.AWSNetwork.firewall_rules[0].name =
+              this.AWSNetwork.firewall_rules[0].name.split("-")[0] +
+              "-" +
+              this.AWSNetwork.name; // set the firewall name to the network name, there are only one firewall, so we don't need to loop
+            // Adding rules to the firewall according to the checked checkboxes
+            if (document.getElementById("ssh_rule").checked) {
+              this.AWSNetwork.firewall_rules[0].rules.push(
+                this.sample_rules.ssh
+              );
+            }
+            if (document.getElementById("rdp_rule").checked) {
+              this.AWSNetwork.firewall_rules[0].rules.push(
+                this.sample_rules.rdp
+              );
+            }
           }
           //TODO Rule for ICMP
-          this.$emit("send-network", this.gcp_network);
-          this.isOpen = false;
+          this.$emit("send-network", this.AWSNetwork); // Passing the data to the parent
+          this.isOpen = false; // Close the modal
         }
       },
+    },
+    mounted() {
+      let api_addr = import.meta.env.VITE_APP_API_ADDR; // Get the api address from the env variable
+      if (this.apiNet != null) {
+        this.aws_network = this.apiNet; // Set the network to the one received from the api if available
+      }
+      axios.get(api_addr + "/settings/zone/aws").then((response) => {
+        this.selected_aws_zone = response.data.zone; // Set the selected zone to the one received from the api
+      });
+      axios.get(api_addr + "/settings/zones/aws").then((response) => {
+        this.aws_zones = response.data.zones; // Set the zones to the ones received from the api
+        for (let i = 0; i < this.aws_zones.length; i++) {
+          if (this.aws_zones[i] === this.selected_aws_zone) {
+            this.aws_zones.splice(i, 1); // Remove the selected zone from the list of available zones
+            break;
+          }
+        }
+      });
     },
   };
 </script>

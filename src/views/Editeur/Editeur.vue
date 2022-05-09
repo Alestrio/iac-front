@@ -256,6 +256,25 @@
         // replace the old network with the new one
         this.current.splice(this.current.findIndex(network => network.id == net.id), 1, $net);
       },
+      updateAWSNetwork(net) {
+        console.log(net);
+        let $net = this.networks.find(network => network.id == net.id);
+        let inst = [];
+        if ($net) {
+          inst = $net.instances;
+        }
+
+        this.to_send.push(net);
+        $net = {
+          id: net.id,
+          name: net.name,
+          cidr: net.ip_cidr_range,
+          provider: { id: 0, name: "AWS", type:'provider' },
+          instances: inst
+        };
+        // replace the old network with the new one
+        this.current.splice(this.current.findIndex(network => network.id == net.id), 1, $net);
+      },
     },
     data() {
       return {
