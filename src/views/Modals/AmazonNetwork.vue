@@ -40,6 +40,7 @@
                   name="netType"
                   value="new"
                   v-model="netType"
+                  checked
                 />
                 Nouveau
               </label>
@@ -50,7 +51,6 @@
                   class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="radio"
                   name="netType"
-                  checked
                   value="existing"
                   v-model="netType"
                 />
@@ -58,7 +58,30 @@
               </label>
             </div>
           </div>
-          <div class="flex justify-center">
+          <div
+            class="flex justify-center"
+            id="existing"
+            v-if="this.netType != 'new'"
+          >
+            <div class="mb-3 xl:w-96">
+              <div class="text-right">
+                <label
+                  for="name"
+                  class="form-label inline-block mb-0.5 text-black"
+                  >Nom</label
+                >
+              </div>
+              <select
+                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
+              >
+                <option selected></option>
+                <option value="1">pimahtic-network</option>
+                <option value="2">net</option>
+                <option value="3">work</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex justify-center" v-if="this.netType == 'new'">
             <div class="form-check float-left mr-10 mt-8">
               <label class="form-check-label inline-block text-black">
                 <input
@@ -85,7 +108,7 @@
               </label>
             </div>
           </div>
-          <div class="mt-3">
+          <div class="mt-3" v-if="this.netType == 'new'">
             <div class="flex flec-col justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
@@ -109,7 +132,7 @@
             >
               {{ v$.name.$errors[0].$message }}
             </span>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-if="this.netType == 'new'">
               <div class="mb-2 xl:w-96">
                 <div class="text-right">
                   <label
@@ -137,13 +160,13 @@
           <div class="flex justify-end">
             <span
               class="mb-0.5 text-black text-right mt-5"
-              v-if="this.AWSNetwork.vpc_only == 'false'"
+              v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
               >Zone de disponibilité</span
             >
           </div>
           <div
             class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -190,7 +213,7 @@
           </div>
           <div
             class="flex justify-center mt-1"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <div class="mb-3 xl:w-96">
               <div class="text-right">
@@ -221,7 +244,7 @@
           </div>
           <div
             class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <span class="mb-0.5 text-black text-right"
               >Sous-réseaux publics</span
@@ -229,7 +252,7 @@
           </div>
           <div
             class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -262,7 +285,7 @@
           </div>
           <div
             class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <span class="mb-0.5 text-black text-right mt-5"
               >Sous-réseaux privés</span
@@ -270,7 +293,7 @@
           </div>
           <div
             class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -317,7 +340,7 @@
           </div>
           <div
             class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <span class="mb-0.5 text-black text-right mt-5"
               >Passerelles NAT (€)
@@ -331,7 +354,7 @@
           </div>
           <div
             class="grid col-span-3 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -379,7 +402,7 @@
           </div>
           <div
             class="flex justify-end"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <span class="mb-0.5 text-black text-right mt-5"
               >Point de terminaison d'un VPC</span
@@ -387,7 +410,7 @@
           </div>
           <div
             class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <label class="border-gray-300 border cursor-pointer rounded">
               <input
@@ -420,7 +443,7 @@
           </div>
           <div
             class="flex justify-center"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <div class="text-center mb-3">
               <label
@@ -432,7 +455,7 @@
           </div>
           <div
             class="flex justify-center"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <div class="form-check float-left mr-10">
               <label class="form-check-label inline-block text-black">
@@ -460,7 +483,7 @@
           </div>
           <div
             class="flex justify-center"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <div class="text-center mb-3 mt-4">
               <label
@@ -472,7 +495,7 @@
           </div>
           <div
             class="grid grid-cols-2 gap-2 w-1/2 m-auto"
-            v-if="this.AWSNetwork.vpc_only == 'false'"
+            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
           >
             <div class="form-check float-left flex">
               <input
@@ -723,7 +746,6 @@
           }
         }
       });
-      
     },
   };
 </script>
