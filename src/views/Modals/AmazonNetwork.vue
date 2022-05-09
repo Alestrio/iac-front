@@ -681,7 +681,7 @@
         },
       };
     },
-    props: ["network"],
+    props: ["network", "nid"],
     components: {
       Firewall,
     },
