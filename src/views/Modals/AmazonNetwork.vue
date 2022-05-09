@@ -689,6 +689,10 @@
     },
     methods: {
       addFirewall(firewall) {
+        /*
+        * Add a firewall rule to the network
+        * This should be used only once, and will be refactored one the API refactored to only one firewall
+        */
         let fire = JSON.parse(JSON.stringify(this.sample_firewall));
         for (let i of firewall) {
           fire.rules.push(i);
@@ -696,9 +700,10 @@
         this.AWSNetwork.firewall_rules.push(fire);
       },
       stringifyPorts(ports) {
-        return ports.join(", ");
+        return ports.join(", "); //Allows to display ports array as a string
       },
       deleteRule(firewall, rule) {
+        // Delete a rule from the firewall of the network
         firewall.rules.splice(firewall.rules.indexOf(rule), 1);
         if (firewall.rules.length === 0) {
           this.AWSNetwork.firewall_rules.splice(
@@ -708,21 +713,18 @@
         }
       },
       sendNetwork() {
-        this.v$.$validate();
-        this.AWSNetwork.id = this.nid;
-        if (
-          this.AWSNetwork.firewall_rules.length == 0 &&
-          !this.AWSNetwork.vpc_only
-        ) {
-          this.AWSNetwork.firewall_rules.push(this.sample_firewall);
-        }
-        if (!this.v$.$error) {
-          if (!this.AWSNetwork.vpc_only) {
-            console.log(this.gcp_network);
+        this.v$.$validate(); // Perform validation
+        this.AWSNetwork.id = this.nid; // Set the network id
+        if (!this.v$.$error) { // If there are no errors
+          if (!this.AWSNetwork.vpc_only) { // If the network is not in vpc only mode
+            if (this.AWSNetwork.firewall_rules.length == 0) {
+              this.AWSNetwork.firewall_rules.push(this.sample_firewall); // add a firewall rule if none are present
+            }
             this.AWSNetwork.firewall_rules[0].name =
               this.AWSNetwork.firewall_rules[0].name.split("-")[0] +
               "-" +
-              this.AWSNetwork.name;
+              this.AWSNetwork.name; // set the firewall name to the network name, there are only one firewall, so we don't need to loop
+            // Adding rules to the firewall according to the checked checkboxes
             if (document.getElementById("ssh_rule").checked) {
               this.AWSNetwork.firewall_rules[0].rules.push(
                 this.sample_rules.ssh
@@ -735,24 +737,24 @@
             }
           }
           //TODO Rule for ICMP
-          this.$emit("send-network", this.AWSNetwork);
-          this.isOpen = false;
+          this.$emit("send-network", this.AWSNetwork); // Passing the data to the parent
+          this.isOpen = false; // Close the modal
         }
       },
     },
     mounted() {
-      let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      let api_addr = import.meta.env.VITE_APP_API_ADDR; // Get the api address from the env variable
       if (this.apiNet != null) {
-        this.aws_network = this.apiNet;
+        this.aws_network = this.apiNet; // Set the network to the one received from the api if available
       }
       axios.get(api_addr + "/settings/zone/aws").then((response) => {
-        this.selected_aws_zone = response.data.zone;
+        this.selected_aws_zone = response.data.zone; // Set the selected zone to the one received from the api
       });
       axios.get(api_addr + "/settings/zones/aws").then((response) => {
-        this.aws_zones = response.data.zones;
+        this.aws_zones = response.data.zones; // Set the zones to the ones received from the api
         for (let i = 0; i < this.aws_zones.length; i++) {
           if (this.aws_zones[i] === this.selected_aws_zone) {
-            this.aws_zones.splice(i, 1);
+            this.aws_zones.splice(i, 1); // Remove the selected zone from the list of available zones
             break;
           }
         }
