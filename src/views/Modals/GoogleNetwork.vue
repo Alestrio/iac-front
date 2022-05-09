@@ -206,9 +206,10 @@
               </div>
             </div>
             <hr class="my-4" />
-            <h1 class="text-3xl">Sous-réseaux</h1>
+            <h1 class="text-3xl" v-if="this.netType == 'new'">Sous-réseaux</h1>
+            <h1 class="text-3xl" v-if="this.netType == 'existing'">Sous-réseaux validé</h1>
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
+              <div class="mb-3 xl:w-96" v-if="this.netType == 'new'">
                 <div class="text-right">
                   <label
                     for="name"
@@ -228,7 +229,7 @@
               </div>
             </div>
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
+              <div class="mb-3 xl:w-96" v-if="this.netType == 'new'">
                 <div class="text-right">
                   <label
                     for="desc"
@@ -248,7 +249,7 @@
               </div>
             </div>
             <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
+              <div class="mb-3 xl:w-96" v-if="this.netType == 'new'">
                 <div class="text-right">
                   <label
                     for="name"
@@ -276,7 +277,7 @@
               </div>
             </div>
             <div class="flex justify-center">
-              <div class="mb-5 xl:w-96">
+              <div class="mb-5 xl:w-96" v-if="this.netType == 'new'">
                 <div class="text-right">
                   <label
                     for="desc"
@@ -296,7 +297,7 @@
                 </span>
               </div>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-if="this.netType == 'new'">
               <button
                 class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 @click="addSubnet"
@@ -355,11 +356,18 @@
                 <label
                   for="region"
                   class="form-label inline-block text-xl mb-0.5 text-black"
+                  v-if="this.netType == 'new'"
                   >Routage dynamique</label
+                >
+                <label
+                  for="region"
+                  class="form-label inline-block text-xl mb-0.5 text-black"
+                  v-if="this.netType == 'existing'"
+                  >Routage dynamique valide</label
                 >
               </div>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-if="this.netType == 'new'">
               <div class="form-check float-left mr-10">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -393,66 +401,76 @@
                 <label
                   for="region"
                   class="form-label inline-block text-xl mb-0.5 text-black"
+                  v-if="this.netType == 'new'"
                   >Pare-feu</label
+                >
+                <label
+                  for="region"
+                  class="form-label inline-block text-xl mb-0.5 text-black"
+                  v-if="this.netType == 'existing'"
+                  >Pare-feu valide</label
                 >
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-2 w-1/2 m-auto">
-                <div class="form-check float-left flex">
-                  <input
-                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    value=""
-                    id="ssh_rule"
-                  />
-                  <label class="form-check-label inline-block text-gray-800">
-                    SSH
-                  </label>
-                </div>
-                <div class="form-check float-left flex">
-                  <input
-                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    value=""
-                    id="rdp_rule"
-                    checked
-                  />
-                  <label class="form-check-label inline-block text-gray-800">
-                    RDP
-                  </label>
+            <div class="grid grid-cols-2 gap-2 w-1/2 m-auto" v-if="this.netType == 'new'">
+              <div class="form-check float-left flex">
+                <input
+                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
+                  value=""
+                  id="ssh_rule"
+                />
+                <label class="form-check-label inline-block text-gray-800">
+                  SSH
+                </label>
               </div>
-                <div class="form-check float-left flex">
-                  <input
-                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    value=""
-                    id="icmp_rule"
-                  />
-                  <label class="form-check-label inline-block text-gray-800">
-                    ICMP
-                  </label>
-                </div>
-                <div class="form-check float-left flex">
-                  <input
-                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckChecked"
-                    checked
-                  />
-                  <Firewall @send-firewall="addFirewall" />
-                </div>
+              <div class="form-check float-left flex">
+                <input
+                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
+                  value=""
+                  id="rdp_rule"
+                  checked
+                />
+                <label class="form-check-label inline-block text-gray-800">
+                  RDP
+                </label>
+              </div>
+              <div class="form-check float-left flex">
+                <input
+                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
+                  value=""
+                  id="icmp_rule"
+                />
+                <label class="form-check-label inline-block text-gray-800">
+                  ICMP
+                </label>
+              </div>
+              <div class="form-check float-left flex">
+                <input
+                  class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                  checked
+                />
+                <Firewall @send-firewall="addFirewall" />
+              </div>
             </div>
             <div class="flex justify-center">
               <div class="flex">
-                <table class="table-auto mt-2 rounded-lg bg-purple-600" v-if="this.gcp_network.firewalls.length > 0">
+                <table
+                  class="table-auto mt-2 rounded-lg bg-purple-600"
+                  v-if="this.gcp_network.firewalls.length > 0"
+                >
                   <thead>
                     <tr>
                       <th class="p-2 text-white justify-center">Protocole</th>
                       <th class="p-2 text-white justify-center">Ports</th>
                     </tr>
                   </thead>
-                  <tbody 
+                  <tbody
                     v-for="firewall in gcp_network.firewalls"
                     :key="firewall"
                     class="p-2 bg-purple-100"
@@ -502,161 +520,161 @@
   </div>
 </template>
 <script>
-  import { reactive } from "vue";
-  import Firewall from "./Firewall.vue";
-  import { computed } from "vue";
-  import { required, helpers } from "@vuelidate/validators";
-  import useVuelidate from "@vuelidate/core";
-  import axios from "axios";
+import { reactive } from "vue";
+import Firewall from "./Firewall.vue";
+import { computed } from "vue";
+import { required, helpers } from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
+import axios from "axios";
 
-  export default {
-    props: ["network", "nid", "apiNet"],
-    data() {
+export default {
+  props: ["network", "nid", "apiNet"],
+  data() {
+    return {
+      forbidden_networks: [],
+      netType: "new",
+      isOpen: false,
+      sample_rules: {
+        rdp: {
+          protocol: "tcp",
+          from_ports: [22],
+          to_ports: [22],
+          source_networks: ["0.0.0.0/0"],
+        },
+        ssh: {
+          protocol: "tcp",
+          from_ports: [22],
+          to_ports: [22],
+          source_networks: ["0.0.0.0/0"],
+        },
+      },
+      sample_firewall: {
+        name: "firewall-",
+        is_allow: true,
+        rules: [],
+      },
+    };
+  },
+  setup() {
+    let cidr = helpers.regex(
+      /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|[1-2][0-9]|3[0-2])/
+    );
+    cidr = helpers.withMessage("Invalid CIDR", cidr);
+    const forbidden_networks = [
+      "199.36.153.4/30",
+      "199.36.153.8/30",
+      "0.0.0.0/8",
+      "127.0.0.0/8",
+      "169.254.0.0/16",
+      "224.0.0.0/4",
+      "255.255.255.255/32",
+    ];
+    const notForbidden = helpers.withMessage(
+      "Forbidden network",
+      (value) => !forbidden_networks.includes(value)
+    );
+    const sample_subnet = reactive({
+      name: "",
+      description: "",
+      providers: ["gcp"],
+      gcp_zone: "",
+      ip_cidr_range: "",
+    });
+    const subnet_rules = reactive({
+      name: { required },
+      description: { required },
+      gcp_zone: { required },
+      ip_cidr_range: { required, cidr, notForbidden },
+    });
+    const gcp_network = reactive({
+      id: 0,
+      name: "",
+      description: "",
+      routing_type: "GLOBAL",
+      providers: ["gcp"],
+      subnets: [],
+      firewalls: [],
+    });
+    const rules = computed(() => {
       return {
-        forbidden_networks: [],
-        netType: "new",
-        isOpen: false,
-        sample_rules: {
-          rdp: {
-            protocol: "tcp",
-            from_ports: [22],
-            to_ports: [22],
-            source_networks: ["0.0.0.0/0"],
-          },
-          ssh: {
-            protocol: "tcp",
-            from_ports: [22],
-            to_ports: [22],
-            source_networks: ["0.0.0.0/0"],
-          },
-        },
-        sample_firewall: {
-          name: "firewall-",
-          is_allow: true,
-          rules: [],
-        },
-      };
-    },
-    setup() {
-      let cidr = helpers.regex(
-        /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|[1-2][0-9]|3[0-2])/
-      );
-      cidr = helpers.withMessage("Invalid CIDR", cidr);
-      const forbidden_networks = [
-        "199.36.153.4/30",
-        "199.36.153.8/30",
-        "0.0.0.0/8",
-        "127.0.0.0/8",
-        "169.254.0.0/16",
-        "224.0.0.0/4",
-        "255.255.255.255/32",
-      ];
-      const notForbidden = helpers.withMessage(
-        "Forbidden network",
-        (value) => !forbidden_networks.includes(value)
-      );
-      const sample_subnet = reactive({
-        name: "",
-        description: "",
-        providers: ["gcp"],
-        gcp_zone: "",
-        ip_cidr_range: "",
-      });
-      const subnet_rules = reactive({
         name: { required },
         description: { required },
-        gcp_zone: { required },
-        ip_cidr_range: { required, cidr, notForbidden },
-      });
-      const gcp_network = reactive({
-        id: 0,
-        name: "",
-        description: "",
-        routing_type: "GLOBAL",
-        providers: ["gcp"],
-        subnets: [],
-        firewalls: [],
-      });
-      const rules = computed(() => {
-        return {
-          name: { required },
-          description: { required },
-          routing_type: { required },
-          providers: { required },
-          subnets: { required, minLength: 1 },
-        };
-      });
-      const v$ = useVuelidate(rules, gcp_network);
-      const w$ = useVuelidate(subnet_rules, sample_subnet);
-      return {
-        v$,
-        w$,
-        sample_subnet,
-        gcp_network,
+        routing_type: { required },
+        providers: { required },
+        subnets: { required, minLength: 1 },
       };
+    });
+    const v$ = useVuelidate(rules, gcp_network);
+    const w$ = useVuelidate(subnet_rules, sample_subnet);
+    return {
+      v$,
+      w$,
+      sample_subnet,
+      gcp_network,
+    };
+  },
+  components: {
+    Firewall,
+  },
+  methods: {
+    addFirewall(firewall) {
+      let fire = JSON.parse(JSON.stringify(this.sample_firewall));
+      for (let i of firewall) {
+        fire.rules.push(i);
+      }
+      this.gcp_network.firewalls.push(fire);
     },
-    components: {
-      Firewall,
+    stringifyPorts(ports) {
+      return ports.join(", ");
     },
-    methods: {
-      addFirewall(firewall) {
-        let fire = JSON.parse(JSON.stringify(this.sample_firewall));
-        for (let i of firewall) {
-          fire.rules.push(i);
-        }
-        this.gcp_network.firewalls.push(fire);
-      },
-      stringifyPorts(ports) {
-        return ports.join(", ");
-      },
-      addSubnet() {
-        this.w$.$validate();
-        if (!this.w$.$error) {
-          this.gcp_network.subnets.push(
-            JSON.parse(JSON.stringify(this.sample_subnet))
-          );
-        }
-      },
-      deleteSubnet(subnet) {
-        this.gcp_network.subnets.splice(
-          this.gcp_network.subnets.indexOf(subnet),
+    addSubnet() {
+      this.w$.$validate();
+      if (!this.w$.$error) {
+        this.gcp_network.subnets.push(
+          JSON.parse(JSON.stringify(this.sample_subnet))
+        );
+      }
+    },
+    deleteSubnet(subnet) {
+      this.gcp_network.subnets.splice(
+        this.gcp_network.subnets.indexOf(subnet),
+        1
+      );
+    },
+    deleteRule(firewall, rule) {
+      firewall.rules.splice(firewall.rules.indexOf(rule), 1);
+      if (firewall.rules.length === 0) {
+        this.gcp_network.firewalls.splice(
+          this.gcp_network.firewalls.indexOf(firewall),
           1
         );
-      },
-      deleteRule(firewall, rule) {
-        firewall.rules.splice(firewall.rules.indexOf(rule), 1);
-        if (firewall.rules.length === 0) {
-          this.gcp_network.firewalls.splice(
-            this.gcp_network.firewalls.indexOf(firewall),
-            1
-          );
-        }
-      },
-      sendNetwork() {
-        this.v$.$validate();
-        this.gcp_network.id = this.nid;
-        if (this.gcp_network.firewalls.length == 0) {
-          this.gcp_network.firewalls.push(this.sample_firewall);
-        }
-        if (!this.v$.$error) {
-          console.log(this.gcp_network);
-          this.gcp_network.firewalls[0].name =
-            this.gcp_network.firewalls[0].name.split("-")[0] +
-            "-" +
-            this.gcp_network.name;
-          if (document.getElementById("ssh_rule").checked) {
-            console.log("salut");
-            this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
-          }
-          if (document.getElementById("rdp_rule").checked) {
-            this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
-          }
-          //TODO Rule for ICMP
-          this.$emit("send-network", this.gcp_network);
-          this.isOpen = false;
-        }
-      },
+      }
     },
+    sendNetwork() {
+      this.v$.$validate();
+      this.gcp_network.id = this.nid;
+      if (this.gcp_network.firewalls.length == 0) {
+        this.gcp_network.firewalls.push(this.sample_firewall);
+      }
+      if (!this.v$.$error) {
+        console.log(this.gcp_network);
+        this.gcp_network.firewalls[0].name =
+          this.gcp_network.firewalls[0].name.split("-")[0] +
+          "-" +
+          this.gcp_network.name;
+        if (document.getElementById("ssh_rule").checked) {
+          console.log("salut");
+          this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
+        }
+        if (document.getElementById("rdp_rule").checked) {
+          this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
+        }
+        //TODO Rule for ICMP
+        this.$emit("send-network", this.gcp_network);
+        this.isOpen = false;
+      }
+    },
+<<<<<<< Updated upstream
     mounted() {
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
       axios.get(api_addr + "/settings/zone/gcp").then((response) => {
@@ -673,7 +691,26 @@
       });
       if (this.apiNet != null) {
         this.gcp_network = this.apiNet;
+=======
+  },
+  mounted() {
+    let api_addr = import.meta.env.VITE_APP_API_ADDR;
+    axios.get(api_addr + "/settings/zones/gcp").then((response) => {
+      this.gcp_zones = response.data.zones;
+      for (let i = 0; i < this.gcp_zones.length; i++) {
+        if (this.gcp_zones[i] === this.selected_gcp_zone) {
+          this.gcp_zones.splice(i, 1);
+          break;
+        }
+>>>>>>> Stashed changes
       }
-    },
-  };
+    });
+    axios.get(api_addr + "/settings/zone/gcp").then((response) => {
+      this.selected_gcp_zone = response.data.zone;
+    });
+    if (this.apiNet != null) {
+      this.gcp_network = this.apiNet;
+    }
+  },
+};
 </script>
