@@ -659,6 +659,9 @@
     },
     mounted() {
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      axios.get(api_addr + "/settings/zone/gcp").then((response) => {
+        this.selected_gcp_zone = response.data.zone;
+      });
       axios.get(api_addr + "/settings/zones/gcp").then((response) => {
         this.gcp_zones = response.data.zones;
         for (let i = 0; i < this.gcp_zones.length; i++) {
@@ -667,9 +670,6 @@
             break;
           }
         }
-      });
-      axios.get(api_addr + "/settings/zone/gcp").then((response) => {
-        this.selected_gcp_zone = response.data.zone;
       });
       if (this.apiNet != null) {
         this.gcp_network = this.apiNet;
