@@ -40,7 +40,7 @@
                 <div class="text-right">
                   <label for="name" class="form-label inline-block mb-0.5 text-black">Nom</label>
                 </div>
-                <input v-model="instance.name" type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
+                <input v-model="this.gcp_instance.name" type="text" class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none" id="name" />
               </div>
             </div>
             <div class="flex justify-center">
@@ -48,39 +48,22 @@
                 <div class="text-right">
                   <label for="region" class="form-label inline-block mb-0.5 text-black">Zone</label>
                 </div>
-                <select v-model="instance.zone" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                    <option selected></option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select v-model="this.gcp_instance.zone" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                    <option v-for="zone in gcp_zones" :value="zone" :key="zone">{{ zone }}</option>
                 </select>
               </div>
             </div>
             <div class="flex justify-center">
               <div class="text-center mb-3">
-                <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">Profil</label>
+                <label for="region" class="form-label inline-block text-xl mb-0.5 text-black">Instance</label>
               </div>
             </div>
-            <div class="flex justify-center mb-4">
-              <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="preset" v-model="instance.profile">
-                <label class="form-check-label inline-block text-black" for="netType1">
-                  Prédéfini
-                </label>
-              </div>
-              <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="custom" v-model="instance.profile">
-                <label class="form-check-label inline-block text-black" for="netType2">
-                  Personnalisé
-                </label>
-              </div>
-            </div>
-            <div v-if="instance.profile == 'preset'" class="flex justify-center">
+            <div class="flex justify-center">
               <div class="mb-3 xl:w-1/5">
                 <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
+                  <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
                 </div>
-                <select v-model="instance.profile" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="this.gcp_instance.profile" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -89,9 +72,9 @@
               </div>
               <div class="mb-3 xl:w-4/5">
                 <div class="text-right">
-                  <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
+                  <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
                 </div>
-                <select v-model="instance.vmType" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="this.gcp_instance.vmType" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -99,39 +82,12 @@
                 </select>
               </div>
             </div>
-            <div v-if="instance.profile == 'custom'">
-            <div class="flex justify-center">
-                <div class="mb-3 xl:w-1/5">
-                  <div class="text-right">
-                    <label for="region" class="form-label inline-block mb-0.5 text-black">Profil</label>
-                  </div>
-                  <select v-model="instance.profile" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
-                      <option selected></option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                  </select>
-                </div>
-                <div class="mb-3 w-36 m-auto">
-                  <div class="relative pt-1 mb-6">
-                    <label for="vcpus" class="text-black text-sm">vCPUs</label>
-                    <input v-model="instance.cpu" type="range" min="0" step="1" max="5" name="vcpus" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
-                  </div>
-                </div>
-                <div class="mb-3 w-36 m-auto">
-                  <div class="relative pt-1 mb-6">
-                    <label for="memory" class="text-black text-sm">RAM</label>
-                    <input v-model="instance.ports.http" type="range" min="0" step="1" max="5" name="memory" class="w-full h-2 gap-1 bg-purple-100 appearance-none" />
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label for="region" class="form-label inline-block mb-0.5 text-black">OS</label>
                 </div>
-                <select v-model="instance.machine_image" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                <select v-model="this.gcp_instance.gcp_machine_image" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                     <option selected></option>
                     <option value="1">Debian 10</option>
                     <option value="2">Debian 11</option>
@@ -146,7 +102,7 @@
                 </div>
               </div>
             </div>
-            <div :key="disk.key" v-for="disk in instance.disks" class="flex justify-center">
+            <div :key="disk.key" v-for="disk in this.gcp_instance.disks" class="flex justify-center">
               <div class="mb-3 xl:w-1/4">
                 <div class="text-right">
                   <label for="region" class="form-label inline-block mb-0.5 text-black">Type</label>
@@ -166,8 +122,8 @@
               </div>
             </div>
             <div class="flex justify-center">
-              <i @click='instance.disks.pop()' v-if='instance.disks.length > 1' class="fa-solid fa-minus mr-6 fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
-              <i @click='instance.disks.push({ id: instance.disks.length })' class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
+              <i @click='this.gcp_instance.disks.pop()' class="fa-solid fa-minus mr-6 fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
+              <i @click='this.gcp_instance.disks.push({ id: this.gcp_instance.disks.length })' class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"></i>
             </div>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
@@ -177,11 +133,11 @@
               </div>
             </div>
             <div class="flex justify-center">
-              <Nginx :services="instance.services" class="w-10 m-auto" />
-              <Traefik :services="instance.services" class="w-10 m-auto" />
-              <Git :services="instance.services" class="w-10 m-auto" />
-              <Nodejs :services="instance.services" class="w-10 m-auto" />
-              <StartupScript :services="instance.services" class="w-10 m-auto" />
+              <Nginx :services="this.gcp_instance.services" class="w-10 m-auto" />
+              <Traefik :services="this.gcp_instance.services" class="w-10 m-auto" />
+              <Git :services="this.gcp_instance.services" class="w-10 m-auto" />
+              <Nodejs :services="this.gcp_instance.services" class="w-10 m-auto" />
+              <StartupScript :services="this.gcp_instance.services" class="w-10 m-auto" />
             </div>
             <div class="flex justify-center">
               <div class="text-center mb-3 mt-4">
@@ -191,13 +147,13 @@
             <div class="flex justify-center mb-4">
               <div>
                 <div class="form-check float-left mr-10">
-                  <input v-model='instance.ports.http' class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" id="http">
+                  <input v-model='this.gcp_instance.ports.http' class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="opened" id="http">
                   <label class="form-check-label inline-block text-gray-800" for="http">
                     HTTP
                   </label>
                 </div>
                 <div class="form-check float-left">
-                  <input v-model='instance.ports.https' class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" id="https">
+                  <input v-model='this.gcp_instance.ports.https' class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="opened" id="https">
                   <label class="form-check-label inline-block text-gray-800" for="https">
                     HTTPS
                   </label>
@@ -211,25 +167,25 @@
             </div>
             <div class="flex justify-center mb-4">
               <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="default" v-model="instance.netType">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="default" v-model="this.gcp_instance.netType">
                 <label class="form-check-label inline-block text-black" for="netType1">
                   Par défaut
                 </label>
               </div>
               <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="custom" v-model="instance.netType">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" value="custom" v-model="this.gcp_instance.netType">
                 <label class="form-check-label inline-block text-black" for="netType2">
                   Personnalisé
                 </label>
               </div>
             </div>
-            <div v-if="instance.netType == 'custom'">
+            <div v-if="this.gcp_instance.netType == 'custom'">
               <div class="flex justify-center">
                 <div class="mb-3 xl:w-96">
                   <div class="text-right">
                     <label for="name" class="form-label inline-block mb-0.5 text-black">Réseau</label>
                   </div>
-                  <select v-model="instance.network" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                  <select v-model="this.gcp_instance.network" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                       <option selected></option>
                       <option value="1">pimahtic-network</option>
                       <option value="2">net</option>
@@ -242,7 +198,7 @@
                   <div class="text-right">
                     <label for="name" class="form-label inline-block mb-0.5 text-black">Sous-réseau</label>
                   </div>
-                  <select v-model="instance.subnetwork" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                  <select v-model="this.gcp_instance.subnetwork" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                       <option selected></option>
                       <option value="1">pimahtic-network-one</option>
                       <option value="2">net</option>
@@ -255,7 +211,7 @@
                   <div class="text-right">
                     <label for="name" class="form-label inline-block mb-0.5 text-black">Adresse IP interne principale</label>
                   </div>
-                  <select v-model="instance.intAddress" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                  <select v-model="this.gcp_instance.intAddress" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                       <option selected></option>
                       <option value="1">Éphèmère (automatique)</option>
                       <option value="2">net</option>
@@ -268,7 +224,7 @@
                   <div class="text-right">
                     <label for="name" class="form-label inline-block mb-0.5 text-black">Adresse IP externe</label>
                   </div>
-                  <select v-model="instance.extAddress" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
+                  <select v-model="this.gcp_instance.extAddress" class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none">
                       <option selected></option>
                       <option value="1">Éphèmère</option>
                       <option value="2">net</option>
@@ -284,17 +240,25 @@
             </div>
             <div class="flex justify-center mb-4">
               <div class="form-check float-left mr-10">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" v-model="instance.serviceType" value="premium">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" v-model="this.gcp_instance.serviceType" value="premium">
                 <label class="form-check-label inline-block text-black" for="serviceType1">
                   Premium
                 </label>
               </div>
               <div class="form-check float-left">
-                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" v-model="instance.serviceType" value="standard">
+                <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" v-model="this.gcp_instance.serviceType" value="standard">
                 <label class="form-check-label inline-block text-black" for="serviceType2">
                   Standard
                 </label>
               </div>
+            </div>
+            <div class="flex justify-center mt-6">
+              <button
+                class="bg-purple-600 text-white rounded p-2 font-bold"
+                @click="sendVm"
+              >
+                Valider
+              </button>
             </div>
           </div>
         </div>
@@ -303,6 +267,8 @@
   </div>
 </template>
 <script>
+import { reactive } from "vue";
+import axios from "axios";
 import Nodejs from "../Modals/Nodejs.vue";
 import Nginx from "../Modals/Nginx.vue";
 import Traefik from "../Modals/Traefik.vue";
@@ -317,16 +283,69 @@ export default {
       traefikAdd: false,
       gitAdd: false,
       nodeAdd: false,
-      startupScriptAdd: false
+      startupScriptAdd: false,
+      gcp_zones: []
     };
   },
   props: ["instance"],
   components: {
-      Nodejs,
-      Nginx,
-      Traefik,
-      Git,
-      StartupScript
+      //Nodejs,
+      //Nginx,
+      //Traefik,
+      //Git,
+      //StartupScript
+  },
+  setup() {
+    const gcp_instance = reactive({
+        id: '',
+        name: '',
+        providers: ['gcp'],
+        profile: '',
+        vmType: '',
+        cpu: '',
+        ports: {"http": false, "https": false},
+        gcp_machine_image: '',
+        disks: [],
+        netType: '',
+        network: '',
+        subnetwork: '',
+        intAddress: '',
+        extAddress: '',
+        serviceType: ''
+    })
+    return {
+      gcp_instance
+    }
+  },
+  mounted() {
+      let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      axios.get(api_addr + "/settings/zones/gcp").then((response) => {
+        this.gcp_zones = response.data.zones;
+        for (let i = 0; i < this.gcp_zones.length; i++) {
+          if (this.gcp_zones[i] === this.selected_gcp_zone) {
+            this.gcp_zones.splice(i, 1);
+            break;
+          }
+        }
+      });
+      axios.get(api_addr + "/settings/zone/gcp").then((response) => {
+        this.gcp_instance.zone = response.data.zone;
+      });
+      axios.get(api_addr + "/settings/zones/gcp").then((response) => {
+        this.gcp_zones = response.data.zones;
+        for (let i = 0; i < this.gcp_zones.length; i++) {
+          if (this.gcp_zones[i] === this.selected_gcp_zone) {
+            this.gcp_zones.splice(i, 1);
+            break;
+          }
+        }
+      });
+  },
+  methods: {
+    sendVm() {
+      this.$emit("send-instance", this.gcp_instance);
+      this.isOpen = false;
+    }
   }
 };
 </script>

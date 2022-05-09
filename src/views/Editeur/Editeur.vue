@@ -169,7 +169,7 @@
     components: {
       GoogleNetwork,
       AmazonNetwork,
-      //Vm,
+      Vm,
       Container
     },
     mounted() {},
