@@ -62,45 +62,7 @@
             class="flex justify-center"
             id="existing"
             v-if="this.netType != 'new'"
-          >
-            <div class="mb-3 xl:w-96">
-              <div class="text-right">
-                <label
-                  for="name"
-                  class="form-label inline-block mb-0.5 text-black"
-                  >Zone</label
-                >
-              </div>
-              <select
-                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                aria-label="GCP Zone"
-                v-model="this.AWSNetwork.zone"
-              >
-                <option selected>{{ this.selected_aws_zone }}</option>
-                <option
-                  v-for="zone in this.aws_zones"
-                  :value="zone"
-                  :key="zone"
-                >
-                  {{ zone }}
-                </option>
-              </select>
-              <div class="text-right">
-                <label
-                  for="name"
-                  class="form-label inline-block mb-0.5 text-black"
-                  >Nom</label
-                >
-              </div>
-              <select
-                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-              >
-                <option>------------</option>
-                <option selected>Veuillez sélectionner une zone</option>
-                <option>------------</option>
-              </select>
-            </div>
-          </div>
+          ></div>
           <div class="flex justify-center" v-if="this.netType == 'new'">
             <div class="form-check float-left mr-10 mt-8">
               <label class="form-check-label inline-block text-black">
@@ -233,10 +195,7 @@
               </div>
             </label>
           </div>
-          <div
-            class="flex justify-center mt-1"
-            v-if="this.AWSNetwork.vpc_only == 'false' && this.netType == 'new'"
-          >
+          <div class="flex justify-center mt-1">
             <div class="mb-3 xl:w-96">
               <div class="text-right">
                 <label
@@ -263,6 +222,22 @@
                 {{ this.v$.zone.$errors[0].$message }}
               </span>
             </div>
+          </div>
+          <div class="mb-3 xl:w-96">
+            <div class="text-right">
+              <label
+                for="name"
+                class="form-label inline-block mb-0.5 text-black"
+                >Nom</label
+              >
+            </div>
+            <select
+              class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
+            >
+              <option>------------</option>
+              <option selected>Veuillez sélectionner une zone</option>
+              <option>------------</option>
+            </select>
           </div>
           <div
             class="flex justify-end"
