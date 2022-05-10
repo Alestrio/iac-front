@@ -208,6 +208,7 @@
                 class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 aria-label="GCP Zone"
                 v-model="this.AWSNetwork.zone"
+                @change="changeRegion"
               >
                 <option selected>{{ this.selected_aws_zone }}</option>
                 <option
@@ -234,9 +235,16 @@
             <select
               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
             >
-              <option>------------</option>
-              <option selected>Veuillez sélectionner une zone</option>
-              <option>------------</option>
+              <option v-if="this.available_networks.length == 0">------------</option>
+              <option selected v-if="this.available_networks.length == 0">Veuillez sélectionner une zone</option>
+              <option v-if="this.available_networks.length == 0">------------</option>
+              <option
+                v-for="network in this.available_networks"
+                :value="network"
+                :key="network.id"
+              >
+                {{ network.name }}
+              </option>
             </select>
           </div>
           <div
@@ -653,6 +661,7 @@
     },
     data() {
       return {
+        available_networks: [],
         isOpen: false,
         availability_zones: "1",
         dns: "hostnames",
@@ -693,6 +702,21 @@
           fire.rules.push(i);
         }
         this.AWSNetwork.firewall_rules.push(fire);
+      },
+      changeRegion(region) {
+        if (this.netType === "existing") {
+          // save current region
+          let old_region = this.selected_aws_zone;
+          // set api region
+          let api_addr = import.meta.env.VITE_APP_API_ADDR; // Get the api address from the env variable
+          axios.post(`${api_addr}/settings/zone/aws/` + this.AWSNetwork.zone);
+          // get all networks
+          axios.get(`${api_addr}/existing/simple_networks/aws`).then((res) => {
+            this.available_networks = res.data;
+          });
+          // reset region
+          axios.post(`${api_addr}/settings/zone/aws/` + old_region);
+        }
       },
       stringifyPorts(ports) {
         return ports.join(", "); //Allows to display ports array as a string
