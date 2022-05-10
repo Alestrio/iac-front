@@ -224,8 +224,7 @@
               </span>
             </div>
           </div>
-          <div class="mb-3 xl:w-96"
-          v-if="this.netType == 'existing'">
+          <div class="mb-3 xl:w-96" v-if="this.netType == 'existing'">
             <div class="text-right">
               <label
                 for="name"
@@ -235,13 +234,20 @@
             </div>
             <select
               class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
+              v-model="this.AWSNetwork.name"
             >
-              <option v-if="this.available_networks.length == 0">------------</option>
-              <option selected v-if="this.available_networks.length == 0">Veuillez sélectionner une zone</option>
-              <option v-if="this.available_networks.length == 0">------------</option>
+              <option v-if="this.available_networks.length == 0">
+                ------------
+              </option>
+              <option selected v-if="this.available_networks.length == 0">
+                Veuillez sélectionner une zone
+              </option>
+              <option v-if="this.available_networks.length == 0">
+                ------------
+              </option>
               <option
                 v-for="network in this.available_networks"
-                :value="network"
+                :value="network.name"
                 :key="network.id"
               >
                 {{ network.name }}
@@ -632,6 +638,7 @@
         vpc_s3_out: false,
         dns_hostnames: false,
         dns_resolution: false,
+        existing: false,
       });
       const sample_firewall = reactive({
         name: "",
@@ -737,28 +744,43 @@
         this.AWSNetwork.id = this.nid; // Set the network id
         if (!this.v$.$error) {
           // If there are no errors
-          if (!this.AWSNetwork.vpc_only) {
-            // If the network is not in vpc only mode
-            if (this.AWSNetwork.firewall_rules.length == 0) {
-              this.AWSNetwork.firewall_rules.push(this.sample_firewall); // add a firewall rule if none are present
-            }
-            this.AWSNetwork.firewall_rules[0].name =
-              this.AWSNetwork.firewall_rules[0].name.split("-")[0] +
-              "-" +
-              this.AWSNetwork.name; // set the firewall name to the network name, there are only one firewall, so we don't need to loop
-            // Adding rules to the firewall according to the checked checkboxes
-            if (document.getElementById("ssh_rule").checked) {
-              this.AWSNetwork.firewall_rules[0].rules.push(
-                this.sample_rules.ssh
-              );
-            }
-            if (document.getElementById("rdp_rule").checked) {
-              this.AWSNetwork.firewall_rules[0].rules.push(
-                this.sample_rules.rdp
-              );
+          if (this.netType === "new") {
+            if (!this.AWSNetwork.vpc_only) {
+              // If the network is not in vpc only mode
+              if (this.AWSNetwork.firewall_rules.length == 0) {
+                this.AWSNetwork.firewall_rules.push(this.sample_firewall); // add a firewall rule if none are present
+              }
+              this.AWSNetwork.firewall_rules[0].name =
+                this.AWSNetwork.firewall_rules[0].name.split("-")[0] +
+                "-" +
+                this.AWSNetwork.name; // set the firewall name to the network name, there are only one firewall, so we don't need to loop
+              // Adding rules to the firewall according to the checked checkboxes
+              if (document.getElementById("ssh_rule").checked) {
+                this.AWSNetwork.firewall_rules[0].rules.push(
+                  this.sample_rules.ssh
+                );
+              }
+              if (document.getElementById("rdp_rule").checked) {
+                this.AWSNetwork.firewall_rules[0].rules.push(
+                  this.sample_rules.rdp
+                );
+              }
             }
           }
           //TODO Rule for ICMP
+          this.$emit("send-network", this.AWSNetwork); // Passing the data to the parent
+          this.isOpen = false; // Close the modal
+        }
+        else if (this.netType === "existing") {
+          // set as existing
+          this.AWSNetwork.existing = true;
+          // set props
+          let subnets = this.available_networks.find(
+            (n) => n.name === this.AWSNetwork.name
+          ).subnets;
+          for (let i of subnets) {
+            this.AWSNetwork.ip_cidr_range += i.ip_cidr_range + ", ";
+          }
           this.$emit("send-network", this.AWSNetwork); // Passing the data to the parent
           this.isOpen = false; // Close the modal
         }
