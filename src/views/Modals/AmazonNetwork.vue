@@ -224,7 +224,8 @@
               </span>
             </div>
           </div>
-          <div class="mb-3 xl:w-96">
+          <div class="mb-3 xl:w-96"
+          v-if="this.netType == 'existing'">
             <div class="text-right">
               <label
                 for="name"
