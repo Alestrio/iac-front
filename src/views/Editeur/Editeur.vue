@@ -26,18 +26,18 @@
             <div class="flex flex-row">
               <h2 class="text-2xl">{{ network.name }}</h2>
               <GoogleNetwork
-                v-if="network.provider.name == 'GCP'"
+                v-if="network.provider.name == 'gcp'"
                 :network="network"
                 :nid="network.id"
                 :apiNet="this.to_send.find((n) => n.id == network.id)"
-                @send-network="updateGCPNetwork"
+                @send-network="updategcpNetwork"
               />
               <AmazonNetwork
-                v-if="network.provider.name == 'AWS'"
+                v-if="network.provider.name == 'aws'"
                 :network="network"
                 :nid="network.id"
                 :apiNet="this.to_send.find((n) => n.id == network.id)"
-                @send-network="updateAWSNetwork"
+                @send-network="updateawsNetwork"
               />
             </div>
             <div class="flex flex-row">
@@ -320,7 +320,7 @@
           }
         }
       },
-      updateGCPNetwork(net) {
+      updategcpNetwork(net) {
         console.log(net);
         let $net = this.networks.find((network) => network.id == net.id);
         let inst = [];
@@ -337,7 +337,7 @@
           id: net.id,
           name: net.name,
           cidr: cidrs,
-          provider: { id: 0, name: "GCP", type: "provider" },
+          provider: { id: 0, name: "gcp", type: "provider" },
           instances: inst,
         };
         // replace the old network with the new one
@@ -347,7 +347,7 @@
           $net
         );
       },
-      updateAWSNetwork(net) {
+      updateawsNetwork(net) {
         console.log(net);
         let $net = this.networks.find((network) => network.id == net.id);
         let inst = [];
@@ -362,7 +362,7 @@
           id: net.id,
           name: net.name,
           cidr: net.ip_cidr_range,
-          provider: { id: 0, name: "AWS", type: "provider" },
+          provider: { id: 0, name: "aws", type: "provider" },
           instances: inst,
         };
         // replace the old network with the new one
@@ -407,15 +407,15 @@
           },
         ],
         providers: [
-          { id: 0, name: "GCP", type: "provider" },
-          { id: 1, name: "AWS", type: "provider" },
+          { id: 0, name: "gcp", type: "provider" },
+          { id: 1, name: "aws", type: "provider" },
         ],
         current: [
           {
             id: 125768,
             name: "default",
             cidr: "10.128.0.0/24",
-            provider: { id: 0, name: "GCP", type: "provider" },
+            provider: { id: 0, name: "gcp", type: "provider" },
             instances: [
               {
                 id: 0,
