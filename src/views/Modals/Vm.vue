@@ -377,7 +377,7 @@
 <script>
   import { reactive } from "vue";
   import axios from "axios";
-  import "vue-select/dist/vue-select.css";
+  import "../../assets/css/vue-select.css";
   import vSelect from "vue-select";
 
   export default {
