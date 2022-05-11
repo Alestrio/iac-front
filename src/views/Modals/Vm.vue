@@ -100,10 +100,10 @@
                   >OS</label
                 >
               </div>
-                <v-select
-                  :options="this.machine_images"
-                  class="w-full"
-                ></v-select>
+              <v-select
+                :options="this.machine_images"
+                class="w-full"
+              ></v-select>
             </div>
           </div>
           <div class="flex justify-center">
