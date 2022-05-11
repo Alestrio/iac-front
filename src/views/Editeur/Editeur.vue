@@ -75,7 +75,7 @@
                   <div class="flex flex-row justify-center">
                     <h2 class="text-xl">{{ instance.name }}</h2>
                     <div class="w-auto">
-                      <Vm :instance="instance" />
+                      <Vm :instance="instance" :network="network" />
                     </div>
                   </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>

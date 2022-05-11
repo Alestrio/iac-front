@@ -1882,6 +1882,21 @@ vue-router@^4.0.14:
   dependencies:
     "@vue/devtools-api" "^6.0.0"
 
+vue-search-select@^2.9.5:
+  version "2.9.5"
+  resolved "https://registry.npmjs.org/vue-search-select/-/vue-search-select-2.9.5.tgz"
+  integrity sha512-pK5lSoeWjUqxYPcYbTgEmoaqb0f38pHd4KZBNBunWmnPw3S0O8s8eqWEVHG14G3zcvKGP9fkvBs7+Eikj7csYQ==
+
+vue-select-3@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-select-3/-/vue-select-3-1.0.1.tgz#f070df93ac3f675bd17b8e93a26654f61ed3ef4b"
+  integrity sha512-vRcLQLFX8pRIkeM62N8++hi2G3jAUdUJCgvG8BfabfXLPa7XJr80Sqs68Xpc8DoF5hv+a8p9GOQJMlI5Tgqe1Q==
+
+vue-select@^4.0.0-beta.3:
+  version "4.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-4.0.0-beta.3.tgz#12096cdc5701af94bac66a60e7bbe560d5ef1d54"
+  integrity sha512-sXufbTDluz26a39UUZE9jeh9Hojnn8zr9qDDUlVEBc7E0F+h3+Nzy8YzyFHuVNrrYLmK0zrPkb7hWFulAEW41Q==
+
 vue-spinner@^1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/vue-spinner/-/vue-spinner-1.0.4.tgz"
