@@ -258,30 +258,24 @@
           </div>
           <div class="flex justify-center mb-4">
             <div class="form-check float-left mr-10">
-              <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="radio"
-                value="default"
-                v-model="this.sample_instance.netType"
-              />
-              <label
-                class="form-check-label inline-block text-black"
-                for="netType1"
-              >
+              <label class="form-check-label inline-block text-black">
+                <input
+                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="radio"
+                  value="default"
+                  v-model="this.sample_instance.netType"
+                />
                 Par défaut
               </label>
             </div>
             <div class="form-check float-left">
-              <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="radio"
-                value="custom"
-                v-model="this.sample_instance.netType"
-              />
-              <label
-                class="form-check-label inline-block text-black"
-                for="netType2"
-              >
+              <label class="form-check-label inline-block text-black">
+                <input
+                  class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="radio"
+                  value="custom"
+                  v-model="this.sample_instance.netType"
+                />
                 Personnalisé
               </label>
             </div>
@@ -391,9 +385,7 @@
                     >Adresse IP externe</label
                   >
                 </div>
-                <div
-                  class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
-                >
+                <div class="grid col-span-2 grid-flow-col gap-4 mt-0.5">
                   <label class="border-gray-300 border cursor-pointer rounded">
                     <input
                       type="radio"
