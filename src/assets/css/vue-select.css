@@ -334,6 +334,10 @@
     opacity: 0.2;
 }
 
+.vs__search:not(.vs--open) {
+    display: none;
+}
+
 .vs__spinner {
     align-self: center;
     -webkit-animation: vSelectSpinner 1.1s linear infinite;
