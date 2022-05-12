@@ -105,13 +105,15 @@
               <v-select
                 :options="this.machine_images"
                 :label="name"
-                :reduce="(option) => {
-                  // if item is dictonary, return only the value
-                  if (typeof option === 'object') {
-                    return option.id;
+                :reduce="
+                  (option) => {
+                    // if item is dictonary, return only the value
+                    if (typeof option === 'object') {
+                      return option.id;
+                    }
+                    return option;
                   }
-                  return option;
-                }" 
+                "
                 class="w-full"
                 v-model="this.sample_instance.machine_image"
               ></v-select>
@@ -140,7 +142,11 @@
                   class="form-label inline-block mb-0.5 text-black"
                   >Type</label
                 >
-                <v-select :options="this.disk_types" class="w-full"></v-select>
+                <v-select
+                  :options="this.disk_types"
+                  class="w-full"
+                  v-model="disk.type"
+                ></v-select>
               </div>
               <div class="text-right w-2/5 h-5">
                 <label
@@ -281,7 +287,7 @@
             </div>
           </div>
           <div v-if="this.sample_instance.netType == 'custom'">
-            <div class="flex justify-center">
+            <!--<div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -300,8 +306,8 @@
                   <option value="3">work</option>
                 </select>
               </div>
-            </div>
-            <div class="flex justify-center">
+            </div> -->
+            <!-- <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
@@ -320,7 +326,7 @@
                   <option value="3">work</option>
                 </select>
               </div>
-            </div>
+            </div> -->
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
@@ -330,7 +336,7 @@
                     >Adresse IP interne principale</label
                   >
                 </div>
-                <select
+                <!-- <select
                   v-model="this.sample_instance.intAddress"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                 >
@@ -338,7 +344,42 @@
                   <option value="1">Éphèmère (automatique)</option>
                   <option value="2">net</option>
                   <option value="3">work</option>
-                </select>
+                </select> -->
+                <div class="flex flex-row gap-2 w-full">
+                  <label
+                    class="border-gray-300 border cursor-pointer rounded w-2/5"
+                  >
+                    <input
+                      type="radio"
+                      name="internal_ip"
+                      value="true"
+                      class="hidden peer"
+                    />
+                    <div
+                      class="peer-checked:bg-purple-600 peer-checked:text-white rounded w-full h-full p-2"
+                    >
+                      Passerelle S3
+                    </div>
+                  </label>
+                  <label class="border-gray-300 border cursor-pointer rounded">
+                    <input
+                      type="radio"
+                      name="internal_ip"
+                      value="true"
+                      class="hidden peer"
+                    />
+                    <!-- When there is content, check the checkbox -->
+                    <div
+                      class="peer-checked:bg-purple-600 peer-checked:text-white rounded inline-block"
+                    >
+                      Perso.
+                      <input
+                        class="text-black rounded inline-block w-4/5"
+                        type="text"
+                      />
+                    </div>
+                  </label>
+                </div>
               </div>
             </div>
             <div class="flex justify-center">
@@ -350,15 +391,36 @@
                     >Adresse IP externe</label
                   >
                 </div>
-                <select
-                  v-model="this.sample_instance.extAddress"
-                  class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
+                <div
+                  class="grid col-span-2 grid-flow-col gap-4 mt-0.5"
                 >
-                  <option selected></option>
-                  <option value="1">Éphèmère</option>
-                  <option value="2">net</option>
-                  <option value="3">work</option>
-                </select>
+                  <label class="border-gray-300 border cursor-pointer rounded">
+                    <input
+                      type="radio"
+                      name="external_ip"
+                      value="false"
+                      class="hidden peer"
+                    />
+                    <div
+                      class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+                    >
+                      Ephémère
+                    </div>
+                  </label>
+                  <label class="border-gray-300 border cursor-pointer rounded">
+                    <input
+                      type="radio"
+                      name="external_ip"
+                      value="true"
+                      class="hidden peer"
+                    />
+                    <div
+                      class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+                    >
+                      Statique (auto)
+                    </div>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -408,6 +470,8 @@
         addresses: [],
         zone: "",
         has_public_ip: false,
+        custom_public_ip: "",
+        custom_private_ip: "",
         http_access: false,
         https_access: false,
       });
@@ -477,12 +541,10 @@
               // in each category, we have a dict of pairs (ami_id, ami_name)
               for (let image in response.data.machine_images[category]) {
                 // add the value to the machine_images array
-                this.machine_images.push(
-                  {
-                    label: response.data.machine_images[category][image],
-                    id: image,
-                  }
-                );
+                this.machine_images.push({
+                  label: response.data.machine_images[category][image],
+                  id: image,
+                });
               }
             }
           }
