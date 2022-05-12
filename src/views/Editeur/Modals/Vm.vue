@@ -122,38 +122,28 @@
             v-for="disk in this.gcp_instance.disks"
             class="flex justify-center"
           >
-            <div class="mb-3 xl:w-1/4">
-              <div class="text-right">
+            <div class="mb-3 flex flex-row w-full gap-2">
+              <div class="text-right w-4/5">
                 <label
                   for="region"
                   class="form-label inline-block mb-0.5 text-black"
                   >Type</label
                 >
+                <v-select :options="this.disk_types" class="w-full"></v-select>
               </div>
-              <select
-                v-model="disk.diskType"
-                class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-              >
-                <option selected></option>
-                <option value="1">SSD</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="mb-3 xl:w-3/4">
-              <div class="text-right">
+              <div class="text-right w-2/5 h-5">
                 <label
                   for="name"
                   class="form-label inline-block mb-0.5 text-black"
-                  >Capacité du disque {{ disk.id }}
+                  >Taille disque {{ disk.id }}
                 </label>
+                <input
+                  v-model="disk.diskCapacity"
+                  type="text"
+                  class="h-12 form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
+                  id="name"
+                />
               </div>
-              <input
-                v-model="disk.diskCapacity"
-                type="text"
-                class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-                id="name"
-              />
             </div>
           </div>
           <div class="flex justify-center">
@@ -170,7 +160,7 @@
               class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"
             ></i>
           </div>
-          <div class="flex justify-center">
+          <!-- <div class="flex justify-center">
             <div class="mb-3 xl:w-96">
               <div class="text-center">
                 <label
@@ -180,7 +170,7 @@
                 >
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- <div class="flex justify-center">
             <Nginx :services="this.gcp_instance.services" class="w-10 m-auto" />
             <Traefik
@@ -387,6 +377,7 @@
         gcp_zones: [],
         machine_types: [],
         machine_images: [],
+        disk_types: [],
       };
     },
     props: ["instance", "network"],
@@ -415,24 +406,39 @@
     },
     mounted() {
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
-      axios.get(api_addr + "/settings/zone/" + this.network.provider.name).then((response) => {
-        this.gcp_instance.zone = response.data.zone;
-      });
-      axios.get(api_addr + "/settings/zones/" + this.network.provider.name).then((response) => {
-        this.gcp_zones = response.data.zones;
-        for (let i = 0; i < this.gcp_zones.length; i++) {
-          if (this.gcp_zones[i] === this.selected_gcp_zone) {
-            this.gcp_zones.splice(i, 1);
-            break;
+      axios
+        .get(api_addr + "/settings/zone/" + this.network.provider.name)
+        .then((response) => {
+          this.gcp_instance.zone = response.data.zone;
+        });
+      axios
+        .get(api_addr + "/settings/zones/" + this.network.provider.name)
+        .then((response) => {
+          this.gcp_zones = response.data.zones;
+          for (let i = 0; i < this.gcp_zones.length; i++) {
+            if (this.gcp_zones[i] === this.selected_gcp_zone) {
+              this.gcp_zones.splice(i, 1);
+              break;
+            }
           }
-        }
-      });
-      axios.get(api_addr + "/settings/machine_types/" + this.network.provider.name).then((response) => {
-        this.machine_types = response.data.machine_types;
-      });
-      axios.get(api_addr + "/settings/machine_images/" + this.network.provider.name).then((response) => {
-        // this dict contains the machine_images sorted into categories
-        /*
+        });
+      axios
+        .get(api_addr + "/settings/machine_types/" + this.network.provider.name)
+        .then((response) => {
+          this.machine_types = response.data.machine_types;
+        });
+      axios
+        .get(api_addr + "/settings/disk_types/" + this.network.provider.name)
+        .then((response) => {
+          this.disk_types = response.data.disk_types;
+        });
+      axios
+        .get(
+          api_addr + "/settings/machine_images/" + this.network.provider.name
+        )
+        .then((response) => {
+          // this dict contains the machine_images sorted into categories
+          /*
         * like : {
           'debian': [
             debian-9-x64-standard-hd-v20200318.iso,
@@ -445,27 +451,28 @@
         }
         * we will use extract the images from the categories and add them to the machine_images array
         */
-       // for each category
-       try{
-        for (let category in response.data.machine_images) {
-          // for each image in the category
-          for (let image of response.data.machine_images[category]) {
-            // add the image to the machine_images array
-            this.machine_images.push(image);
-          }
-        }
-       }
-        catch(e){
-          // it means that the machine_images dict is not iterable... at least not in that way
-          for (let category in response.data.machine_images) {
-            // in each category, we have a dict of pairs (ami_id, ami_name)
-            for (let image in response.data.machine_images[category]) {
-              // add the value to the machine_images array
-              this.machine_images.push(response.data.machine_images[category][image]);
+          // for each category
+          try {
+            for (let category in response.data.machine_images) {
+              // for each image in the category
+              for (let image of response.data.machine_images[category]) {
+                // add the image to the machine_images array
+                this.machine_images.push(image);
+              }
+            }
+          } catch (e) {
+            // it means that the machine_images dict is not iterable... at least not in that way
+            for (let category in response.data.machine_images) {
+              // in each category, we have a dict of pairs (ami_id, ami_name)
+              for (let image in response.data.machine_images[category]) {
+                // add the value to the machine_images array
+                this.machine_images.push(
+                  response.data.machine_images[category][image]
+                );
+              }
             }
           }
-        }
-      });
+        });
     },
     methods: {
       sendVm() {
