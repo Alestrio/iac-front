@@ -191,10 +191,10 @@
   </div>
 </template>
 <script>
-  import Vm from "../Modals/Vm.vue";
-  import Container from "../Modals/Container.vue";
-  import AmazonNetwork from "../Modals/AmazonNetwork.vue";
-  import GoogleNetwork from "../Modals/GoogleNetwork.vue";
+  import Vm from "./Modals/Vm.vue";
+  import Container from "./Modals/Container.vue";
+  import AmazonNetwork from "./Modals/AmazonNetwork.vue";
+  import GoogleNetwork from "./Modals/GoogleNetwork.vue";
 
   export default {
     computed: {
