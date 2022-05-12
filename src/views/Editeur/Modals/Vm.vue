@@ -42,7 +42,7 @@
                   >
                 </div>
                 <input
-                  v-model="this.gcp_instance.name"
+                  v-model="this.sample_instance.name"
                   type="text"
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
@@ -59,7 +59,7 @@
                   >
                 </div>
                 <select
-                  v-model="this.gcp_instance.zone"
+                  v-model="this.sample_instance.zone"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                 >
                   <option v-for="zone in gcp_zones" :value="zone" :key="zone">
@@ -68,12 +68,13 @@
                 </select>
               </div>
             </div>
+            <hr class="my-4" />
             <div class="flex justify-center">
-              <div class="text-center mb-3">
+              <div class="text-center">
                 <label
                   for="region"
                   class="form-label inline-block text-xl mb-0.5 text-black"
-                  >Instance</label
+                  >Général</label
                 >
               </div>
             </div>
@@ -87,6 +88,7 @@
                 <v-select
                   :options="this.machine_types"
                   class="w-full"
+                  v-model="this.sample_instance.type"
                 ></v-select>
               </div>
             </div>
@@ -102,7 +104,16 @@
               </div>
               <v-select
                 :options="this.machine_images"
+                :label="name"
+                :reduce="(option) => {
+                  // if item is dictonary, return only the value
+                  if (typeof option === 'object') {
+                    return option.id;
+                  }
+                  return option;
+                }" 
                 class="w-full"
+                v-model="this.sample_instance.machine_image"
               ></v-select>
             </div>
           </div>
@@ -119,7 +130,7 @@
           </div>
           <div
             :key="disk.key"
-            v-for="disk in this.gcp_instance.disks"
+            v-for="disk in this.sample_instance.disks"
             class="flex justify-center"
           >
             <div class="mb-3 flex flex-row w-full gap-2">
@@ -148,13 +159,13 @@
           </div>
           <div class="flex justify-center">
             <i
-              @click="this.gcp_instance.disks.pop()"
+              @click="this.sample_instance.disks.pop()"
               class="fa-solid fa-minus mr-6 fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"
             ></i>
             <i
               @click="
-                this.gcp_instance.disks.push({
-                  id: this.gcp_instance.disks.length,
+                this.sample_instance.disks.push({
+                  id: this.sample_instance.disks.length,
                 })
               "
               class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"
@@ -172,18 +183,18 @@
             </div>
           </div> -->
           <!-- <div class="flex justify-center">
-            <Nginx :services="this.gcp_instance.services" class="w-10 m-auto" />
+            <Nginx :services="this.sample_instance.services" class="w-10 m-auto" />
             <Traefik
-              :services="this.gcp_instance.services"
+              :services="this.sample_instance.services"
               class="w-10 m-auto"
             />
-            <Git :services="this.gcp_instance.services" class="w-10 m-auto" />
+            <Git :services="this.sample_instance.services" class="w-10 m-auto" />
             <Nodejs
-              :services="this.gcp_instance.services"
+              :services="this.sample_instance.services"
               class="w-10 m-auto"
             />
             <StartupScript
-              :services="this.gcp_instance.services"
+              :services="this.sample_instance.services"
               class="w-10 m-auto"
             />
           </div> -->
@@ -200,7 +211,7 @@
             <div>
               <div class="form-check float-left mr-10">
                 <input
-                  v-model="this.gcp_instance.http_access"
+                  v-model="this.sample_instance.http_access"
                   class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="checkbox"
                   value="opened"
@@ -215,7 +226,7 @@
               </div>
               <div class="form-check float-left">
                 <input
-                  v-model="this.gcp_instance.https_access"
+                  v-model="this.sample_instance.https_access"
                   class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                   type="checkbox"
                   value="opened"
@@ -245,7 +256,7 @@
                 class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 value="default"
-                v-model="this.gcp_instance.netType"
+                v-model="this.sample_instance.netType"
               />
               <label
                 class="form-check-label inline-block text-black"
@@ -259,7 +270,7 @@
                 class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 value="custom"
-                v-model="this.gcp_instance.netType"
+                v-model="this.sample_instance.netType"
               />
               <label
                 class="form-check-label inline-block text-black"
@@ -269,7 +280,7 @@
               </label>
             </div>
           </div>
-          <div v-if="this.gcp_instance.netType == 'custom'">
+          <div v-if="this.sample_instance.netType == 'custom'">
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
@@ -280,7 +291,7 @@
                   >
                 </div>
                 <select
-                  v-model="this.gcp_instance.network"
+                  v-model="this.sample_instance.network"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                 >
                   <option selected></option>
@@ -300,7 +311,7 @@
                   >
                 </div>
                 <select
-                  v-model="this.gcp_instance.subnetwork"
+                  v-model="this.sample_instance.subnetwork"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                 >
                   <option selected></option>
@@ -320,7 +331,7 @@
                   >
                 </div>
                 <select
-                  v-model="this.gcp_instance.intAddress"
+                  v-model="this.sample_instance.intAddress"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                 >
                   <option selected></option>
@@ -340,7 +351,7 @@
                   >
                 </div>
                 <select
-                  v-model="this.gcp_instance.extAddress"
+                  v-model="this.sample_instance.extAddress"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                 >
                   <option selected></option>
@@ -380,12 +391,12 @@
         disk_types: [],
       };
     },
-    props: ["instance", "network"],
+    props: ["sample_instance", "network"],
     components: {
       "v-select": vSelect,
     },
     setup() {
-      const gcp_instance = reactive({
+      const sample_instance = reactive({
         id: "",
         name: "",
         provider: "",
@@ -401,7 +412,7 @@
         https_access: false,
       });
       return {
-        gcp_instance,
+        sample_instance,
       };
     },
     mounted() {
@@ -409,7 +420,7 @@
       axios
         .get(api_addr + "/settings/zone/" + this.network.provider.name)
         .then((response) => {
-          this.gcp_instance.zone = response.data.zone;
+          this.sample_instance.zone = response.data.zone;
         });
       axios
         .get(api_addr + "/settings/zones/" + this.network.provider.name)
@@ -467,7 +478,10 @@
               for (let image in response.data.machine_images[category]) {
                 // add the value to the machine_images array
                 this.machine_images.push(
-                  response.data.machine_images[category][image]
+                  {
+                    label: response.data.machine_images[category][image],
+                    id: image,
+                  }
                 );
               }
             }
@@ -476,7 +490,7 @@
     },
     methods: {
       sendVm() {
-        this.$emit("send-instance", this.gcp_instance);
+        this.$emit("send-instance", this.sample_instance);
         this.isOpen = false;
       },
     },
