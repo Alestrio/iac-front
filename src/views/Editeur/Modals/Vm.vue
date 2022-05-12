@@ -66,6 +66,18 @@
                     {{ zone }}
                   </option>
                 </select>
+                <div class="text-right">
+                  <label
+                    for="region"
+                    class="form-label inline-block mb-0.5 text-black"
+                    >Sous-réseau</label
+                  >
+                </div>
+                <v-select
+                  :options="this.subnets"
+                  class="w-full"
+                  v-model="this.sample_instance.subnet"
+                ></v-select>
               </div>
             </div>
             <hr class="my-4" />
@@ -270,20 +282,20 @@
                     <input
                       type="radio"
                       name="internal_ip"
-                      value="true"
+                      value="auto"
                       class="hidden peer"
+                      v-model="this.sample_instance.custom_private_ip"
                     />
                     <div
                       class="peer-checked:bg-purple-600 peer-checked:text-white rounded w-full h-full p-2"
                     >
-                      Passerelle S3
+                      Automatique
                     </div>
                   </label>
                   <label class="border-gray-300 border cursor-pointer rounded">
                     <input
                       type="radio"
                       name="internal_ip"
-                      value="true"
                       class="hidden peer"
                     />
                     <!-- When there is content, check the checkbox -->
@@ -294,6 +306,7 @@
                       <input
                         class="text-black rounded inline-block w-4/5"
                         type="text"
+                        v-model="this.sample_instance.custom_private_ip"
                       />
                     </div>
                   </label>
@@ -314,8 +327,23 @@
                     <input
                       type="radio"
                       name="external_ip"
-                      value="false"
+                      value="none"
                       class="hidden peer"
+                      v-model="this.sample_instance.custom_public_ip"
+                    />
+                    <div
+                      class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
+                    >
+                      Aucune
+                    </div>
+                  </label>
+                  <label class="border-gray-300 border cursor-pointer rounded">
+                    <input
+                      type="radio"
+                      name="external_ip"
+                      value="ephemeral"
+                      class="hidden peer"
+                      v-model="this.sample_instance.custom_public_ip"
                     />
                     <div
                       class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
@@ -327,8 +355,9 @@
                     <input
                       type="radio"
                       name="external_ip"
-                      value="true"
+                      value="static"
                       class="hidden peer"
+                      v-model="this.sample_instance.custom_public_ip"
                     />
                     <div
                       class="peer-checked:bg-purple-600 peer-checked:text-white rounded"
@@ -367,6 +396,7 @@
         machine_types: [],
         machine_images: [],
         disk_types: [],
+        subnets: [],
       };
     },
     props: ["sample_instance", "network"],
@@ -383,9 +413,7 @@
         disks: [],
         network: "",
         subnetwork: "",
-        addresses: [],
         zone: "",
-        has_public_ip: false,
         custom_public_ip: "",
         custom_private_ip: "",
         http_access: false,
@@ -465,6 +493,9 @@
             }
           }
         });
+      this.sample_instance.provider = this.network.provider.name;
+      this.sample_instance.network = this.network.name;
+      this.subnets = this.network.cidr.split(",");
     },
     methods: {
       sendVm() {
