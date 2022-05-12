@@ -177,33 +177,6 @@
               class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"
             ></i>
           </div>
-          <!-- <div class="flex justify-center">
-            <div class="mb-3 xl:w-96">
-              <div class="text-center">
-                <label
-                  for="region"
-                  class="form-label inline-block text-xl mb-0.5 text-black"
-                  >Services</label
-                >
-              </div>
-            </div>
-          </div> -->
-          <!-- <div class="flex justify-center">
-            <Nginx :services="this.sample_instance.services" class="w-10 m-auto" />
-            <Traefik
-              :services="this.sample_instance.services"
-              class="w-10 m-auto"
-            />
-            <Git :services="this.sample_instance.services" class="w-10 m-auto" />
-            <Nodejs
-              :services="this.sample_instance.services"
-              class="w-10 m-auto"
-            />
-            <StartupScript
-              :services="this.sample_instance.services"
-              class="w-10 m-auto"
-            />
-          </div> -->
           <div class="flex justify-center">
             <div class="text-center mb-3 mt-4">
               <label
@@ -281,46 +254,6 @@
             </div>
           </div>
           <div v-if="this.sample_instance.netType == 'custom'">
-            <!--<div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label
-                    for="name"
-                    class="form-label inline-block mb-0.5 text-black"
-                    >Réseau</label
-                  >
-                </div>
-                <select
-                  v-model="this.sample_instance.network"
-                  class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-                >
-                  <option selected></option>
-                  <option value="1">pimahtic-network</option>
-                  <option value="2">net</option>
-                  <option value="3">work</option>
-                </select>
-              </div>
-            </div> -->
-            <!-- <div class="flex justify-center">
-              <div class="mb-3 xl:w-96">
-                <div class="text-right">
-                  <label
-                    for="name"
-                    class="form-label inline-block mb-0.5 text-black"
-                    >Sous-réseau</label
-                  >
-                </div>
-                <select
-                  v-model="this.sample_instance.subnetwork"
-                  class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-                >
-                  <option selected></option>
-                  <option value="1">pimahtic-network-one</option>
-                  <option value="2">net</option>
-                  <option value="3">work</option>
-                </select>
-              </div>
-            </div> -->
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
@@ -330,15 +263,6 @@
                     >Adresse IP interne principale</label
                   >
                 </div>
-                <!-- <select
-                  v-model="this.sample_instance.intAddress"
-                  class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-                >
-                  <option selected></option>
-                  <option value="1">Éphèmère (automatique)</option>
-                  <option value="2">net</option>
-                  <option value="3">work</option>
-                </select> -->
                 <div class="flex flex-row gap-2 w-full">
                   <label
                     class="border-gray-300 border cursor-pointer rounded w-2/5"
