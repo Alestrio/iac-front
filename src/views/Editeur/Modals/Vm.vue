@@ -118,7 +118,6 @@
               </div>
               <v-select
                 :options="this.machine_images"
-                :label="name"
                 :reduce="
                   (option) => {
                     // if item is dictonary, return only the value
