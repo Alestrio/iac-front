@@ -75,7 +75,11 @@
                   <div class="flex flex-row justify-center">
                     <h2 class="text-xl">{{ instance.name }}</h2>
                     <div class="w-auto">
-                      <Vm :instance="instance" :network="network" />
+                      <Vm
+                        :instance="instance"
+                        :network="network"
+                        @send-instance="updateInstance"
+                      />
                     </div>
                   </div>
                   <h3 class="text-xl">{{ instance.ip }}</h3>
@@ -371,6 +375,32 @@
           1,
           $net
         );
+      },
+      updateInstance(new_instance) {
+        console.log(new_instance);
+        // find the network
+        let network = this.current.find(
+          (network) => network.name == new_instance.network
+        );
+        // find the old instance
+        let old_instance = network.instances.find(
+          (instance) => instance.id == new_instance.id
+        );
+        // replace the old instance with the new one
+        let new_instance_display = {
+          id: new_instance.id,
+          name: new_instance.name,
+          provider: this.providers.find((provider) => provider.name == new_instance.provider),
+          containers: old_instance.containers,
+        };
+        // replace the old instance with the new one
+        network.instances.splice(
+          network.instances.findIndex((instance) => instance.id == new_instance.id),
+          1,
+          new_instance_display
+        );
+        // add the new instance to the to_send
+        this.to_send.push(new_instance);
       },
     },
     data() {

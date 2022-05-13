@@ -391,12 +391,7 @@
   import "../../../assets/css/vue-select.css";
   import vSelect from "vue-select";
   import useVuelidate from "@vuelidate/core";
-  import {
-    required,
-    minLength,
-    ipAddress,
-    helpers,
-  } from "@vuelidate/validators";
+  import { required } from "@vuelidate/validators";
 
   export default {
     data() {
@@ -411,7 +406,7 @@
         name: "",
       };
     },
-    props: ["sample_instance", "network"],
+    props: ["instance", "network"],
     components: {
       "v-select": vSelect,
     },
@@ -557,12 +552,13 @@
         console.log(this.v$.$errors);
         if (!this.v$.$error) {
           if (
-            this.sample_instance.subnetwork === "auto" ||
+            this.sample_instance.custom_private_ip === "auto" ||
             this.ipBelongsSubnet(
               this.sample_instance.custom_private_ip,
               this.sample_instance.subnetwork
             )
           ) {
+            this.sample_instance.id = this.instance.id;
             this.$emit("send-instance", this.sample_instance);
             this.isOpen = false;
           }
