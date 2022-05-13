@@ -29,14 +29,14 @@
                 v-if="network.provider.name == 'gcp'"
                 :network="network"
                 :nid="network.id"
-                :apiNet="this.to_send.find((n) => n.id == network.id)"
+                :apiNet="this.to_send.networks.find((n) => n.id == network.id)"
                 @send-network="updategcpNetwork"
               />
               <AmazonNetwork
                 v-if="network.provider.name == 'aws'"
                 :network="network"
                 :nid="network.id"
-                :apiNet="this.to_send.find((n) => n.id == network.id)"
+                :apiNet="this.to_send.networks.find((n) => n.id == network.id)"
                 @send-network="updateawsNetwork"
               />
             </div>
@@ -329,7 +329,7 @@
         let $net = this.networks.find((network) => network.id == net.id);
         let inst = [];
         if ($net) {
-          inst = $net.instances;
+          inst = $net.networks.instances;
         }
 
         this.to_send.push(net);
@@ -360,7 +360,7 @@
         }
 
         if (!net.existing) {
-          this.to_send.push(net);
+          this.to_send.networks.push(net);
         }
         $net = {
           id: net.id,
@@ -400,7 +400,7 @@
           new_instance_display
         );
         // add the new instance to the to_send
-        this.to_send.push(new_instance);
+        this.to_send.machines.push(new_instance);
       },
     },
     data() {
@@ -441,50 +441,11 @@
           { id: 1, name: "aws", type: "provider" },
         ],
         current: [
-          {
-            id: 125768,
-            name: "default",
-            cidr: "10.128.0.0/24",
-            provider: { id: 0, name: "gcp", type: "provider" },
-            instances: [
-              {
-                id: 0,
-                name: "debian",
-                image: "debian-10-buster",
-                containers: [
-                  { id: 1, name: "mongo" },
-                  { id: 2, name: "mongo" },
-                  { id: 3, name: "mongo" },
-                ],
-              },
-              {
-                id: 1,
-                name: "debian",
-                image: "debian-10-buster",
-                containers: [],
-              },
-              {
-                id: 2,
-                name: "debian",
-                image: "debian-10-buster",
-                containers: [],
-              },
-              {
-                id: 3,
-                name: "debian",
-                image: "debian-10-buster",
-                containers: [],
-              },
-              {
-                id: 4,
-                name: "debian",
-                image: "debian-10-buster",
-                containers: [],
-              },
-            ],
-          },
         ],
-        to_send: [],
+        to_send: {
+          machines: [],
+          networks: [],
+        },
       };
     },
     validations: {
