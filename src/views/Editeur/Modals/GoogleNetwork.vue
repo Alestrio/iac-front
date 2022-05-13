@@ -677,6 +677,7 @@
           this.gcp_network = this.available_networks.find(
             (net) => net.name == this.gcp_network.name
           );
+          this.gcp_network.firewalls = [];
           this.$emit("send-network", this.gcp_network);
         }
       },
