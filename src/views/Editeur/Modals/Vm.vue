@@ -53,7 +53,6 @@
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
                   <label
-                    for="region"
                     class="form-label inline-block mb-0.5 text-black"
                     >Zone</label
                   >
@@ -68,7 +67,6 @@
                 </select>
                 <div class="text-right">
                   <label
-                    for="region"
                     class="form-label inline-block mb-0.5 text-black"
                     >Sous-réseau</label
                   >
@@ -83,8 +81,7 @@
             <hr class="my-4" />
             <div class="flex justify-center">
               <div class="text-center">
-                <label
-                  for="region"
+                <label class="form-label inline-block text-xl mb-0.5 text-black"
                   class="form-label inline-block text-xl mb-0.5 text-black"
                   >Général</label
                 >
@@ -93,7 +90,6 @@
             <div class="mb-3 xl:w-full">
               <div class="text-right">
                 <label
-                  for="region"
                   class="form-label inline-block mb-0.5 text-black"
                   >Profil</label
                 >
@@ -109,7 +105,6 @@
             <div class="mb-3 xl:w-96">
               <div class="text-right">
                 <label
-                  for="region"
                   class="form-label inline-block mb-0.5 text-black"
                   >OS</label
                 >
@@ -135,7 +130,6 @@
             <div class="mb-3 xl:w-96">
               <div class="text-center">
                 <label
-                  for="region"
                   class="form-label inline-block text-xl mb-0.5 text-black"
                   >Stockage</label
                 >
@@ -150,7 +144,6 @@
             <div class="mb-3 flex flex-row w-full gap-2">
               <div class="text-right w-4/5">
                 <label
-                  for="region"
                   class="form-label inline-block mb-0.5 text-black"
                   >Type</label
                 >
@@ -192,7 +185,6 @@
           <div class="flex justify-center">
             <div class="text-center mb-3 mt-4">
               <label
-                for="region"
                 class="form-label inline-block text-xl mb-0.5 text-black"
                 >Pare-feu</label
               >
@@ -235,7 +227,6 @@
           <div class="flex justify-center">
             <div class="text-center mb-3 mt-4">
               <label
-                for="region"
                 class="form-label inline-block text-xl mb-0.5 text-black"
                 >Réseau</label
               >
