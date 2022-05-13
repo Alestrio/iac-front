@@ -47,13 +47,15 @@
                   class="form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
                 />
+                <span class="text-red-500" v-if="this.v$.name.$error">
+                  {{ this.v$.name.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
-                  <label
-                    class="form-label inline-block mb-0.5 text-black"
+                  <label class="form-label inline-block mb-0.5 text-black"
                     >Zone</label
                   >
                 </div>
@@ -61,13 +63,15 @@
                   v-model="this.sample_instance.zone"
                   class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                 >
-                  <option v-for="zone in gcp_zones" :value="zone" :key="zone">
+                  <option v-for="zone in zones" :value="zone" :key="zone">
                     {{ zone }}
                   </option>
                 </select>
+                <span class="text-red-500" v-if="this.v$.zone.$error">
+                  {{ this.v$.zone.$errors[0].$message }}
+                </span>
                 <div class="text-right">
-                  <label
-                    class="form-label inline-block mb-0.5 text-black"
+                  <label class="form-label inline-block mb-0.5 text-black"
                     >Sous-réseau</label
                   >
                 </div>
@@ -76,21 +80,22 @@
                   class="w-full"
                   v-model="this.sample_instance.subnetwork"
                 ></v-select>
+                <span class="text-red-500" v-if="this.v$.subnetwork.$error">
+                  {{ this.v$.subnetwork.$errors[0].$message }}
+                </span>
               </div>
             </div>
             <hr class="my-4" />
             <div class="flex justify-center">
               <div class="text-center">
                 <label class="form-label inline-block text-xl mb-0.5 text-black"
-                  class="form-label inline-block text-xl mb-0.5 text-black"
                   >Général</label
                 >
               </div>
             </div>
             <div class="mb-3 xl:w-full">
               <div class="text-right">
-                <label
-                  class="form-label inline-block mb-0.5 text-black"
+                <label class="form-label inline-block mb-0.5 text-black"
                   >Profil</label
                 >
                 <v-select
@@ -99,13 +104,15 @@
                   v-model="this.sample_instance.type"
                 ></v-select>
               </div>
+              <span class="text-red-500" v-if="this.v$.type.$error">
+                {{ this.v$.type.$errors[0].$message }}
+              </span>
             </div>
           </div>
           <div class="flex justify-center">
             <div class="mb-3 xl:w-96">
               <div class="text-right">
-                <label
-                  class="form-label inline-block mb-0.5 text-black"
+                <label class="form-label inline-block mb-0.5 text-black"
                   >OS</label
                 >
               </div>
@@ -124,13 +131,15 @@
                 class="w-full"
                 v-model="this.sample_instance.machine_image"
               ></v-select>
+              <span class="text-red-500" v-if="this.v$.machine_image.$error">
+                {{ this.v$.machine_image.$errors[0].$message }}
+              </span>
             </div>
           </div>
           <div class="flex justify-center">
             <div class="mb-3 xl:w-96">
               <div class="text-center">
-                <label
-                  class="form-label inline-block text-xl mb-0.5 text-black"
+                <label class="form-label inline-block text-xl mb-0.5 text-black"
                   >Stockage</label
                 >
               </div>
@@ -143,8 +152,7 @@
           >
             <div class="mb-3 flex flex-row w-full gap-2">
               <div class="text-right w-4/5">
-                <label
-                  class="form-label inline-block mb-0.5 text-black"
+                <label class="form-label inline-block mb-0.5 text-black"
                   >Type</label
                 >
                 <v-select
@@ -182,10 +190,12 @@
               class="fa-solid fa-plus fa fa-2x text-purple-600 hover:text-purple-700 cursor-pointer mb-4"
             ></i>
           </div>
+          <span class="text-red-500" v-if="this.v$.disks.$error">
+            {{ this.v$.disks.$errors[0].$message }}
+          </span>
           <div class="flex justify-center">
             <div class="text-center mb-3 mt-4">
-              <label
-                class="form-label inline-block text-xl mb-0.5 text-black"
+              <label class="form-label inline-block text-xl mb-0.5 text-black"
                 >Pare-feu</label
               >
             </div>
@@ -226,8 +236,7 @@
           </div>
           <div class="flex justify-center">
             <div class="text-center mb-3 mt-4">
-              <label
-                class="form-label inline-block text-xl mb-0.5 text-black"
+              <label class="form-label inline-block text-xl mb-0.5 text-black"
                 >Réseau</label
               >
             </div>
@@ -304,6 +313,9 @@
                 </div>
               </div>
             </div>
+            <span class="text-red-500" v-if="this.private_cidr_error">
+              Mauvaise IP
+            </span>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96">
                 <div class="text-right">
@@ -390,11 +402,13 @@
     data() {
       return {
         isOpen: false,
-        gcp_zones: [],
+        zones: [],
         machine_types: [],
         machine_images: [],
         disk_types: [],
         subnets: [],
+        private_cidr_error: false,
+        name: "",
       };
     },
     props: ["sample_instance", "network"],
@@ -402,7 +416,6 @@
       "v-select": vSelect,
     },
     setup() {
-      const subnet_validator = (value) => value.includes("auto") || ipAddress;
       const sample_instance = reactive({
         id: "",
         name: "",
@@ -423,10 +436,9 @@
         name: { required },
         machine_image: { required },
         type: { required },
-        disks: { minLength: 1 },
+        disks: { minLength: 1, required },
         subnetwork: { required },
         zone: { required },
-        custom_public_ip: { subnet_validator },
       });
 
       const v$ = useVuelidate(instance_rules, sample_instance);
@@ -445,10 +457,10 @@
       axios
         .get(api_addr + "/settings/zones/" + this.network.provider.name)
         .then((response) => {
-          this.gcp_zones = response.data.zones;
-          for (let i = 0; i < this.gcp_zones.length; i++) {
-            if (this.gcp_zones[i] === this.selected_gcp_zone) {
-              this.gcp_zones.splice(i, 1);
+          this.zones = response.data.zones;
+          for (let i = 0; i < this.zones.length; i++) {
+            if (this.zones[i] === this.sample_instance.network) {
+              this.zones.splice(i, 1);
               break;
             }
           }
@@ -518,15 +530,27 @@
          *          of the ip with the subnet address
          * return true if ip is in the subnet_cidr
          */
-        let ip_bin = ip.split(".").map((octet) => {
-          return parseInt(octet).toString(2).padStart(8, "0");
+        try {
+          let ip_bin = ip
+            .split(".")
+            .map((octet) => {
+              return parseInt(octet).toString(2).padStart(8, "0");
+            })
+            .join("");
+          let subnet_cidr_bin = subnet_cidr
+            .split("/")[0]
+            .split(".")
+            .map((octet) => {
+              return parseInt(octet).toString(2).padStart(8, "0");
+            })
+            .join("");
+          return (
+            ip_bin.substring(0, subnet_cidr.split("/")[1]) ==
+            subnet_cidr_bin.substring(0, subnet_cidr.split("/")[1])
+          );
+        } catch (e) {
+          return false;
         }
-        ).join("");
-        let subnet_cidr_bin = subnet_cidr.split("/")[0].split(".").map((octet) => {
-          return parseInt(octet).toString(2).padStart(8, "0");
-        }
-        ).join("");
-        return ip_bin.substring(0, subnet_cidr.split('/')[1]) == subnet_cidr_bin.substring(0, subnet_cidr.split('/')[1]);
       },
       sendVm() {
         this.v$.$validate();
@@ -542,6 +566,8 @@
             this.$emit("send-instance", this.sample_instance);
             this.isOpen = false;
           }
+        } else {
+          this.private_cidr_error = true;
         }
       },
     },
