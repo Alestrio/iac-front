@@ -138,14 +138,18 @@
                 </select>
               </div>
             </div>
-            <div class="flex justify-start">
+            <div class="flex justify-start"
+              v-if="this.netType == 'new'"
+            >
               <label
                 for="name"
                 class="form-label inline-block mb-2 mt-3 text-black font-bold"
                 >Accès privé à Google</label
               >
             </div>
-            <div class="flex justify-start">
+            <div class="flex justify-start"
+              v-if="this.netType == 'new'"
+            >
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -158,7 +162,9 @@
                 </label>
               </div>
             </div>
-            <div class="flex justify-start">
+            <div class="flex justify-start"
+              v-if="this.netType == 'new'"
+            >
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -172,13 +178,17 @@
                 </label>
               </div>
             </div>
-            <div class="flex justify-start">
+            <div class="flex justify-start"
+              v-if="this.netType == 'new'"
+            >
               <label
                 class="form-label inline-block mb-2 mt-3 text-black font-bold"
                 >Journaux de flux</label
               >
             </div>
-            <div class="flex justify-start">
+            <div class="flex justify-start"
+              v-if="this.netType == 'new'"
+            >
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -191,7 +201,9 @@
                 </label>
               </div>
             </div>
-            <div class="flex justify-start">
+            <div class="flex justify-start"
+              v-if="this.netType == 'new'"
+            >
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -205,9 +217,6 @@
                 </label>
               </div>
             </div>
-            <hr class="my-4" />
-            <h1 class="text-3xl" v-if="this.netType == 'new'">Sous-réseaux</h1>
-            <h1 class="text-3xl" v-if="this.netType == 'existing'">Sous-réseaux validé</h1>
             <div class="flex justify-center">
               <div class="mb-3 xl:w-96" v-if="this.netType == 'new'">
                 <div class="text-right">
@@ -359,12 +368,12 @@
                   v-if="this.netType == 'new'"
                   >Routage dynamique</label
                 >
-                <label
+                <!-- <label
                   for="region"
                   class="form-label inline-block text-xl mb-0.5 text-black"
                   v-if="this.netType == 'existing'"
                   >Routage dynamique valide</label
-                >
+                > -->
               </div>
             </div>
             <div class="flex justify-center" v-if="this.netType == 'new'">
@@ -404,12 +413,12 @@
                   v-if="this.netType == 'new'"
                   >Pare-feu</label
                 >
-                <label
+                <!-- <label
                   for="region"
                   class="form-label inline-block text-xl mb-0.5 text-black"
                   v-if="this.netType == 'existing'"
                   >Pare-feu valide</label
-                >
+                > -->
               </div>
             </div>
             <div class="grid grid-cols-2 gap-2 w-1/2 m-auto" v-if="this.netType == 'new'">
