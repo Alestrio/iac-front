@@ -325,14 +325,13 @@
         }
       },
       updategcpNetwork(net) {
-        console.log(net);
-        let $net = this.networks.find((network) => network.id == net.id);
+        let $net = this.current.find((network) => network.id == net.id);
         let inst = [];
         if ($net) {
-          inst = $net.networks.instances;
+          inst = $net.instances;
         }
 
-        this.to_send.push(net);
+        this.to_send.networks.push(net);
         let cidrs = "";
         for (let i of net.subnets) {
           cidrs += i.ip_cidr_range + "\n";

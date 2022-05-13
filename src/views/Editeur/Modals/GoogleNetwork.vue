@@ -128,28 +128,22 @@
                     >Nom</label
                   >
                 </div>
-                <select
-                  class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-black bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
-                >
-                  <option selected></option>
-                  <option value="1">pimahtic-network</option>
-                  <option value="2">net</option>
-                  <option value="3">work</option>
-                </select>
+                <v-select
+                  :options="available_networks"
+                  v-model="gcp_network.name"
+                  :label="'name'"
+                  :reduce="/*returns only the name*/ (item) => item.name"
+                />
               </div>
             </div>
-            <div class="flex justify-start"
-              v-if="this.netType == 'new'"
-            >
+            <div class="flex justify-start" v-if="this.netType == 'new'">
               <label
                 for="name"
                 class="form-label inline-block mb-2 mt-3 text-black font-bold"
                 >Accès privé à Google</label
               >
             </div>
-            <div class="flex justify-start"
-              v-if="this.netType == 'new'"
-            >
+            <div class="flex justify-start" v-if="this.netType == 'new'">
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -162,9 +156,7 @@
                 </label>
               </div>
             </div>
-            <div class="flex justify-start"
-              v-if="this.netType == 'new'"
-            >
+            <div class="flex justify-start" v-if="this.netType == 'new'">
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -178,17 +170,13 @@
                 </label>
               </div>
             </div>
-            <div class="flex justify-start"
-              v-if="this.netType == 'new'"
-            >
+            <div class="flex justify-start" v-if="this.netType == 'new'">
               <label
                 class="form-label inline-block mb-2 mt-3 text-black font-bold"
                 >Journaux de flux</label
               >
             </div>
-            <div class="flex justify-start"
-              v-if="this.netType == 'new'"
-            >
+            <div class="flex justify-start" v-if="this.netType == 'new'">
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -201,9 +189,7 @@
                 </label>
               </div>
             </div>
-            <div class="flex justify-start"
-              v-if="this.netType == 'new'"
-            >
+            <div class="flex justify-start" v-if="this.netType == 'new'">
               <div class="form-check float-left mb-3">
                 <label class="form-check-label inline-block text-black">
                   <input
@@ -421,7 +407,10 @@
                 > -->
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-2 w-1/2 m-auto" v-if="this.netType == 'new'">
+            <div
+              class="grid grid-cols-2 gap-2 w-1/2 m-auto"
+              v-if="this.netType == 'new'"
+            >
               <div class="form-check float-left flex">
                 <input
                   class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
@@ -529,178 +518,189 @@
   </div>
 </template>
 <script>
-import { reactive } from "vue";
-import Firewall from "./Firewall.vue";
-import { computed } from "vue";
-import { required, helpers } from "@vuelidate/validators";
-import useVuelidate from "@vuelidate/core";
-import axios from "axios";
+  import { reactive } from "vue";
+  import Firewall from "./Firewall.vue";
+  import { computed } from "vue";
+  import { required, helpers } from "@vuelidate/validators";
+  import useVuelidate from "@vuelidate/core";
+  import "../../../assets/css/vue-select.css";
+  import vSelect from "vue-select";
+  import axios from "axios";
 
-export default {
-  props: ["network", "nid", "apiNet"],
-  data() {
-    return {
-      forbidden_networks: [],
-      netType: "new",
-      isOpen: false,
-      sample_rules: {
-        rdp: {
-          protocol: "tcp",
-          from_ports: [22],
-          to_ports: [22],
-          source_networks: ["0.0.0.0/0"],
-        },
-        ssh: {
-          protocol: "tcp",
-          from_ports: [22],
-          to_ports: [22],
-          source_networks: ["0.0.0.0/0"],
-        },
-      },
-      sample_firewall: {
-        name: "firewall-",
-        is_allow: true,
-        rules: [],
-      },
-    };
-  },
-  setup() {
-    let cidr = helpers.regex(
-      /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|[1-2][0-9]|3[0-2])/
-    );
-    cidr = helpers.withMessage("Invalid CIDR", cidr);
-    const forbidden_networks = [
-      "199.36.153.4/30",
-      "199.36.153.8/30",
-      "0.0.0.0/8",
-      "127.0.0.0/8",
-      "169.254.0.0/16",
-      "224.0.0.0/4",
-      "255.255.255.255/32",
-    ];
-    const notForbidden = helpers.withMessage(
-      "Forbidden network",
-      (value) => !forbidden_networks.includes(value)
-    );
-    const sample_subnet = reactive({
-      name: "",
-      description: "",
-      providers: ["gcp"],
-      gcp_zone: "",
-      ip_cidr_range: "",
-    });
-    const subnet_rules = reactive({
-      name: { required },
-      description: { required },
-      gcp_zone: { required },
-      ip_cidr_range: { required, cidr, notForbidden },
-    });
-    const gcp_network = reactive({
-      id: 0,
-      name: "",
-      description: "",
-      routing_type: "GLOBAL",
-      providers: ["gcp"],
-      subnets: [],
-      firewalls: [],
-    });
-    const rules = computed(() => {
+  export default {
+    props: ["network", "nid", "apiNet"],
+    data() {
       return {
+        forbidden_networks: [],
+        available_networks: [],
+        netType: "new",
+        isOpen: false,
+        sample_rules: {
+          rdp: {
+            protocol: "tcp",
+            from_ports: [22],
+            to_ports: [22],
+            source_networks: ["0.0.0.0/0"],
+          },
+          ssh: {
+            protocol: "tcp",
+            from_ports: [22],
+            to_ports: [22],
+            source_networks: ["0.0.0.0/0"],
+          },
+        },
+        sample_firewall: {
+          name: "firewall-",
+          is_allow: true,
+          rules: [],
+        },
+      };
+    },
+    setup() {
+      let cidr = helpers.regex(
+        /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/([0-9]|[1-2][0-9]|3[0-2])/
+      );
+      cidr = helpers.withMessage("Invalid CIDR", cidr);
+      const forbidden_networks = [
+        "199.36.153.4/30",
+        "199.36.153.8/30",
+        "0.0.0.0/8",
+        "127.0.0.0/8",
+        "169.254.0.0/16",
+        "224.0.0.0/4",
+        "255.255.255.255/32",
+      ];
+      const notForbidden = helpers.withMessage(
+        "Forbidden network",
+        (value) => !forbidden_networks.includes(value)
+      );
+      const sample_subnet = reactive({
+        name: "",
+        description: "",
+        providers: ["gcp"],
+        gcp_zone: "",
+        ip_cidr_range: "",
+      });
+      const subnet_rules = reactive({
         name: { required },
         description: { required },
-        routing_type: { required },
-        providers: { required },
-        subnets: { required, minLength: 1 },
+        gcp_zone: { required },
+        ip_cidr_range: { required, cidr, notForbidden },
+      });
+      const gcp_network = reactive({
+        id: 0,
+        name: "",
+        description: "",
+        routing_type: "GLOBAL",
+        providers: ["gcp"],
+        subnets: [],
+        firewalls: [],
+      });
+      const rules = computed(() => {
+        return {
+          name: { required },
+          description: { required },
+          routing_type: { required },
+          providers: { required },
+          subnets: { required, minLength: 1 },
+        };
+      });
+      const v$ = useVuelidate(rules, gcp_network);
+      const w$ = useVuelidate(subnet_rules, sample_subnet);
+      return {
+        v$,
+        w$,
+        sample_subnet,
+        gcp_network,
       };
-    });
-    const v$ = useVuelidate(rules, gcp_network);
-    const w$ = useVuelidate(subnet_rules, sample_subnet);
-    return {
-      v$,
-      w$,
-      sample_subnet,
-      gcp_network,
-    };
-  },
-  components: {
-    Firewall,
-  },
-  methods: {
-    addFirewall(firewall) {
-      let fire = JSON.parse(JSON.stringify(this.sample_firewall));
-      for (let i of firewall) {
-        fire.rules.push(i);
-      }
-      this.gcp_network.firewalls.push(fire);
     },
-    stringifyPorts(ports) {
-      return ports.join(", ");
+    components: {
+      Firewall,
+      "v-select": vSelect,
     },
-    addSubnet() {
-      this.w$.$validate();
-      if (!this.w$.$error) {
-        this.gcp_network.subnets.push(
-          JSON.parse(JSON.stringify(this.sample_subnet))
-        );
-      }
-    },
-    deleteSubnet(subnet) {
-      this.gcp_network.subnets.splice(
-        this.gcp_network.subnets.indexOf(subnet),
-        1
-      );
-    },
-    deleteRule(firewall, rule) {
-      firewall.rules.splice(firewall.rules.indexOf(rule), 1);
-      if (firewall.rules.length === 0) {
-        this.gcp_network.firewalls.splice(
-          this.gcp_network.firewalls.indexOf(firewall),
+    methods: {
+      addFirewall(firewall) {
+        let fire = JSON.parse(JSON.stringify(this.sample_firewall));
+        for (let i of firewall) {
+          fire.rules.push(i);
+        }
+        this.gcp_network.firewalls.push(fire);
+      },
+      stringifyPorts(ports) {
+        return ports.join(", ");
+      },
+      addSubnet() {
+        this.w$.$validate();
+        if (!this.w$.$error) {
+          this.gcp_network.subnets.push(
+            JSON.parse(JSON.stringify(this.sample_subnet))
+          );
+        }
+      },
+      deleteSubnet(subnet) {
+        this.gcp_network.subnets.splice(
+          this.gcp_network.subnets.indexOf(subnet),
           1
         );
+      },
+      deleteRule(firewall, rule) {
+        firewall.rules.splice(firewall.rules.indexOf(rule), 1);
+        if (firewall.rules.length === 0) {
+          this.gcp_network.firewalls.splice(
+            this.gcp_network.firewalls.indexOf(firewall),
+            1
+          );
+        }
+      },
+      sendNetwork() {
+        this.v$.$validate();
+        if (!this.v$.$error) {
+          this.gcp_network.id = this.nid;
+          if (this.gcp_network.firewalls.length == 0) {
+            this.gcp_network.firewalls.push(this.sample_firewall);
+          }
+          this.gcp_network.firewalls[0].name =
+            this.gcp_network.firewalls[0].name.split("-")[0] +
+            "-" +
+            this.gcp_network.name;
+          if (document.getElementById("ssh_rule").checked) {
+            this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
+          }
+          if (document.getElementById("rdp_rule").checked) {
+            this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
+          }
+          //TODO Rule for ICMP
+          this.$emit("send-network", this.gcp_network);
+          this.isOpen = false;
+        }
+        if (this.netType == "existing") {
+          this.gcp_network = this.available_networks.find(
+            (net) => net.name == this.gcp_network.name
+          );
+          this.$emit("send-network", this.gcp_network);
+        }
+      },
+    },
+    mounted() {
+      let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      axios.get(api_addr + "/settings/zones/gcp").then((response) => {
+        this.gcp_zones = response.data.zones;
+        for (let i = 0; i < this.gcp_zones.length; i++) {
+          if (this.gcp_zones[i] === this.selected_gcp_zone) {
+            this.gcp_zones.splice(i, 1);
+            break;
+          }
+        }
+      });
+      axios.get(api_addr + "/settings/zone/gcp").then((response) => {
+        this.selected_gcp_zone = response.data.zone;
+      });
+      axios.get(api_addr + "/existing/simple_networks/gcp").then((response) => {
+        this.available_networks = response.data;
+      });
+      if (this.apiNet != null) {
+        this.gcp_network = this.apiNet;
       }
     },
-    sendNetwork() {
-      this.v$.$validate();
-      this.gcp_network.id = this.nid;
-      if (this.gcp_network.firewalls.length == 0) {
-        this.gcp_network.firewalls.push(this.sample_firewall);
-      }
-      if (!this.v$.$error) {
-        console.log(this.gcp_network);
-        this.gcp_network.firewalls[0].name =
-          this.gcp_network.firewalls[0].name.split("-")[0] +
-          "-" +
-          this.gcp_network.name;
-        if (document.getElementById("ssh_rule").checked) {
-          console.log("salut");
-          this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
-        }
-        if (document.getElementById("rdp_rule").checked) {
-          this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
-        }
-        //TODO Rule for ICMP
-        this.$emit("send-network", this.gcp_network);
-        this.isOpen = false;
-      }
-    },
-  },
-  mounted() {
-    let api_addr = import.meta.env.VITE_APP_API_ADDR;
-    axios.get(api_addr + "/settings/zones/gcp").then((response) => {
-      this.gcp_zones = response.data.zones;
-      for (let i = 0; i < this.gcp_zones.length; i++) {
-        if (this.gcp_zones[i] === this.selected_gcp_zone) {
-          this.gcp_zones.splice(i, 1);
-          break;
-        }
-      }
-    });
-    axios.get(api_addr + "/settings/zone/gcp").then((response) => {
-      this.selected_gcp_zone = response.data.zone;
-    });
-    if (this.apiNet != null) {
-      this.gcp_network = this.apiNet;
-    }
-  },
-};
+  };
 </script>
