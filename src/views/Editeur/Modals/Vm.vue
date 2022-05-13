@@ -76,7 +76,7 @@
                 <v-select
                   :options="this.subnets"
                   class="w-full"
-                  v-model="this.sample_instance.subnet"
+                  v-model="this.sample_instance.subnetwork"
                 ></v-select>
               </div>
             </div>
@@ -387,6 +387,13 @@
   import axios from "axios";
   import "../../../assets/css/vue-select.css";
   import vSelect from "vue-select";
+  import useVuelidate from "@vuelidate/core";
+  import {
+    required,
+    minLength,
+    ipAddress,
+    helpers,
+  } from "@vuelidate/validators";
 
   export default {
     data() {
@@ -404,6 +411,7 @@
       "v-select": vSelect,
     },
     setup() {
+      const subnet_validator = (value) => value.includes("auto") || ipAddress;
       const sample_instance = reactive({
         id: "",
         name: "",
@@ -415,12 +423,25 @@
         subnetwork: "",
         zone: "",
         custom_public_ip: "",
-        custom_private_ip: "",
+        custom_private_ip: "auto",
         http_access: false,
         https_access: false,
       });
+
+      const instance_rules = reactive({
+        name: { required },
+        machine_image: { required },
+        type: { required },
+        disks: { minLength: 1 },
+        subnetwork: { required },
+        zone: { required },
+        custom_public_ip: { subnet_validator },
+      });
+
+      const v$ = useVuelidate(instance_rules, sample_instance);
       return {
         sample_instance,
+        v$,
       };
     },
     mounted() {
@@ -498,9 +519,39 @@
       this.subnets = this.network.cidr.split(",");
     },
     methods: {
+      ipBelongsSubnet(ip, subnet_cidr) {
+        /*
+         * ip is a string in the form "xxx.xxx.xxx.xxx" xxx from 0 to 255
+         * subnet_cidr is a string in the form "xxx.xxx.xxx.xxx/yy" xxx from 0 to 255 and yy from 0 to 32
+         * converts the ip to binary, convert subnet address to binary and compare the first yy bits
+         *          of the ip with the subnet address
+         * return true if ip is in the subnet_cidr
+         */
+        let ip_bin = ip.split(".").map((octet) => {
+          return parseInt(octet).toString(2).padStart(8, "0");
+        }
+        ).join("");
+        let subnet_cidr_bin = subnet_cidr.split("/")[0].split(".").map((octet) => {
+          return parseInt(octet).toString(2).padStart(8, "0");
+        }
+        ).join("");
+        return ip_bin.substring(0, subnet_cidr.split('/')[1]) == subnet_cidr_bin.substring(0, subnet_cidr.split('/')[1]);
+      },
       sendVm() {
-        this.$emit("send-instance", this.sample_instance);
-        this.isOpen = false;
+        this.v$.$validate();
+        console.log(this.v$.$errors);
+        if (!this.v$.$error) {
+          if (
+            this.sample_instance.subnetwork === "auto" ||
+            this.ipBelongsSubnet(
+              this.sample_instance.custom_private_ip,
+              this.sample_instance.subnetwork
+            )
+          ) {
+            this.$emit("send-instance", this.sample_instance);
+            this.isOpen = false;
+          }
+        }
       },
     },
   };
