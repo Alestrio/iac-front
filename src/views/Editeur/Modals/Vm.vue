@@ -442,80 +442,83 @@
       };
     },
     mounted() {
-      let api_addr = import.meta.env.VITE_APP_API_ADDR;
-      axios
-        .get(api_addr + "/settings/zone/" + this.network.provider.name)
-        .then((response) => {
-          this.sample_instance.zone = response.data.zone;
-        });
-      axios
-        .get(api_addr + "/settings/zones/" + this.network.provider.name)
-        .then((response) => {
-          this.zones = response.data.zones;
-          for (let i = 0; i < this.zones.length; i++) {
-            if (this.zones[i] === this.sample_instance.network) {
-              this.zones.splice(i, 1);
-              break;
-            }
-          }
-        });
-      axios
-        .get(api_addr + "/settings/machine_types/" + this.network.provider.name)
-        .then((response) => {
-          this.machine_types = response.data.machine_types;
-        });
-      axios
-        .get(api_addr + "/settings/disk_types/" + this.network.provider.name)
-        .then((response) => {
-          this.disk_types = response.data.disk_types;
-        });
-      axios
-        .get(
-          api_addr + "/settings/machine_images/" + this.network.provider.name
-        )
-        .then((response) => {
-          // this dict contains the machine_images sorted into categories
-          /*
-        * like : {
-          'debian': [
-            debian-9-x64-standard-hd-v20200318.iso,
-            debian-9-x64-standard-hd-v20200318.iso,
-          ],
-          'ubuntu': [
-            ...
-          ],
-          ...
-        }
-        * we will use extract the images from the categories and add them to the machine_images array
-        */
-          // for each category
-          try {
-            for (let category in response.data.machine_images) {
-              // for each image in the category
-              for (let image of response.data.machine_images[category]) {
-                // add the image to the machine_images array
-                this.machine_images.push(image);
-              }
-            }
-          } catch (e) {
-            // it means that the machine_images dict is not iterable... at least not in that way
-            for (let category in response.data.machine_images) {
-              // in each category, we have a dict of pairs (ami_id, ami_name)
-              for (let image in response.data.machine_images[category]) {
-                // add the value to the machine_images array
-                this.machine_images.push({
-                  label: response.data.machine_images[category][image],
-                  id: image,
-                });
-              }
-            }
-          }
-        });
-      this.sample_instance.provider = this.network.provider.name;
-      this.sample_instance.network = this.network.name;
-      this.subnets = this.network.cidr.split(",");
+      this.getProviderData();
     },
     methods: {
+      getProviderData() {
+        let api_addr = import.meta.env.VITE_APP_API_ADDR;
+        axios
+          .get(api_addr + "/settings/zone/" + this.network.provider.name)
+          .then((response) => {
+            this.sample_instance.zone = response.data.zone;
+          });
+        axios
+          .get(api_addr + "/settings/zones/" + this.network.provider.name)
+          .then((response) => {
+            this.zones = response.data.zones;
+            for (let i = 0; i < this.zones.length; i++) {
+              if (this.zones[i] === this.sample_instance.network) {
+                this.zones.splice(i, 1);
+                break;
+              }
+            }
+          });
+        axios
+          .get(api_addr + "/settings/machine_types/" + this.network.provider.name)
+          .then((response) => {
+            this.machine_types = response.data.machine_types;
+          });
+        axios
+          .get(api_addr + "/settings/disk_types/" + this.network.provider.name)
+          .then((response) => {
+            this.disk_types = response.data.disk_types;
+          });
+        axios
+          .get(
+            api_addr + "/settings/machine_images/" + this.network.provider.name
+          )
+          .then((response) => {
+            // this dict contains the machine_images sorted into categories
+            /*
+          * like : {
+            'debian': [
+              debian-9-x64-standard-hd-v20200318.iso,
+              debian-9-x64-standard-hd-v20200318.iso,
+            ],
+            'ubuntu': [
+              ...
+            ],
+            ...
+          }
+          * we will use extract the images from the categories and add them to the machine_images array
+          */
+            // for each category
+            try {
+              for (let category in response.data.machine_images) {
+                // for each image in the category
+                for (let image of response.data.machine_images[category]) {
+                  // add the image to the machine_images array
+                  this.machine_images.push(image);
+                }
+              }
+            } catch (e) {
+              // it means that the machine_images dict is not iterable... at least not in that way
+              for (let category in response.data.machine_images) {
+                // in each category, we have a dict of pairs (ami_id, ami_name)
+                for (let image in response.data.machine_images[category]) {
+                  // add the value to the machine_images array
+                  this.machine_images.push({
+                    label: response.data.machine_images[category][image],
+                    id: image,
+                  });
+                }
+              }
+            }
+          });
+        this.sample_instance.provider = this.network.provider.name;
+        this.sample_instance.network = this.network.name;
+        this.subnets = this.network.cidr.split(",");
+      },
       ipBelongsSubnet(ip, subnet_cidr) {
         /*
          * ip is a string in the form "xxx.xxx.xxx.xxx" xxx from 0 to 255
