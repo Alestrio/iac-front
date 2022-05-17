@@ -150,7 +150,8 @@
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
                     name="googleaccess"
-                    value="enabled"
+                    value=true
+                    v-model="gcp_network.google_private_access"
                   />
                   Activé
                 </label>
@@ -164,7 +165,8 @@
                     type="radio"
                     name="googleaccess"
                     checked
-                    value="disabled"
+                    value=false
+                    v-model="gcp_network.google_private_access"
                   />
                   Désactivé
                 </label>
@@ -182,8 +184,9 @@
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
-                    value="enabled"
+                    value=true
                     name="streamJournal"
+                    v-model="gcp_network.google_stream_journal"
                   />
                   Activé
                 </label>
@@ -195,9 +198,10 @@
                   <input
                     class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-purple-600 checked:border-purple-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="radio"
-                    value="disabled"
+                    value=false
                     name="streamJournal"
                     checked
+                    v-model="gcp_network.google_stream_journal"
                   />
                   Désactivé
                 </label>
@@ -595,6 +599,8 @@
         providers: ["gcp"],
         subnets: [],
         firewalls: [],
+        google_private_access: false,
+        google_stream_journal: false,
       });
       const rules = computed(() => {
         return {
