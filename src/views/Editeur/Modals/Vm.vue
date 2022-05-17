@@ -167,7 +167,7 @@
                   >Taille disque {{ disk.id }}
                 </label>
                 <input
-                  v-model="disk.diskCapacity"
+                  v-model="disk.size"
                   type="text"
                   class="h-12 form-control block w-full px-3 py-1.5 text-right text-base font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-purple-600 focus:outline-none"
                   id="name"
