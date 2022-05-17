@@ -678,6 +678,7 @@
             (net) => net.name == this.gcp_network.name
           );
           this.gcp_network.firewalls = [];
+          this.gcp_network.id = this.nid;
           this.$emit("send-network", this.gcp_network);
         }
       },

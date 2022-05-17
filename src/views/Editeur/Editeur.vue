@@ -336,6 +336,7 @@
         for (let i of net.subnets) {
           cidrs += i.ip_cidr_range + "\n";
         }
+        console.log(net)
         $net = {
           id: net.id,
           name: net.name,
