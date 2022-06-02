@@ -310,7 +310,7 @@
             </div>
             <table
               class="table-auto mt-6"
-              v-if="this.gcp_network.subnets.length > 0"
+              v-if="this.gcp_network.subnetworks.length > 0"
             >
               <thead class="bg-purple-600 text-white">
                 <tr>
@@ -322,7 +322,7 @@
               </thead>
               <tbody class="bg-purple-100">
                 <tr
-                  v-for="subnet in this.gcp_network.subnets"
+                  v-for="subnet in this.gcp_network.subnetworks"
                   :key="subnet"
                   class="p-2"
                 >
@@ -350,8 +350,8 @@
                 </tr>
               </tbody>
             </table>
-            <span class="text-red-500" v-if="this.v$.subnets.$error">
-              {{ this.v$.subnets.$errors[0].$message }}
+            <span class="text-red-500" v-if="this.v$.subnetworks.$error">
+              {{ this.v$.subnetworks.$errors[0].$message }}
             </span>
             <hr class="my-4" />
             <div class="flex justify-center">
@@ -585,7 +585,6 @@
       const sample_subnet = reactive({
         name: "",
         description: "",
-        providers: ["gcp"],
         gcp_zone: "",
         ip_cidr_range: "",
       });
@@ -600,8 +599,8 @@
         name: "",
         description: "",
         routing_type: "GLOBAL",
-        providers: ["gcp"],
-        subnets: [],
+        PROVIDER: "GCP",
+        subnetworks: [],
         firewalls: [],
         google_private_access: false,
         google_stream_journal: false,
@@ -611,8 +610,8 @@
           name: { required },
           description: { required },
           routing_type: { required },
-          providers: { required },
-          subnets: { required, minLength: 1 },
+          PROVIDER: { required },
+          subnetworks: { required, minLength: 1 },
         };
       });
       const v$ = useVuelidate(rules, gcp_network);
@@ -642,14 +641,14 @@
       addSubnet() {
         this.w$.$validate();
         if (!this.w$.$error) {
-          this.gcp_network.subnets.push(
+          this.gcp_network.subnetworks.push(
             JSON.parse(JSON.stringify(this.sample_subnet))
           );
         }
       },
       deleteSubnet(subnet) {
-        this.gcp_network.subnets.splice(
-          this.gcp_network.subnets.indexOf(subnet),
+        this.gcp_network.subnetworks.splice(
+          this.gcp_network.subnetworks.indexOf(subnet),
           1
         );
       },

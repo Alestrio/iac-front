@@ -424,7 +424,7 @@
         network: "",
         subnetwork: "",
         zone: "",
-        custom_public_ip: "",
+        custom_public_ip: "none",
         custom_private_ip: "auto",
         http_access: false,
         https_access: false,
