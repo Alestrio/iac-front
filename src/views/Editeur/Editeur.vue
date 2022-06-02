@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2022 Alexis LEBEL
+ *   All rights reserved.
+ */
 <template>
   <div class="w-full">
     <div
