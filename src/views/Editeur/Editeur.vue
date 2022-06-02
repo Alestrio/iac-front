@@ -452,10 +452,17 @@
         // add the new instance to the to_send
         this.to_send.machines.push(new_instance);
       },
+      sendConfig() {
+        let api_addr = import.meta.env.VITE_APP_API_ADDR;
+        console.log(this.to_send);
+        axios
+          .post(api_addr + "/config/tf_config", this.to_send)
+      },
     },
     data() {
       return {
         containers: [{ id: 0, name: "Conteneur", type: "container" }],
+        keys: [],
         networks: [
           {
             id: 0,
