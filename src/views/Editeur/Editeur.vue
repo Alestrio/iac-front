@@ -8,12 +8,47 @@
       class="w-full h-full p-3 flex justify-center items-center bg-blue-50 md:flex-row flex-col"
     >
       <div
-        class="w-full h-3/2 md:w-3/4 md:h-full shadow-xl m-4 border text-center overflow-clip"
+        class="w-full h-3/2 md:w-3/4 md:h-full shadow-xl m-4 border text-center overflow-clip flex-col flex"
       >
         <h1 class="text-3xl p-4">Infrastructure</h1>
-        <hr class="border-b-1 border-blue-100 ml-10 mr-10" />
+        <hr class="border-b-1 border-blue-100 ml-10 mr-10 mb-10" />
+        <div class="flex flex-col w-full h-14 justify-center flex-grow mt-2">
+          <div class="flex flex-row p-3 flex-grow">
+            <label class="text-xl flex-grow">
+              Nom de la configuration :
+              <input
+                type="text"
+                name="name"
+                class="rounded-full border-2 border-blue-100 p-2"
+                v-model="to_send.name"
+              />
+            </label>
+            <label class="text-xl flex-grow">
+              Utilisateur SSH (AWS Uniquement) :
+              <input
+                type="text"
+                name="name"
+                class="rounded-full border-2 border-blue-100 p-2"
+                v-model="to_send.ssh_user"
+              />
+            </label>
+          </div>
+          <div class="flex flex-row p-3 flex-grow mb-6">
+            <label class="text-xl flex-grow">
+              Clé privée SSH
+              <select
+                class="rounded-full border-2 border-blue-100 p-2 w-32"
+                v-model="to_send.private_key_name"
+              >
+                <option v-for="key in keys" :value="key" :key="key">
+                  {{ key }}
+                </option>
+              </select>
+            </label>
+          </div>
+        </div>
         <div
-          class="shadow-xl p-3 m-5 w-7/8 h-4/6 md:h-5/6 rounded flex flex-col md:grid md:grid-cols-2 gap-2 overflow-auto place-items-center"
+          class="mt-7 shadow-xl p-3 m-5 w-7/8 h-4/6 md:h-5/6 rounded flex flex-col md:grid md:grid-cols-2 gap-2 overflow-auto place-items-center border-purple-300 border"
           @drop="onDrop($event, 'network')"
           @dragover.prevent
           @dragenter.prevent
@@ -203,6 +238,7 @@
   import Container from "./Modals/Container.vue";
   import AmazonNetwork from "./Modals/AmazonNetwork.vue";
   import GoogleNetwork from "./Modals/GoogleNetwork.vue";
+  import axios from "axios";
 
   export default {
     computed: {
@@ -225,7 +261,17 @@
       Vm,
       Container,
     },
-    mounted() {},
+    mounted() {
+      let api_addr = import.meta.env.VITE_APP_API_ADDR;
+      axios
+        .get(api_addr + "/settings/keys")
+        .then((response) => {
+          this.keys = response.data.keys;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     methods: {
       startDrag(event, item) {
         event.dataTransfer.dropEffect = "move";
