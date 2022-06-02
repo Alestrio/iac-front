@@ -383,7 +383,7 @@
 
         this.to_send.networks.push(net);
         let cidrs = "";
-        for (let i of net.subnets) {
+        for (let i of net.subnetworks) {
           cidrs += i.ip_cidr_range + "\n";
         }
         console.log(net)
@@ -493,8 +493,12 @@
         current: [
         ],
         to_send: {
+          name: "",
+          ssh_user: "",
+          private_key_name: "",
           machines: [],
           networks: [],
+          roles: [],
         },
       };
     },
