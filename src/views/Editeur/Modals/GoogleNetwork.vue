@@ -557,11 +557,6 @@
             source_networks: ["0.0.0.0/0"],
           },
         },
-        sample_firewall: {
-          name: "firewall-",
-          is_allow: true,
-          rules: [],
-        },
       };
     },
     setup() {
@@ -599,9 +594,12 @@
         name: "",
         description: "",
         routing_type: "GLOBAL",
-        PROVIDER: "GCP",
         subnetworks: [],
-        firewalls: [],
+        firewalls: {
+          name: "firewall-",
+          is_allow: true,
+          rules: [],
+        },
         google_private_access: false,
         google_stream_journal: false,
       });
@@ -610,7 +608,6 @@
           name: { required },
           description: { required },
           routing_type: { required },
-          PROVIDER: { required },
           subnetworks: { required, minLength: 1 },
         };
       });
@@ -668,15 +665,15 @@
           if (this.gcp_network.firewalls.length == 0) {
             this.gcp_network.firewalls.push(this.sample_firewall);
           }
-          this.gcp_network.firewalls[0].name =
-            this.gcp_network.firewalls[0].name.split("-")[0] +
+          this.gcp_network.firewalls.name =
+            this.gcp_network.firewalls.name.split("-")[0] +
             "-" +
             this.gcp_network.name;
           if (document.getElementById("ssh_rule").checked) {
-            this.gcp_network.firewalls[0].rules.push(this.sample_rules.ssh);
+            this.gcp_network.firewalls.rules.push(this.sample_rules.ssh);
           }
           if (document.getElementById("rdp_rule").checked) {
-            this.gcp_network.firewalls[0].rules.push(this.sample_rules.rdp);
+            this.gcp_network.firewalls.rules.push(this.sample_rules.rdp);
           }
           //TODO Rule for ICMP
           this.$emit("send-network", this.gcp_network);
