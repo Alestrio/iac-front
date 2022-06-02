@@ -457,6 +457,9 @@
         console.log(this.to_send);
         axios
           .post(api_addr + "/config/tf_config", this.to_send)
+          .catch((error) => {
+            console.log(error);
+          });
       },
     },
     data() {
