@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2022 Alexis LEBEL
+ *   All rights reserved.
+ */
 <template>
   <div class="w-full h-screen md:p-4 flex justify-center items-center">
     <main
@@ -8,16 +12,24 @@
           >Projet IaC</span
         >
         <div class="space-y-3">
-          <input
+          <Field
             class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center focus:border-purple-600 focus:outline-none"
             type="text"
             placeholder="Nom d'utilisateur"
+            v-model="username"
+            name="username"
           />
-          <input
+          <ErrorMessage
+            name="username" class="alert-red-500" />
+          <Field
             class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center focus:border-purple-600 focus:outline-none"
             type="password"
             placeholder="Mot de passe"
+            v-model="password"
+            name="password"
           />
+          <ErrorMessage
+            name="password" class="alert-red-500" />
           <button
             class="w-1/2 focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-purple-500 hover:bg-purple-600 hover:shadow-lg"
           >
@@ -29,8 +41,57 @@
   </div>
 </template>
 <script>
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import User from '../../models/user';
+import * as yup from 'yup';
+
 export default {
-  components: {},
+  name: "Login",
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
+  data() {
+    const schema = yup.object().shape({
+      username: yup.string().required('Veuillez entrer votre nom d\'utilisateur'),
+      password: yup.string().required('Veuillez entrer votre mot de passe'),
+    });
+
+    return  {
+      loading: false,
+      message: '',
+      schema,
+      
+      username: '',
+      password: '',
+    }
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push('/dashboard');
+    }
+  },
+  methods: {
+    handleLogin(user){
+      this.loading = true;
+
+      this.$store.dispatch("auth/login", user).then(
+        () => {
+          this.$router.push('/dashboard');
+        },
+        (error) => {
+          this.loading = false;
+          this.message = error.response.data.message || 'Une erreur est survenue';
+        }
+      );
+    }
+  },
   mounted() {},
 };
 </script>
