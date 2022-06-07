@@ -1,8 +1,5 @@
-/*
- *   Copyright (c) 2022 Alexis LEBEL
- *   All rights reserved.
- */
-/* * Copyright (c) 2022 Alexis LEBEL * All rights reserved. */
+/* * Copyright (c) 2022 Alexis LEBEL * All rights reserved. */ /* * Copyright
+(c) 2022 Alexis LEBEL * All rights reserved. */
 <template>
   <div class="w-full h-screen md:p-4 flex justify-center items-center">
     <main
@@ -10,7 +7,11 @@
     >
       <div class="w-full md:w-3/3 p-5 grid grid-cols-1 space-y-6 text-center">
         <span class="font-bold text-2xl text-purple-500">Projet IaC</span>
-        <Form class="space-y-3" @submit="handleLogin" :validation-schema="schema">
+        <Form
+          class="space-y-3"
+          @submit="handleLogin"
+          :validation-schema="schema"
+        >
           <Field
             class="w-1/2 p-1 m-1 rounded-md text-purple-500 text-center focus:border-purple-600 focus:outline-none"
             type="text"
@@ -31,10 +32,11 @@
             class="w-1/2 p-1 m-1 rounded-md text-white text-center focus:border-purple-600 focus:outline-none bg-purple-500 hover:bg-purple-600"
             :disabled="loading"
           >
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-            ></span>
+            <div
+              v-if="this.loading"
+            >
+              <Puff :height="64" />
+            </div>
             <span>Login</span>
           </button>
           <div class="form-group">
@@ -50,6 +52,7 @@
 <script>
   import { Form, Field, ErrorMessage } from "vee-validate";
   import * as yup from "yup";
+  import { Puff } from "svg-loaders-vue";
 
   export default {
     name: "Login",
@@ -57,6 +60,7 @@
       Form,
       Field,
       ErrorMessage,
+      Puff,
     },
     data() {
       const schema = yup.object().shape({
