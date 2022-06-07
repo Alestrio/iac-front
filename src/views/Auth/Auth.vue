@@ -81,8 +81,8 @@
       },
     },
     created() {
-      if (this.loggedIn) {
-        this.$router.push("/dashboard");
+      if (this.$store.state.auth.status.loggedIn) {
+        this.$router.push("/");
       }
     },
     methods: {
@@ -91,7 +91,7 @@
         // Validate the form
         this.$store.dispatch("auth/login", user).then(
           () => {
-            this.$router.push("/dashboard");
+            this.$router.push("/");
           },
           (error) => {
             this.loading = false;

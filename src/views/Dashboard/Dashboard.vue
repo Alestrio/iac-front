@@ -2,6 +2,7 @@
  *   Copyright (c) 2022 Alexis LEBEL
  *   All rights reserved.
  */
+/* * Copyright (c) 2022 Alexis LEBEL * All rights reserved. */
 <template>
   <div class="w-full gap-2 p-8">
     <div class="w-full mb-2">
@@ -44,8 +45,8 @@
       <div
         v-for="machine in this.vms"
         :key="machine.id"
-        :class='"gap-1 mt-2 md:w-64 w-40 rounded " + machine.bg_color'
-        :id='"machine-card-" + machine.id'
+        :class="'gap-1 mt-2 md:w-64 w-40 rounded ' + machine.bg_color"
+        :id="'machine-card-' + machine.id"
       >
         <div class="flex-row">
           <img class="md:w-1/2 w-16 m-auto" src="../../assets/vm-icon.png" />
@@ -100,17 +101,20 @@
         >
           <div
             v-if="this.networks.length === 0"
-            class='text-center h-32 text-gray-600 gap-1 block'
+            class="text-center h-32 text-gray-600 gap-1 block"
           >
             <Puff :height="128" />
           </div>
           <div
             v-for="net in this.networks"
             :key="net.id"
-            :class='"gap-1 mt-2 md:w-64 rounded " + net.bg_color'
-            :id='"network-card-" + net.id'
+            :class="'gap-1 mt-2 md:w-64 rounded ' + net.bg_color"
+            :id="'network-card-' + net.id"
           >
-            <img class="md:w-32 w-16 m-auto" src="../../assets/network-icon.png" />
+            <img
+              class="md:w-32 w-16 m-auto"
+              src="../../assets/network-icon.png"
+            />
             <div class="md:text-xl text-sm font-semibold text-center">
               {{ net.name }}
             </div>
@@ -139,11 +143,15 @@
           <div>
             <img src="../../assets/gcp-icon.png" />
           </div>
-          <span class="col-span-3 text-xl bg-blue-50 rounded p-1"> Google Cloud Platform </span>
+          <span class="col-span-3 text-xl bg-blue-50 rounded p-1">
+            Google Cloud Platform
+          </span>
           <div>
             <img src="../../assets/aws-icon.png" />
           </div>
-          <span class="col-span-3 text-xl bg-yellow-50 rounded p-1"> Amazon Web Services </span>
+          <span class="col-span-3 text-xl bg-yellow-50 rounded p-1">
+            Amazon Web Services
+          </span>
         </div>
       </div>
     </div>
@@ -164,6 +172,7 @@
     }),
     mounted() {
       // from env vars
+
       let api_addr = import.meta.env.VITE_APP_API_ADDR;
       axios.get(api_addr + "/existing/simple_machines/gcp").then((response) => {
         let data = response.data;
@@ -230,7 +239,7 @@
             card.style.display = "block";
           } else {
             let card = document.getElementById("machine-card-" + vm.id);
-            card.style.display = "none"; 
+            card.style.display = "none";
           }
         }
       },
@@ -241,7 +250,7 @@
             card.style.display = "block";
           } else {
             let card = document.getElementById("network-card-" + network.id);
-            card.style.display = "none"; 
+            card.style.display = "none";
           }
         }
       },
