@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2022 Alexis LEBEL
+ *   All rights reserved.
+ */
 <template>
         <header class="sticky top-0 z-50 bg-purple-600 p-3 shadow-xl flex flex-row gap-10 w-full">
             <!--- Accordeon button --->
@@ -13,7 +17,7 @@
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
             </button>
-            <router-link to="/dashboard" class="text-2xl p-1 align-middle text-white">Projet IaC</router-link>
+            <router-link to="/" class="text-2xl p-1 align-middle text-white">Projet IaC</router-link>
         </header>
 </template>
 
