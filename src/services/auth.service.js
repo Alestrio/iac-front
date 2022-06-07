@@ -20,23 +20,28 @@ const api_url = import.meta.env.VITE_APP_API_ADDR;
 
 class AuthService {
     async login(user) {
+        const params = new URLSearchParams();
+        params.append('username', user.username);
+        params.append('password', user.password);
 
         // gathering the token
         const response = await axios
-            .post(api_url + '/token', {
-                username: user.username,
-                password: user.password
-            })
+            .post(api_url + '/token', params)
             .then(response => {
                 if (response.data.access_token) {
                     localStorage.setItem('access_token', response.data.access_token);
                 }
                 return response.data;
+            })
+            .catch(error => {
+                console.log(error);
+                return error.response.data;
             });
 
         // gathering the user with /users/me
+        console.log(localStorage.getItem('access_token'));
         const userResponse = await axios
-            .get(api_url + '/users/me', {
+            .get(api_url + '/users/me/', {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('access_token')
                 }
