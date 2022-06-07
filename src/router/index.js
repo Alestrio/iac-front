@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2022 Alexis LEBEL
+ *   All rights reserved.
+ */
 import { createRouter, createWebHistory } from "vue-router";
 import Auth from "../views/Auth/Auth.vue";
 import Dashboard from "../views/Dashboard/Dashboard.vue";
@@ -8,12 +12,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
+      path: "/login",
       name: "Auth",
       component: Auth,
     },
     {
-      path: "/dashboard",
+      path: "/",
       name: "Dashboard",
       component: Dashboard,
     },
